@@ -2,6 +2,8 @@ package ifly.morefish.fishpack.pack;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -13,7 +15,7 @@ public class Pack {
 
     String name;
     List<ItemStack> itemStackList = new ArrayList<>();
-    List<Entity> entities = new ArrayList<>();
+    List<EntityType> entities = new ArrayList<>();
 
     int dropChance;
 
@@ -33,9 +35,7 @@ public class Pack {
         chest.setItemMeta(meta);
     }
 
-    public void addEntity(Entity entity){
-        this.entities.add(entity);
-    }
+
     public void addItemstack(ItemStack stack){
         this.itemStackList.add(stack);
     }
@@ -66,5 +66,14 @@ public class Pack {
 
     public ItemStack getChest() {
         return chest;
+    }
+
+    public void getReward(Player player){
+        if (entities.size() > 0){
+
+        }
+        if (itemStackList.size() > 0){
+
+        }
     }
 }
