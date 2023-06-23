@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Pack {
 
-    String name;
+    String name = "pack";
     List<ItemStack> itemStackList = new ArrayList<>();
     List<Entity> entities = new ArrayList<>();
 
