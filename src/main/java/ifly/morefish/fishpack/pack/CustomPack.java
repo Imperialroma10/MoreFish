@@ -2,7 +2,7 @@ package ifly.morefish.fishpack.pack;
 
 public class CustomPack extends Pack {
     public CustomPack(){
-        this.setName("custom");
+       super("custom" ,2);
         setDropChance(1);
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Pack {
 
-    String name = "pack";
+    String name;
     List<ItemStack> itemStackList = new ArrayList<>();
     List<Entity> entities = new ArrayList<>();
 
@@ -20,7 +20,9 @@ public class Pack {
     int customModelData;
 
     ItemStack chest = new ItemStack(Material.CHEST);
-    public Pack(){
+    public Pack(String name, int customModelData){
+        this.name = name;
+        this.customModelData = customModelData;
         setMetaChest();
     }
 

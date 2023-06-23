@@ -65,17 +65,17 @@ public class FishTask {
             firework.detonate();
 
             Location loc1 = fireworkLocation.clone();
-            loc1.setY(loc1.getY()+1);
-            loc1.setZ(loc1.z()+1);
+
             Location loc2 = player.getLocation().clone();
+            loc2.setY(loc2.getY()+1.5);
 
             Vector direction = loc2.toVector().subtract(loc1.toVector()).normalize();
 
             double distance = loc1.distance(loc2);
 
-            for (double distancepased = 0; distancepased <= distance; distancepased+= 0.1f){
+            for (double distancepased = 0; distancepased <= distance; distancepased+= 0.05f){
                 Location particleLocation = loc1.clone().add(direction.clone().multiply(distancepased));
-                particleLocation.getWorld().spawnParticle(Particle.ASH, particleLocation, 1, 0,0,0);
+                particleLocation.getWorld().spawnParticle(Particle.SCRAPE, particleLocation, 1, 0,0,0);
             }
 
             player.getInventory().addItem(pack.getChest());
