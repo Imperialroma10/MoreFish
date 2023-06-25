@@ -27,11 +27,11 @@ public class FishEvent implements Listener {
     @EventHandler
     public void interact(PlayerInteractEvent e){
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
-            ItemStack itemonhand = e.getItem();
+            ItemStack itemonhand = e.getPlayer().getInventory().getItemInMainHand();
             if (itemonhand != null) {
                 Pack pack = fishMain.getPack(itemonhand);
                 if (pack != null){
-
+                    pack.getReward(e.getPlayer());
                 }
             }
         }

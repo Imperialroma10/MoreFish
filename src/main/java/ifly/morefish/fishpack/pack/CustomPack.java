@@ -1,8 +1,12 @@
 package ifly.morefish.fishpack.pack;
 
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
 public class CustomPack extends Pack {
     public CustomPack(){
        super("custom" ,2);
-        setDropChance(1);
+        setDropChance(50);
+        addItemstack(new ItemStack(Material.DIAMOND, 64),50);
     }
 }
