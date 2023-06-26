@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class FishMain {
 
@@ -21,7 +22,12 @@ public class FishMain {
     StorageCreator storage;
     public FishMain(StorageCreator storageCreator){
         this.storage = storageCreator;
-        setPackList(storage.getStorage().getPacks());
+        packList.add(new CustomPack());
+        packList.add(new DefaultPack());
+
+       //this.storage.getStorage().getPacks();
+
+        //setPackList(storage.getStorage().getPacks());
     }
 
     public Pack getPack(ItemStack itemStack){

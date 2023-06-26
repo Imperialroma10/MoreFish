@@ -1,5 +1,9 @@
 package ifly.morefish.fishpack.pack;
 
+
+import ifly.morefish.fishpack.pack.reward.RewardAbstract;
+import ifly.morefish.fishpack.pack.reward.RewardCommand;
+import ifly.morefish.fishpack.pack.reward.RewardItem;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -13,8 +17,7 @@ import java.util.*;
 public class Pack {
 
     String name;
-    HashMap<ItemStack, Integer> itemStackList = new HashMap<>();
-    HashMap<EntityType, Integer> entities = new HashMap<>();
+    List<RewardAbstract> rewards = new ArrayList<>();
 
     int dropChance;
 
@@ -34,32 +37,9 @@ public class Pack {
         chest.setItemMeta(meta);
     }
 
-    public HashMap<EntityType, Integer> getEntities() {
-        return entities;
-    }
 
-    public HashMap<ItemStack, Integer> getItemStackList() {
-        return itemStackList;
-    }
 
-    public void setEntities(HashMap<EntityType, Integer> entities) {
-        this.entities = entities;
-    }
 
-    public void setItemStackList(HashMap<ItemStack, Integer> itemStackList) {
-        this.itemStackList = itemStackList;
-    }
-
-    public void addItemstack(ItemStack stack, int chance){
-        this.itemStackList.put(stack, chance);
-    }
-    public void addEntity(EntityType entity, int chance){
-        this.entities.put(entity, chance);
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getName() {
         return name;
@@ -77,9 +57,7 @@ public class Pack {
         return customModelData;
     }
 
-    public void setCustomModelData(int customModelData) {
-        this.customModelData = customModelData;
-    }
+
 
     public ItemStack getChest() {
         return chest;
@@ -87,24 +65,19 @@ public class Pack {
 
     public void getReward(Player player){
         Random a = new Random();
-        int random;
-        if (entities.size() > 0){
-            for (Map.Entry<EntityType, Integer> entity : entities.entrySet()){
-                random = a.nextInt(100);
-                if (random <= entity.getValue()){
-                    player.getWorld().spawnEntity(player.getLocation(), entity.getKey());
+        int random = a.nextInt(100);
+
+        for (RewardAbstract reward : rewards){
+            if (reward.getChance() == 0){
+                reward.getReward(player);
+            }else{
+                if (reward.checkChance(random)){
+                    reward.getReward(player);
                 }
             }
-        }
-        if (itemStackList.size() > 0){
-            for (Map.Entry<ItemStack, Integer> item : itemStackList.entrySet()){
-                random = a.nextInt(100);
-                if (random <= item.getValue()){
-                    player.getInventory().addItem(item.getKey());
-                }
-            }
+
         }
 
-        Arrays.stream(player.getInventory().getContents()).filter(item -> item.isSimilar(getChest())).findFirst().get().subtract();
+        player.getInventory().getItemInMainHand().subtract();
     }
 }

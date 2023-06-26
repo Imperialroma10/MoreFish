@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
+import java.util.logging.Level;
 
 public class FileStorage implements IStorage{
 
@@ -32,64 +33,62 @@ public class FileStorage implements IStorage{
         configuration = YamlConfiguration.loadConfiguration(f);
     }
     @Override
-    public List<Pack> getPacks() {
-       ConfigurationSection section = configuration.getConfigurationSection("packs");
-       List<Pack> packs = new ArrayList<>();
+    public void getPacks() {
+//
+//       ConfigurationSection packs = configuration.getConfigurationSection("packs");
+//       for (String sections : packs.getKeys(false)){
+//
+//          String packName = packs.getString(sections+".packname");
+//          int dropChance = packs.getInt(sections+".dropchance");
+//
+//          if (packs.get(sections+".items") != null){
+//
+//              ConfigurationSection items = configuration.getConfigurationSection(sections+".items");
+//              for (String itemsKey: items.getKeys(false)){
+//
+//                  String key = itemsKey;
+//                  int chance = items.getInt(items+"."+key+".chance");
+//                  int count = items.getInt(items+"."+key+".count");
+//                  Bukkit.broadcast(Component.text("------------------------"));
+//                  Bukkit.broadcast(Component.text(chance));
+//                  Bukkit.broadcast(Component.text(count));
+//                  Bukkit.broadcast(Component.text("------------------------"));
+//              }
+//          }else{
+//              Bukkit.broadcast(Component.text(packs.getCurrentPath()));
+//          }
+//
+//       }
 
-        if (section != null) {
-            for (String key : section.getKeys(false)){
-                HashMap<EntityType, Integer> entityhashmap = new HashMap<>();
-                HashMap<ItemStack, Integer> itemshashmap = new HashMap<>();
-                Pack pack = new Pack(section.getString(key+".packname"), Integer.parseInt(key));
-                pack.setDropChance(section.getInt(key+".dropChance"));
 
-                ConfigurationSection entity  = configuration.getConfigurationSection(key+".entity");
-
-                if (entity != null) {
-                    for (String entitykey : entity.getKeys(false)){
-                        entityhashmap.put(EntityType.valueOf(entity.getString(entitykey)), entity.getInt(entitykey+".chance"));
-                    }
-                }
-                pack.setEntities(entityhashmap);
-                ConfigurationSection itemssection = configuration.getConfigurationSection(key+".items");
-                if (itemssection != null) {
-                    for (String itemkey : itemssection.getKeys(false)){
-                        itemshashmap.put(new ItemStack(Material.valueOf(itemssection.getString(itemkey)), itemssection.getInt("count")), itemssection.getInt("chance"));
-                    }
-                }
-                packs.add(pack);
-            }
-        }
-        Bukkit.broadcast(Component.text("loaded : "+packs.size()));
-        return packs;
     }
 
     @Override
     public void savePacks(List<Pack> packs) {
-        for (Pack p : packs) {
-            String key = "packs."+p.getCustomModelData();
-            ConfigurationSection packsection = configuration.createSection(key);
-            packsection.set(".packname", p.getName());
-            packsection.set(".dropChance", p.getDropChance());
-
-
-            for (Map.Entry<EntityType, Integer> entity : p.getEntities().entrySet()){
-                ConfigurationSection entitySection = configuration.createSection(key+".entity."+entity.getKey().name());
-                entitySection.set("chance",entity.getValue() );
-            }
-
-
-            for (Map.Entry<ItemStack, Integer> item : p.getItemStackList().entrySet()){
-                ConfigurationSection itemsec = configuration.createSection(key+".items."+ item.getKey().getType().name());
-                itemsec.set("chance", item.getValue());
-                itemsec.set("count", item.getKey().getAmount());
-            }
-        }
-        try {
-            configuration.save(f);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        for (Pack p : packs) {
+//            String key = "packs."+p.getCustomModelData();
+//            ConfigurationSection packsection = configuration.createSection(key);
+//            packsection.set(".packname", p.getName());
+//            packsection.set(".dropchance", p.getDropChance());
+//
+//
+//            for (Map.Entry<EntityType, Integer> entity : p.getEntities().entrySet()){
+//                ConfigurationSection entitySection = configuration.createSection(key+".entity."+entity.getKey().name());
+//                entitySection.set("chance",entity.getValue() );
+//            }
+//
+//
+//            for (Map.Entry<ItemStack, Integer> item : p.getItemStackList().entrySet()){
+//                ConfigurationSection itemsec = configuration.createSection(key+".items."+ item.getKey().getType().name());
+//                itemsec.set("chance", item.getValue());
+//                itemsec.set("count", item.getKey().getAmount());
+//            }
+//        }
+//        try {
+//            configuration.save(f);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 }
