@@ -65,9 +65,10 @@ public class Pack {
 
     public void getReward(Player player){
         Random a = new Random();
-        int random = a.nextInt(100);
+
 
         for (RewardAbstract reward : rewards){
+            int random = a.nextInt(100);
             if (reward.getChance() == 0){
                 reward.getReward(player);
             }else{
