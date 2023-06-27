@@ -23,6 +23,6 @@ public final class main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        storage.getStorage().savePacks(fishMain.getPackList());
+
     }
 }
