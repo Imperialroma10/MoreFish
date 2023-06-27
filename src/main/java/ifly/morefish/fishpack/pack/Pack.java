@@ -69,7 +69,7 @@ public class Pack {
 
         for (RewardAbstract reward : rewards){
             int random = a.nextInt(100);
-            if (reward.getChance() == 0){
+            if (reward.getChance() == 100){
                 reward.getReward(player);
             }else{
                 if (reward.checkChance(random)){
