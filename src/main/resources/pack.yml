@@ -12,6 +12,11 @@ Pack:
       amount: 1
       custommodeldata: 1
       chance: 1
+      enchants:
+        FIRE_ASPECT:
+          level: 1
+        ARROW_DAMAGE:
+          level: 2
     '2':
       type: item
       material: COAL

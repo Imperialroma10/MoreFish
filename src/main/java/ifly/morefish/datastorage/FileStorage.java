@@ -7,9 +7,11 @@ import ifly.morefish.fishpack.pack.reward.RewardEntity;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
@@ -62,8 +64,18 @@ public class FileStorage {
                         is.editMeta(im -> im.displayName(Component.text(displayname)));
                     if(custommodeldata > -1)
                         is.editMeta(im -> im.setCustomModelData(custommodeldata));
+
                     RewardItem rewardItem = new RewardItem(is, chance);
+
+                    ConfigurationSection enchantSection = conf.getConfigurationSection(sec_rewards.getCurrentPath()+"."+key_reward+".enchants");
+                    if (enchantSection != null){
+                        for (String enchant: enchantSection.getKeys(false)){
+                            rewardItem.addEnchantments(Enchantment.getByName(enchant), enchantSection.getInt(enchant+".level"));
+                        }
+                    }
                     rewards.add(rewardItem);
+
+
                 }
                 if(type.equals("mob")) {
                     String mobtype = sec_rewards.getString(key_reward + ".entitytype");
