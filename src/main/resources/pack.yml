@@ -1,25 +1,34 @@
 Pack:
-  displayname: "&6name"
+  displayname: "&6Default pack"
   chance: 50
   custommodeldata: 1
+  name: pack
   # Types: item, mob, command
   rewards:
     '1':
       type: item
-      material: DIAMOND
+      material: GOLD_INGOT
       displayname: "&2item"
       amount: 1
       custommodeldata: 1
-      chance: 50
+      chance: 1
     '2':
       type: item
       material: COAL
       displayname: "&2item"
       amount: 1
-      chance: 20
+      chance: 70
     '3':
       type: mob
       entitytype: ZOMBIE
       amount: 1
+      chance: 0
+    '4':
+      type: item
+      material: STONE
+      amount: 1
+      chance: 60
+    '5':
+      type: command
+      command: 'give {player} diamond 1'
       chance: 50
-

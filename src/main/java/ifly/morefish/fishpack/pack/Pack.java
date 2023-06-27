@@ -12,17 +12,18 @@ import java.util.*;
 
 public class Pack {
 
-    String name;
+    String Displayname;
     List<RewardAbstract> rewards;
-
+    public final String Name;
     int dropChance;
 
     int customModelData;
 
     ItemStack chest = new ItemStack(Material.CHEST);
-    public Pack(String name, int customModelData, List<RewardAbstract> rwds){
-        this.name = name;
+    public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds){
+        this.Displayname = displayname;
         this.customModelData = customModelData;
+        Name = name;
         rewards = rwds;
         setMetaChest();
     }
@@ -30,12 +31,12 @@ public class Pack {
     public void setMetaChest(){
         ItemMeta meta = chest.getItemMeta();
         meta.setCustomModelData(getCustomModelData());
-        meta.displayName(Component.text(getName()));
+        meta.displayName(Component.text(getDisplayname()));
         chest.setItemMeta(meta);
     }
 
-    public String getName() {
-        return name;
+    public String getDisplayname() {
+        return Displayname;
     }
 
     public void setDropChance(int dropChance) {

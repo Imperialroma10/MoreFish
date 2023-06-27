@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.scheduler.BukkitScheduler;
-import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 public class FishTask {
@@ -39,7 +38,7 @@ public class FishTask {
          stand.setInvisible(true);
          stand.setGravity(false);
          stand.setCustomNameVisible(true);
-         stand.customName(Component.text(pack.getName()));
+         stand.customName(Component.text(pack.getDisplayname()));
         this.fishMain = fishMain;
         taskid = scheduler.scheduleSyncRepeatingTask(main.mainPlugin, this::Run, 0 ,1);
     }
