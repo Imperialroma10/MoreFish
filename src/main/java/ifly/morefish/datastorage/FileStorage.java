@@ -1,94 +1,94 @@
 package ifly.morefish.datastorage;
 
 import ifly.morefish.fishpack.pack.Pack;
+import ifly.morefish.fishpack.pack.reward.RewardAbstract;
+import ifly.morefish.fishpack.pack.reward.RewardCommand;
+import ifly.morefish.fishpack.pack.reward.RewardEntity;
+import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
+import java.util.Set;
 
-public class FileStorage implements IStorage{
+public class FileStorage implements IStorage {
 
     File f;
     YamlConfiguration configuration;
 
     String filename = "packs.yml";
-    public FileStorage(){
 
-        f = new File(main.mainPlugin.getDataFolder()+File.separator+filename);
-        if (!f.exists()){
+    public FileStorage() {
+
+        f = new File(main.mainPlugin.getDataFolder() + File.separator + filename);
+        if(!f.exists()) {
             main.mainPlugin.saveResource(filename, false);
         }
         configuration = YamlConfiguration.loadConfiguration(f);
     }
-    @Override
-    public void getPacks() {
-//
-//       ConfigurationSection packs = configuration.getConfigurationSection("packs");
-//       for (String sections : packs.getKeys(false)){
-//
-//          String packName = packs.getString(sections+".packname");
-//          int dropChance = packs.getInt(sections+".dropchance");
-//
-//          if (packs.get(sections+".items") != null){
-//
-//              ConfigurationSection items = configuration.getConfigurationSection(sections+".items");
-//              for (String itemsKey: items.getKeys(false)){
-//
-//                  String key = itemsKey;
-//                  int chance = items.getInt(items+"."+key+".chance");
-//                  int count = items.getInt(items+"."+key+".count");
-//                  Bukkit.broadcast(Component.text("------------------------"));
-//                  Bukkit.broadcast(Component.text(chance));
-//                  Bukkit.broadcast(Component.text(count));
-//                  Bukkit.broadcast(Component.text("------------------------"));
-//              }
-//          }else{
-//              Bukkit.broadcast(Component.text(packs.getCurrentPath()));
-//          }
-//
-//       }
-
-
-    }
 
     @Override
-    public void savePacks(List<Pack> packs) {
-//        for (Pack p : packs) {
-//            String key = "packs."+p.getCustomModelData();
-//            ConfigurationSection packsection = configuration.createSection(key);
-//            packsection.set(".packname", p.getName());
-//            packsection.set(".dropchance", p.getDropChance());
-//
-//
-//            for (Map.Entry<EntityType, Integer> entity : p.getEntities().entrySet()){
-//                ConfigurationSection entitySection = configuration.createSection(key+".entity."+entity.getKey().name());
-//                entitySection.set("chance",entity.getValue() );
-//            }
-//
-//
-//            for (Map.Entry<ItemStack, Integer> item : p.getItemStackList().entrySet()){
-//                ConfigurationSection itemsec = configuration.createSection(key+".items."+ item.getKey().getType().name());
-//                itemsec.set("chance", item.getValue());
-//                itemsec.set("count", item.getKey().getAmount());
-//            }
-//        }
-//        try {
-//            configuration.save(f);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+    public List<Pack> getPacks() {
+        File f = new File(main.mainPlugin.getDataFolder().getPath());
+        File[] files = f.listFiles();
+        List<Pack> list = new ArrayList<>(files.length);
+        for(File file : files) {
+            YamlConfiguration conf = YamlConfiguration.loadConfiguration(file);
+
+            String pack_displayname = conf.getString("Pack.displayname", "").replace('&', '§');
+            int pack_custommodeldata = conf.getInt("Pack.custommodeldata");
+            int dropchance = conf.getInt("Pack.chance");
+
+            ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
+            Set<String> keys_rewards = sec_rewards.getKeys(false);
+
+            List<RewardAbstract> rewards = new ArrayList<>(keys_rewards.size());
+            for(String key_reward : keys_rewards) {
+                String type = sec_rewards.getString(key_reward + ".type");
+                if(type.equals("item")) {
+                    String material = sec_rewards.getString(key_reward + ".material");
+                    int count = sec_rewards.getInt(key_reward + ".amount");
+                    int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
+                    String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
+
+                    int chance = sec_rewards.getInt(key_reward + ".chance");
+
+                    Material m = Material.getMaterial(material);
+                    ItemStack is = new ItemStack(m, count);
+                    if(displayname.length() > 0)
+                        is.editMeta(im -> im.displayName(Component.text(displayname)));
+                    if(custommodeldata > -1)
+                        is.editMeta(im -> im.setCustomModelData(custommodeldata));
+                    RewardItem rewardItem = new RewardItem(is, chance);
+                    rewards.add(rewardItem);
+                }
+                if(type.equals("mob")) {
+                    String mobtype = sec_rewards.getString(key_reward + ".entitytype");
+                    EntityType etype = EntityType.valueOf(mobtype);
+                    int amount = sec_rewards.getInt(key_reward + ".amount");
+                    int chance = sec_rewards.getInt(key_reward + ".chance");
+                    RewardEntity rewardEntity = new RewardEntity(etype, amount, chance);
+                    rewards.add(rewardEntity);
+                }
+                if(type.equals("command")) {
+                    String command = sec_rewards.getString(key_reward + ".command");
+                    RewardCommand rewardCommand = new RewardCommand(command);
+                    rewards.add(rewardCommand);
+                }
+            }
+
+            Pack pack = new Pack(pack_displayname, pack_custommodeldata, rewards);
+            pack.setDropChance(dropchance);
+            list.add(pack);
+        }
+        return list;
     }
 
 }
