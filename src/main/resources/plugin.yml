@@ -2,3 +2,6 @@ name: MoreFish
 version: '${project.version}'
 main: ifly.morefish.main
 api-version: "1.20"
+commands:
+  reload-pack:
+    usage: /reload-pack <packname>

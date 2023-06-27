@@ -2,6 +2,9 @@ package ifly.morefish.events;
 
 import ifly.morefish.fishpack.FishMain;
 import ifly.morefish.fishpack.pack.Pack;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -10,7 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-public class FishEvent implements Listener {
+public class FishEvent implements Listener, CommandExecutor {
 
     FishMain fishMain;
     public FishEvent(FishMain fishMain){
@@ -37,4 +40,17 @@ public class FishEvent implements Listener {
         }
     }
 
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+    {
+        if(cmd.getName().equalsIgnoreCase("reload-pack"))
+        {
+            if(args.length == 1)
+            {
+                boolean reloaded = fishMain.Reload(args[0]);
+                sender.sendMessage(reloaded? "§2Successful reloaded": "§cFile not found");
+            }
+        }
+        return true;
+    }
 }

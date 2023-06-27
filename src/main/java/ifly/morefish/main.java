@@ -17,8 +17,9 @@ public final class main extends JavaPlugin {
         storage = new StorageCreator();
 
        fishMain = new FishMain(storage);
-
-        getServer().getPluginManager().registerEvents(new FishEvent(fishMain), this);
+       FishEvent fishEvents = new FishEvent(fishMain);
+       getServer().getPluginManager().registerEvents(fishEvents, this);
+       getCommand("reload-pack").setExecutor(fishEvents);
     }
 
     @Override

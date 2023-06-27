@@ -1,5 +1,6 @@
 package ifly.morefish.fishpack;
 
+import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
 import org.bukkit.Location;
@@ -28,6 +29,21 @@ public class FishMain {
         }
         return null;
     }
+    public boolean Reload(String packname)
+    {
+        for(int i = 0; i < packList.size(); i++) {
+            if(packList.get(i).Name.equals(packname)) {
+                FileStorage fs = storage.getStorage();
+                Pack pack = fs.Update(packList.get(i));
+
+                if(pack == null) { return false; }
+                packList.set(i, pack);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Pack getPack(int customModelData){
         return packList.stream().filter(pack -> pack.getCustomModelData() == customModelData).findFirst().orElseGet(null);
     }
