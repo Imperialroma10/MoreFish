@@ -1,1 +1,25 @@
-packs:
+Pack:
+  displayname: "&6name"
+  chance: 50
+  custommodeldata: 1
+  # Types: item, mob, command
+  rewards:
+    '1':
+      type: item
+      material: DIAMOND
+      displayname: "&2item"
+      amount: 1
+      custommodeldata: 1
+      chance: 50
+    '2':
+      type: item
+      material: COAL
+      displayname: "&2item"
+      amount: 1
+      chance: 20
+    '3':
+      type: mob
+      entitytype: ZOMBIE
+      amount: 1
+      chance: 50
+
