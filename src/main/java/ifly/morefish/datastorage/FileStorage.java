@@ -20,18 +20,14 @@ import java.util.Set;
 
 public class FileStorage implements IStorage {
 
-    File f;
-    YamlConfiguration configuration;
-
-    String filename = "packs.yml";
+    String filename = "pack.yml";
 
     public FileStorage() {
 
-        f = new File(main.mainPlugin.getDataFolder() + File.separator + filename);
+        File f = new File(main.mainPlugin.getDataFolder() + File.separator + filename);
         if(!f.exists()) {
             main.mainPlugin.saveResource(filename, false);
         }
-        configuration = YamlConfiguration.loadConfiguration(f);
     }
 
     @Override
