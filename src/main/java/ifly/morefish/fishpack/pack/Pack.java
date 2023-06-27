@@ -37,10 +37,6 @@ public class Pack {
         chest.setItemMeta(meta);
     }
 
-
-
-
-
     public String getName() {
         return name;
     }
@@ -63,7 +59,7 @@ public class Pack {
         return chest;
     }
 
-    public void getReward(Player player){
+    public void giveReward(Player player){
         Random a = new Random();
 
 
