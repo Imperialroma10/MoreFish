@@ -17,7 +17,7 @@ abstract public class RewardAbstract {
     public void setChance(int chance) {
         this.chance = chance;
     }
-    abstract public void getReward(Player player);
+    abstract public void giveReward(Player player);
      public boolean checkChance(int chance){
          if (chance == 100){
              return true;

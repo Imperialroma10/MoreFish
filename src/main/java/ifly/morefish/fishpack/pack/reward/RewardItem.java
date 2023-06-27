@@ -9,19 +9,16 @@ import javax.swing.text.html.parser.Entity;
 
 public class RewardItem extends RewardAbstract{
 
-    Material material;
-    int amount;
+    ItemStack item;
 
-
-   public RewardItem(Material material, int amount, int chance){
-       this.material = material;
-       this.amount = amount;
+   public RewardItem(ItemStack is, int chance){
+       item = is;
        this.chance = chance;
    }
 
     @Override
-    public void getReward(Player player) {
-        player.getInventory().addItem(new ItemStack(material, amount));
+    public void giveReward(Player player) {
+        player.getInventory().addItem(item.clone());
     }
 
 }
