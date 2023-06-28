@@ -12,8 +12,10 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,7 +53,7 @@ public class FileStorage {
             for(String key_reward : keys_rewards) {
                 String type = sec_rewards.getString(key_reward + ".type");
                 if(type.equals("item")) {
-                    String material = sec_rewards.getString(key_reward + ".material");
+                    String material = sec_rewards.getString(key_reward + ".material").toUpperCase();
                     int count = sec_rewards.getInt(key_reward + ".amount");
                     int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
                     String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
@@ -83,6 +85,51 @@ public class FileStorage {
                     int amount = sec_rewards.getInt(key_reward + ".amount");
                     int chance = sec_rewards.getInt(key_reward + ".chance");
                     RewardEntity rewardEntity = new RewardEntity(etype, amount, chance);
+
+                    ConfigurationSection equipsection = sec_rewards.getConfigurationSection(key_reward+".equipment");
+                    if (equipsection != null){
+                        for (String types: equipsection.getKeys(false)){
+                            String item = equipsection.getString(types+".item");
+                            ConfigurationSection enchantSection = equipsection.getConfigurationSection(types+".enchants");
+                            if (types.equalsIgnoreCase("head")){
+                                rewardEntity.setHead(new ItemStack(Material.getMaterial(item)));
+
+                                if (enchantSection != null){
+                                    for (String enchant: enchantSection.getKeys(false)){
+                                        //Bukkit.getLogger().info("set enchant "+ enchant + " level = "+ enchantSection.getInt(enchant+".level"));
+                                        rewardEntity.getHead().addEnchantment(Enchantment.getByName(enchant), enchantSection.getInt(enchant+".level"));
+                                    }
+                                } // Нужно как-то оптимизировать )
+
+                            }
+                            if (types.equalsIgnoreCase("body")){
+                                rewardEntity.setBody(new ItemStack(Material.getMaterial(item)));
+                                if (enchantSection != null){
+                                    for (String enchant: enchantSection.getKeys(false)){
+                                        rewardEntity.getBody().addEnchantment(Enchantment.getByName(enchant), enchantSection.getInt(enchant+".level"));
+                                    }
+                                } // Нужно как-то оптимизировать )
+                            }
+                            if (types.equalsIgnoreCase("leggings")){
+                                rewardEntity.setLeggins(new ItemStack(Material.getMaterial(item)));
+                                if (enchantSection != null){
+                                    for (String enchant: enchantSection.getKeys(false)){
+                                        rewardEntity.getLeggins().addEnchantment(Enchantment.getByName(enchant), enchantSection.getInt(enchant+".level"));
+                                    }
+                                } // Нужно как-то оптимизировать )
+                            }
+                            if (types.equalsIgnoreCase("boots")){
+                                rewardEntity.setBoots(new ItemStack(Material.getMaterial(item)));
+                                if (enchantSection != null){
+                                    for (String enchant: enchantSection.getKeys(false)){
+                                        rewardEntity.getBoots().addEnchantment(Enchantment.getByName(enchant), enchantSection.getInt(enchant+".level"));
+                                    }
+                                } // Нужно как-то оптимизировать )
+                            }
+
+                        }
+                    }
+
                     rewards.add(rewardEntity);
                 }
                 if(type.equals("command")) {

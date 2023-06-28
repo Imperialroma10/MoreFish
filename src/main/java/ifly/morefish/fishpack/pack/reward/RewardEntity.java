@@ -1,15 +1,27 @@
 package ifly.morefish.fishpack.pack.reward;
 
+import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RewardEntity extends RewardAbstract{
 
     EntityType entityType;
+
+    List<LivingEntity> livingEntities = new ArrayList<>();
+
+    ItemStack head;
+    ItemStack body;
+    ItemStack leggins;
+    ItemStack boots;
 
     int amount;
 
@@ -26,8 +38,58 @@ public class RewardEntity extends RewardAbstract{
 
     @Override
     public void giveReward(Player player) {
-        for (int i = 0 ; i <= amount ; i++){
-            player.getLocation().getWorld().spawnEntity(player.getLocation(), this.entityType);
+        for (int i = 0 ; i < amount ; i++){
+           livingEntities.add((LivingEntity) player.getLocation().getWorld().spawnEntity(player.getLocation(), this.entityType));
+           equip();
+        }
+    }
+
+    public void setHead(ItemStack head) {
+        this.head = head;
+    }
+
+    public void setBoots(ItemStack boots) {
+        this.boots = boots;
+    }
+
+    public void setLeggins(ItemStack leggins) {
+        this.leggins = leggins;
+    }
+
+    public void setBody(ItemStack body) {
+        this.body = body;
+    }
+
+    public ItemStack getBody() {
+        return body;
+    }
+
+    public ItemStack getHead() {
+        return head;
+    }
+
+    public ItemStack getBoots() {
+        return boots;
+    }
+
+    public ItemStack getLeggins() {
+        return leggins;
+    }
+
+    public void equip(){
+        for (LivingEntity livingEntity: livingEntities){
+            if (getHead() != null){
+                livingEntity.getEquipment().setHelmet(getHead());
+            }
+           if (getBody() != null){
+                livingEntity.getEquipment().setChestplate(getBody());
+           }
+           if (getBoots() != null){
+                livingEntity.getEquipment().setBoots(getBoots());
+           }
+           if (getLeggins() != null){
+                livingEntity.getEquipment().setLeggings(getLeggins());
+           }
         }
     }
 }

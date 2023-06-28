@@ -28,6 +28,22 @@ Pack:
       entitytype: ZOMBIE
       amount: 1
       chance: 0
+      equipment:
+        head:
+          item: DIAMOND_HELMET
+          enchants:
+            PROTECTION_EXPLOSIONS:
+              level: 2
+        body:
+          item: DIAMOND_CHESTPLATE
+          enchants:
+            PROTECTION_EXPLOSIONS:
+              level: 2
+        leggings:
+          item: DIAMOND_LEGGINGS
+          enchants:
+            PROTECTION_EXPLOSIONS:
+              level: 2
     '4':
       type: item
       material: STONE
