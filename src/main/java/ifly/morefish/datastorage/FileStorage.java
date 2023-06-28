@@ -67,7 +67,7 @@ public class FileStorage {
 
                     RewardItem rewardItem = new RewardItem(is, chance);
 
-                    ConfigurationSection enchantSection = conf.getConfigurationSection(sec_rewards.getCurrentPath()+"."+key_reward+".enchants");
+                    ConfigurationSection enchantSection = sec_rewards.getConfigurationSection(key_reward+".enchants");
                     if (enchantSection != null){
                         for (String enchant: enchantSection.getKeys(false)){
                             rewardItem.addEnchantments(Enchantment.getByName(enchant), enchantSection.getInt(enchant+".level"));
