@@ -1,14 +1,10 @@
 package ifly.morefish.fishpack.pack.reward;
 
-import org.bukkit.Bukkit;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +38,23 @@ public class RewardEntity extends RewardAbstract{
            livingEntities.add((LivingEntity) player.getLocation().getWorld().spawnEntity(player.getLocation(), this.entityType));
            equip();
         }
+    }
+
+    public void setArmor(String type, ItemStack is)
+    {
+        if(type.endsWith("HELMET")) { head = is; }
+        if(type.endsWith("CHESTPLATE")) { body = is; }
+        if(type.endsWith("LEGGINGS")) { leggins = is; }
+        if(type.endsWith("BOOTS")) { boots = is; }
+    }
+
+    public ItemStack getArmor(String type)
+    {
+        if(type.endsWith("HELMET")) { return head; }
+        if(type.endsWith("CHESTPLATE")) { return body; }
+        if(type.endsWith("LEGGINGS")) { return leggins; }
+        if(type.endsWith("BOOTS")) { return boots; }
+        return null;
     }
 
     public void setHead(ItemStack head) {

@@ -29,20 +29,21 @@ Pack:
       amount: 1
       chance: 0
       equipment:
-        head:
-          item: DIAMOND_HELMET
+        DIAMOND_HELMET:
           enchants:
-            PROTECTION_EXPLOSIONS:
+            blast_protection:
               level: 2
-        body:
-          item: DIAMOND_CHESTPLATE
+            aqua_affinity:
+              level: 1
+        DIAMOND_CHESTPLATE:
           enchants:
-            PROTECTION_EXPLOSIONS:
+            protection:
+              level: 1
+            blast_protection:
               level: 2
-        leggings:
-          item: DIAMOND_LEGGINGS
+        DIAMOND_LEGGINGS:
           enchants:
-            PROTECTION_EXPLOSIONS:
+            blast_protection:
               level: 2
     '4':
       type: item
