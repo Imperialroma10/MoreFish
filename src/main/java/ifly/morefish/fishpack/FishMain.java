@@ -34,7 +34,7 @@ public class FishMain {
         for(int i = 0; i < packList.size(); i++) {
             if(packList.get(i).Name.equals(packname)) {
                 FileStorage fs = storage.getStorage();
-                Pack pack = fs.Update(packList.get(i));
+                Pack pack = fs.UpdatePack(packList.get(i));
 
                 if(pack == null) { return false; }
                 packList.set(i, pack);
