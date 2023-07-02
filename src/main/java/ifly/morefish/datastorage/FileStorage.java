@@ -26,14 +26,17 @@ public class FileStorage {
 
     public FileStorage() {
 
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + filename);
+        File f = new File(main.mainPlugin.getDataFolder() + File.separator +"packs"+File.separator+ filename);
         if(!f.exists()) {
             main.mainPlugin.saveResource(filename, false);
         }
     }
 
     public List<Pack> getPacks() {
-        File f = new File(main.mainPlugin.getDataFolder().getPath());
+        File f = new File(main.mainPlugin.getDataFolder().getPath()+File.separator+"packs");
+        if (!f.exists()){
+            f.mkdirs();
+        }
         File[] files = f.listFiles();
         List<Pack> list = new ArrayList<>(files.length);
         for(File file : files) {

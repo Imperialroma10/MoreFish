@@ -3,6 +3,7 @@ package ifly.morefish;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.events.FishEvent;
 import ifly.morefish.fishpack.FishMain;
+import ifly.morefish.fishpack.lang.Lang;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,9 +14,9 @@ public final class main extends JavaPlugin {
     FishMain fishMain;
     @Override
     public void onEnable() {
-        mainPlugin = this;
-        storage = new StorageCreator();
-
+       mainPlugin = this;
+       Lang.getLang();
+       storage = new StorageCreator();
        fishMain = new FishMain(storage);
        FishEvent fishEvents = new FishEvent(fishMain);
        getServer().getPluginManager().registerEvents(fishEvents, this);

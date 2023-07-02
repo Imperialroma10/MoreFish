@@ -1,5 +1,6 @@
 package ifly.morefish.fishpack;
 
+import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.main;
 import net.kyori.adventure.text.Component;
@@ -76,7 +77,7 @@ public class FishTask {
                 Location particleLocation = loc1.clone().add(direction.clone().multiply(distancepased));
                 particleLocation.getWorld().spawnParticle(Particle.SCRAPE, particleLocation, 1, 0,0,0);
             }
-
+            player.sendMessage(Component.text(Lang.getMessage(Lang.getLang().caughtfish.replace("[pack]", pack.getDisplayname()))));
             player.getInventory().addItem(pack.getChest());
             stand.remove();
             fishMain.fishTasks.remove(this);

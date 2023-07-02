@@ -1,6 +1,7 @@
 package ifly.morefish.fishpack.pack;
 
 
+import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -34,29 +35,21 @@ public class Pack {
         meta.displayName(Component.text(getDisplayname()));
         chest.setItemMeta(meta);
     }
-
     public String getDisplayname() {
         return Displayname;
     }
-
     public void setDropChance(int dropChance) {
         this.dropChance = dropChance;
     }
-
     public int getDropChance() {
         return dropChance;
     }
-
     public int getCustomModelData() {
         return customModelData;
     }
-
-
-
     public ItemStack getChest() {
         return chest;
     }
-
     public void giveReward(Player player){
         Random a = new Random();
 
@@ -70,9 +63,8 @@ public class Pack {
                     reward.giveReward(player);
                 }
             }
-
         }
-
+        player.sendMessage(Component.text(Lang.getMessage(Lang.getLang().openpackmessage.replace("[pack]", this.Displayname))));
         player.getInventory().getItemInMainHand().subtract();
     }
 }

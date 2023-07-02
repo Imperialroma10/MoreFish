@@ -57,22 +57,6 @@ public class RewardEntity extends RewardAbstract{
         return null;
     }
 
-    public void setHead(ItemStack head) {
-        this.head = head;
-    }
-
-    public void setBoots(ItemStack boots) {
-        this.boots = boots;
-    }
-
-    public void setLeggins(ItemStack leggins) {
-        this.leggins = leggins;
-    }
-
-    public void setBody(ItemStack body) {
-        this.body = body;
-    }
-
     public ItemStack getBody() {
         return body;
     }

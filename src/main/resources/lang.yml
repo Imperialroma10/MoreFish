@@ -1,0 +1,4 @@
+enable-plugin-prefix: true
+plugin-prefix: "[moreFish] "
+caught-fish-message: "You caught [pack] "
+open-pack-message: "You opened [pack]"
