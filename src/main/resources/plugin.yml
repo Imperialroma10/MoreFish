@@ -1,4 +1,4 @@
-name: MoreFish
+name: FishRewards
 version: '${project.version}'
 main: ifly.morefish.main
 api-version: "1.20"

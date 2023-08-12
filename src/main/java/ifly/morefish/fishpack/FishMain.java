@@ -2,7 +2,9 @@ package ifly.morefish.fishpack;
 
 import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
+import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.fishpack.pack.Pack;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +19,9 @@ public class FishMain {
     StorageCreator storage;
     public FishMain(StorageCreator storageCreator){
         this.storage = storageCreator;
-        setPackList(storage.getStorage().getPacks());
+       List<Pack> packs = storage.getStorage().getPacks();
+        setPackList(packs);
+        Bukkit.getLogger().info(Lang.getMessage("loaded "+ packs.size() + " packs"));
     }
 
     public Pack getPack(ItemStack itemStack){

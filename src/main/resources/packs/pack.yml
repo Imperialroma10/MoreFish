@@ -1,0 +1,55 @@
+Pack: # Default pack example 12 5215 125
+  displayname: "&6Default pack"
+  chance: 50 # case drop chance
+  custommodeldata: 1 # The serial number should not be repeated, you can also create a separate texture for the case
+  name: pack #pack name
+  rewards:
+    '1': # reward number
+      type: item   # Types: item, mob, command
+      material: GOLD_INGOT # Material name
+      displayname: "&2item"
+      amount: 1
+      custommodeldata: 1
+      chance: 1
+      enchants:
+        FIRE_ASPECT:
+          level: 1
+        ARROW_DAMAGE:
+          level: 2
+    '2': # reward number
+      type: item # Types: item, mob, command
+      material: COAL # Material name
+      displayname: "&2item"
+      amount: 1 # items count
+      chance: 70 # chance 1-100
+    '3': # reward number
+      type: mob  # Types: item, mob, command
+      entitytype: ZOMBIE # Entity type
+      amount: 1  # items count
+      chance: 0 # chance 1-100
+      equipment:  # mob equipment
+        DIAMOND_HELMET:
+          enchants:  # equipment enchantments
+            blast_protection:
+              level: 2
+            aqua_affinity:
+              level: 1
+        DIAMOND_CHESTPLATE:
+          enchants:
+            protection:
+              level: 1
+            blast_protection:
+              level: 2
+        DIAMOND_LEGGINGS:
+          enchants:
+            blast_protection:
+              level: 2
+    '4': # reward number
+      type: item  # Types: item, mob, command
+      material: STONE # Material name
+      amount: 1
+      chance: 60 # chance 1-100
+    '5': # reward number
+      type: command  # Types: item, mob, command
+      command: 'give {player} diamond 1' # Command
+      chance: 50 # chance 1-100

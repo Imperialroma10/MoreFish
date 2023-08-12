@@ -23,23 +23,24 @@ import java.util.Set;
 public class FileStorage {
 
     String filename = "pack.yml";
-
+    File f = new File(main.mainPlugin.getDataFolder().getPath()+File.separator+ "packs");
     public FileStorage() {
-
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator +"packs"+File.separator+ filename);
         if(!f.exists()) {
-            main.mainPlugin.saveResource(filename, false);
+            main.mainPlugin.saveResource("packs/pack.yml", false);
         }
     }
 
     public List<Pack> getPacks() {
-        File f = new File(main.mainPlugin.getDataFolder().getPath()+File.separator+"packs");
+
+
         if (!f.exists()){
             f.mkdirs();
         }
         File[] files = f.listFiles();
         List<Pack> list = new ArrayList<>(files.length);
+
         for(File file : files) {
+
             YamlConfiguration conf = YamlConfiguration.loadConfiguration(file);
 
             String pack_displayname = conf.getString("Pack.displayname", "").replace('&', '§');
