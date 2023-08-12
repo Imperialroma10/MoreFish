@@ -119,7 +119,7 @@ public class FileStorage {
         return list;
     }
 
-    public Pack Update(Pack pack)
+    public Pack UpdatePack(Pack pack)
 	{
 		File f = new File(main.mainPlugin.getDataFolder() + File.separator + pack.Name + ".yml");
 		if(!f.exists()) { return null; }
@@ -159,6 +159,22 @@ public class FileStorage {
 				int amount = sec_rewards.getInt(key_reward + ".amount");
 				int chance = sec_rewards.getInt(key_reward + ".chance");
 				RewardEntity rewardEntity = new RewardEntity(etype, amount, chance);
+
+				ConfigurationSection equipsection = sec_rewards.getConfigurationSection(key_reward+".equipment");
+				if (equipsection != null){
+					for (String type1: equipsection.getKeys(false)) {
+						Material m = Material.getMaterial(type1);
+						rewardEntity.setArmor(type1, new ItemStack(m));
+
+						ConfigurationSection enchantSection = equipsection.getConfigurationSection(type1 + ".enchants");
+						if(enchantSection != null) {
+							for(String enchant : enchantSection.getKeys(false)) {
+								rewardEntity.getArmor(type1).addEnchantment(Enchantment.getByKey(NamespacedKey.fromString(enchant)), enchantSection.getInt(enchant + ".level"));
+							}
+						}
+					}
+				}
+
 				rewards.add(rewardEntity);
 			}
 			if(type.equals("command")) {
