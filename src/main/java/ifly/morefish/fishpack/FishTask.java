@@ -26,8 +26,8 @@ public class FishTask {
     Location endlocation;
     int taskid;
 
-    FishMain fishMain;
-    public FishTask(Player player, Pack pack, Location location, FishMain fishMain) {
+
+    public FishTask(Player player, Pack pack, Location location) {
         this.player = player;
         this.pack = pack;
         this.fishLocation = location;
@@ -40,7 +40,7 @@ public class FishTask {
          stand.setGravity(false);
          stand.setCustomNameVisible(true);
          stand.customName(Component.text(pack.getDisplayname()));
-        this.fishMain = fishMain;
+
         taskid = scheduler.scheduleSyncRepeatingTask(main.mainPlugin, this::Run, 0 ,1);
     }
 
@@ -80,7 +80,7 @@ public class FishTask {
             player.sendMessage(Component.text(Lang.getMessage(Lang.getLang().caughtfish.replace("[pack]", pack.getDisplayname()))));
             player.getInventory().addItem(pack.getChest());
             stand.remove();
-            fishMain.fishTasks.remove(this);
+
         }
     }
 }

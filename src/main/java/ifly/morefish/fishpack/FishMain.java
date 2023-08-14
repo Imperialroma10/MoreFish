@@ -14,7 +14,7 @@ import java.util.*;
 public class FishMain {
 
     List<Pack> packList;
-    List<FishTask> fishTasks = new ArrayList<>();
+
 
     StorageCreator storage;
     public FishMain(StorageCreator storageCreator){
@@ -64,13 +64,9 @@ public class FishMain {
 
         int back = 0;
 
-        //packList.sort(Comparator.comparingInt(Pack::getDropChance));
-
-
-
         for (Pack pack: packList){
             if (back <= x && x <= pack.getDropChance()+back){
-                fishTasks.add(new FishTask(p, pack, location, this));
+               new FishTask(p, pack, location);
                 return;
             }
             back += pack.getDropChance();

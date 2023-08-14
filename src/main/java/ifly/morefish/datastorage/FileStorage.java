@@ -121,7 +121,7 @@ public class FileStorage {
 
     public Pack UpdatePack(Pack pack)
 	{
-		File f = new File(main.mainPlugin.getDataFolder() + File.separator + pack.Name + ".yml");
+		File f = new File(main.mainPlugin.getDataFolder() + File.separator +"packs"+File.separator+ pack.Name + ".yml");
 		if(!f.exists()) { return null; }
 		YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
 
