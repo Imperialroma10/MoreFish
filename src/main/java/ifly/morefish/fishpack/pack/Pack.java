@@ -20,7 +20,6 @@ public class Pack {
     int dropChance;
 
     int customModelData;
-
     boolean status = false;
     ItemStack chest = new ItemStack(Material.CHEST);
     public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds){
@@ -28,12 +27,6 @@ public class Pack {
         this.customModelData = customModelData;
         Name = name;
         rewards = rwds;
-        setMetaChest();
-    }
-    public Pack(String name, String displayname, int customModelData){
-        this.Displayname = displayname;
-        this.customModelData = customModelData;
-        Name = name;
         setMetaChest();
     }
 
