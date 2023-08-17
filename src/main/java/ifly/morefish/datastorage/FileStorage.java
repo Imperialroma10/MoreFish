@@ -16,6 +16,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -40,15 +41,16 @@ public class FileStorage {
         List<Pack> list = new ArrayList<>(files.length);
 
         for(File file : files) {
+			if(!file.isFile()) { continue; }
 
             YamlConfiguration conf = YamlConfiguration.loadConfiguration(file);
-
             String pack_displayname = conf.getString("Pack.displayname", "").replace('&', '§');
             String pack_name = conf.getString("Pack.name", "");
             int pack_custommodeldata = conf.getInt("Pack.custommodeldata");
             int dropchance = conf.getInt("Pack.chance");
 
             ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
+            if(sec_rewards == null) { continue; }
             Set<String> keys_rewards = sec_rewards.getKeys(false);
 
             List<RewardAbstract> rewards = new ArrayList<>(keys_rewards.size());
@@ -74,7 +76,7 @@ public class FileStorage {
                     ConfigurationSection enchantSection = sec_rewards.getConfigurationSection(key_reward+".enchants");
                     if (enchantSection != null){
                         for (String enchant: enchantSection.getKeys(false)){
-                            rewardItem.addEnchantments(Enchantment.getByName(enchant), enchantSection.getInt(enchant+".level"));
+                            rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant+".level"));
                         }
                     }
                     rewards.add(rewardItem);
@@ -118,6 +120,39 @@ public class FileStorage {
         }
         return list;
     }
+
+    public void Save(Pack pack)
+	{
+		String packname = pack.Name.replace(' ', '_');
+		File f = new File(main.mainPlugin.getDataFolder() + File.separator+ "packs"+File.separator + packname +".yml");
+		if(!f.exists())
+		{
+			try
+			{
+				f.createNewFile();
+			}
+			catch(IOException e)
+			{ e.printStackTrace(); }
+		}
+
+		YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
+		conf.set("Pack.name", packname);
+		conf.set("Pack.displayname", pack.getDisplayname().replace('§', '&'));
+		conf.set("Pack.custommodeldata", pack.getCustomModelData());
+		conf.set("Pack.chance", pack.getDropChance());
+
+		for(RewardAbstract reward: pack.getRewards())
+		{
+			reward.Save(conf);
+		}
+
+		try
+		{
+			conf.save(f);
+		}
+		catch(IOException e)
+		{ e.printStackTrace(); }
+	}
 
     public Pack UpdatePack(Pack pack)
 	{

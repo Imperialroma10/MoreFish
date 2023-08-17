@@ -1,5 +1,6 @@
 package ifly.morefish.gui;
 
+import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.helper.ItemCreator;
@@ -69,7 +70,7 @@ public class PackListMenu implements Listener {
                     }
                 }else{
                     if (e.getRawSlot() == 49){
-                        Pack pack = new Pack("new pack", "Display name", 2);
+                        Pack pack = new Pack("new pack", "Display name", 1);
                         controller.getPackList().add(pack);
                         int id = controller.getPackList().indexOf(pack);
                         e.getWhoClicked().openInventory(addNewPackMenu.getInventory(e.getWhoClicked().getUniqueId(), id));

@@ -78,7 +78,7 @@ public class AddNewPackMenu implements Listener {
                     e.getWhoClicked().openInventory(inv);
                 }
                 if (e.getRawSlot() == 26){
-                    //save pack
+                    controller.getStorage().Save(pack);
                 }
                 e.setCancelled(true);
             }

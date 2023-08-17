@@ -72,6 +72,11 @@ public class FishController {
         }
     }
 
+    public FileStorage getStorage()
+    {
+        return storage.getStorage();
+    }
+
     public List<Pack> getPackList() {
         return packList;
     }
