@@ -1,10 +1,10 @@
 package ifly.morefish.fishpack.pack.reward;
 
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.EntityType;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+
+import java.util.Set;
 
 abstract public class RewardAbstract {
 
@@ -30,4 +30,19 @@ abstract public class RewardAbstract {
          }
 
      }
+
+     protected int confSize(YamlConfiguration conf)
+     {
+         ConfigurationSection sect = conf.getConfigurationSection("Pack.rewards");
+         int num = 0;
+         if(sect != null)
+         {
+             Set<String> keys = sect.getKeys(false);
+             String[] arr = keys.toArray(new String[0]);
+             num = arr.length > 0?Integer.parseInt(arr[arr.length-1]):0;
+         }
+         return num;
+     }
+
+     public abstract void Save(YamlConfiguration conf);
 }

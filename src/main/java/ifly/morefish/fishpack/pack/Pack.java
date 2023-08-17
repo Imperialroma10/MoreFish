@@ -22,10 +22,15 @@ public class Pack {
     int customModelData;
     boolean status = false;
     ItemStack chest = new ItemStack(Material.CHEST);
-    public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds){
+    public Pack(String name, String displayname, int customModelData){
         this.Displayname = displayname;
         this.customModelData = customModelData;
         Name = name;
+        rewards = new ArrayList<>();
+        setMetaChest();
+    }
+    public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds){
+        this(name, displayname, customModelData);
         rewards = rwds;
         setMetaChest();
     }

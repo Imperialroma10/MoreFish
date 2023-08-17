@@ -1,5 +1,7 @@
 package ifly.morefish.fishpack.pack.reward;
 
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -7,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RewardEntity extends RewardAbstract{
 
@@ -18,7 +21,7 @@ public class RewardEntity extends RewardAbstract{
     ItemStack body;
     ItemStack leggins;
     ItemStack boots;
-
+    //ItemStack[] armors;
     int amount;
 
     int chance;
@@ -28,6 +31,7 @@ public class RewardEntity extends RewardAbstract{
         entityType = type;
         this.amount = amount;
         this.chance = chance;
+        //armors = new ItemStack[] {head, body, leggins, boots};
     }
 
 
@@ -87,6 +91,51 @@ public class RewardEntity extends RewardAbstract{
            if (getLeggins() != null){
                 livingEntity.getEquipment().setLeggings(getLeggins());
            }
+        }
+    }
+
+    @Override
+    public void Save(YamlConfiguration conf)
+    {
+        int num = confSize(conf);
+        num++;
+
+        conf.set("Pack.rewards."+num+".type", "mob");
+        conf.set("Pack.rewards."+num+".entitytype", entityType.name());
+        conf.set("Pack.rewards."+num+".amount", amount);
+        conf.set("Pack.rewards."+num+".chance", chance);
+
+        if(head != null)
+        {
+            Map<Enchantment, Integer> enchs = head.getEnchantments();
+            for(Map.Entry<Enchantment, Integer> ench: enchs.entrySet())
+            {
+                conf.set("Pack.rewards."+num+".equipment."+head.getType().name()+".enchants."+ench.getKey().getKey().getKey()+".level", ench.getValue());
+            }
+        }
+        if(body != null)
+        {
+            Map<Enchantment, Integer> enchs = body.getEnchantments();
+            for(Map.Entry<Enchantment, Integer> ench: enchs.entrySet())
+            {
+                conf.set("Pack.rewards."+num+".equipment."+body.getType().name()+".enchants."+ench.getKey().getKey().getKey()+".level", ench.getValue());
+            }
+        }
+        if(leggins != null)
+        {
+            Map<Enchantment, Integer> enchs = leggins.getEnchantments();
+            for(Map.Entry<Enchantment, Integer> ench: enchs.entrySet())
+            {
+                conf.set("Pack.rewards."+num+".equipment."+leggins.getType().name()+".enchants."+ench.getKey().getKey().getKey()+".level", ench.getValue());
+            }
+        }
+        if(boots != null)
+        {
+            Map<Enchantment, Integer> enchs = boots.getEnchantments();
+            for(Map.Entry<Enchantment, Integer> ench: enchs.entrySet())
+            {
+                conf.set("Pack.rewards."+num+".equipment."+boots.getType().name()+".enchants."+ench.getKey().getKey().getKey()+".level", ench.getValue());
+            }
         }
     }
 }
