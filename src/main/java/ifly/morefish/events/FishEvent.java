@@ -1,12 +1,14 @@
 package ifly.morefish.events;
 
-import ifly.morefish.fishpack.FishMain;
+import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
+import ifly.morefish.gui.MainMenu;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -17,8 +19,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class FishEvent implements Listener, CommandExecutor {
 
-    FishMain fishMain;
-    public FishEvent(FishMain fishMain){
+    FishController fishMain;
+    public FishEvent(FishController fishMain){
         this.fishMain = fishMain;
     }
 
@@ -47,14 +49,25 @@ public class FishEvent implements Listener, CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
     {
-        if(cmd.getName().equalsIgnoreCase("reload-pack"))
-        {
-            if(args.length == 1)
-            {
-                boolean reloaded = fishMain.Reload(args[0]);
-                sender.sendMessage(reloaded? "§2Successful reloaded": "§cFile not found");
+
+        if (cmd.getName().equalsIgnoreCase("fishrewards")){
+            Bukkit.broadcast(Component.text("asd"));
+            if (args.length > 0){
+                if (args[0].equalsIgnoreCase("admin")){
+                    Player p = (Player) sender;
+                    p.openInventory(MainMenu.inventory);
+                }
+                if(args[0].equalsIgnoreCase("reload-pack"))
+                {
+                    if(args.length == 2)
+                    {
+                        boolean reloaded = fishMain.Reload(args[1]);
+                        sender.sendMessage(reloaded? "§2Successful reloaded": "§cFile not found");
+                    }
+                }
             }
         }
+
         return true;
     }
 }

@@ -24,4 +24,8 @@ public class RewardItem extends RewardAbstract{
     public void addEnchantments(Enchantment enchantment, int level){
         this.item.addUnsafeEnchantment(enchantment, level);
     }
+
+    public ItemStack getItem() {
+        return item;
+    }
 }

@@ -4,6 +4,7 @@ package ifly.morefish.fishpack.pack;
 import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -20,12 +21,19 @@ public class Pack {
 
     int customModelData;
 
+    boolean status = false;
     ItemStack chest = new ItemStack(Material.CHEST);
     public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds){
         this.Displayname = displayname;
         this.customModelData = customModelData;
         Name = name;
         rewards = rwds;
+        setMetaChest();
+    }
+    public Pack(String name, String displayname, int customModelData){
+        this.Displayname = displayname;
+        this.customModelData = customModelData;
+        Name = name;
         setMetaChest();
     }
 
@@ -66,5 +74,15 @@ public class Pack {
         }
         player.sendMessage(Component.text(Lang.getMessage(Lang.getLang().openpackmessage.replace("[pack]", this.Displayname))));
         player.getInventory().getItemInMainHand().subtract();
+    }
+    public void changeStatus(){
+        status = !status;
+    }
+    public boolean getStatus(){
+        return this.status;
+    }
+
+    public List<RewardAbstract> getRewards() {
+        return rewards;
     }
 }

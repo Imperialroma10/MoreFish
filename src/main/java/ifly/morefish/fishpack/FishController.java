@@ -11,13 +11,12 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
-public class FishMain {
+public class FishController {
 
     List<Pack> packList;
 
-
     StorageCreator storage;
-    public FishMain(StorageCreator storageCreator){
+    public FishController(StorageCreator storageCreator){
         this.storage = storageCreator;
        List<Pack> packs = storage.getStorage().getPacks();
         setPackList(packs);
