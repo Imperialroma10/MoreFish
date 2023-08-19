@@ -23,9 +23,9 @@ import java.util.Set;
 
 public class FileStorage {
 
-    String filename = "pack.yml";
-    File f = new File(main.mainPlugin.getDataFolder().getPath()+File.separator+ "packs");
+    File f;
     public FileStorage() {
+        f = new File(main.mainPlugin.getDataFolder().getPath()+File.separator+ "packs");
         if(!f.exists()) {
             main.mainPlugin.saveResource("packs/pack.yml", false);
         }
@@ -121,18 +121,14 @@ public class FileStorage {
         return list;
     }
 
-    public void Save(Pack pack)
-	{
+    public void Save(Pack pack) {
 		String packname = pack.Name.replace(' ', '_');
-		File f = new File(main.mainPlugin.getDataFolder() + File.separator+ "packs"+File.separator + packname +".yml");
-		if(!f.exists())
-		{
-			try
-			{
+		File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + packname + ".yml");
+		if (!f.exists()) {
+			try {
 				f.createNewFile();
 			}
-			catch(IOException e)
-			{ e.printStackTrace(); }
+			catch (IOException e) { e.printStackTrace(); }
 		}
 
 		YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
@@ -141,17 +137,14 @@ public class FileStorage {
 		conf.set("Pack.custommodeldata", pack.getCustomModelData());
 		conf.set("Pack.chance", pack.getDropChance());
 
-		for(RewardAbstract reward: pack.getRewards())
-		{
+		for (RewardAbstract reward : pack.getRewards()) {
 			reward.Save(conf);
 		}
 
-		try
-		{
+		try {
 			conf.save(f);
 		}
-		catch(IOException e)
-		{ e.printStackTrace(); }
+		catch (IOException e) { e.printStackTrace(); }
 	}
 
     public Pack UpdatePack(Pack pack)
