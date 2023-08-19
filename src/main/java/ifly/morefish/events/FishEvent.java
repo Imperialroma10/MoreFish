@@ -5,6 +5,7 @@ import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.MainMenu;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -35,9 +36,9 @@ public class FishEvent implements Listener, CommandExecutor {
     public void interact(PlayerInteractEvent e){
         if(e.getHand() != EquipmentSlot.HAND) { return; }
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK){
-            ItemStack itemonhand = e.getItem();
-            if (itemonhand != null) {
-                Pack pack = fishMain.getPack(itemonhand);
+            ItemStack item = e.getItem();
+            if (item != null && item.getType() == Material.CHEST) {
+                Pack pack = fishMain.getPack(item);
                 if (pack != null){
                     pack.giveReward(e.getPlayer());
 
