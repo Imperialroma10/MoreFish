@@ -1,55 +1,44 @@
 Pack: # Default pack example 12 5215 125
-  displayname: "&6Default pack"
+  displayname: "&6Default pack" # Pack display name
   chance: 50 # case drop chance
-  custommodeldata: 1 # The serial number should not be repeated, you can also create a separate texture for the case
+  custommodeldata: 1 # The unique number of model data for texture pack.
   name: pack #pack name
   rewards:
     '1': # reward number
-      type: item   # Types: item, mob, command
+      type: item   # The type of object to be given (Types: item, mob, command)
       material: GOLD_INGOT # Material name
-      displayname: "&2item"
-      amount: 1
-      custommodeldata: 1
-      chance: 1
-      enchants:
+      displayname: "&2item" # display name of item (Optional)
+      amount: 1 # The number of how many items will be given out
+      custommodeldata: 1 # model number for texture pack (Optional)
+      chance: 1 # Chance 1-100
+      enchants: # Enchant list (Optional). (You can get the enchantment name from this https://www.digminecraft.com/lists/enchantment_list_pc.php)
         FIRE_ASPECT:
           level: 1
-        ARROW_DAMAGE:
+        POWER:
           level: 2
-    '2': # reward number
-      type: item # Types: item, mob, command
-      material: COAL # Material name
-      displayname: "&2item"
-      amount: 1 # items count
-      chance: 70 # chance 1-100
-    '3': # reward number
-      type: mob  # Types: item, mob, command
-      entitytype: ZOMBIE # Entity type
-      amount: 1  # items count
-      chance: 0 # chance 1-100
-      equipment:  # mob equipment
+    '2':
+      type: mob
+      entitytype: ZOMBIE # Mob type
+      amount: 1
+      chance: 1
+      equipment:  # Mob equipment list
         DIAMOND_HELMET:
-          enchants:  # equipment enchantments
+          enchants:  # Equipment enchantments
             blast_protection:
               level: 2
             aqua_affinity:
               level: 1
         DIAMOND_CHESTPLATE:
           enchants:
-            protection:
+            PROTECTION:
               level: 1
-            blast_protection:
+            BLAST_PROTECTION:
               level: 2
         DIAMOND_LEGGINGS:
           enchants:
-            blast_protection:
+            BLAST_PROTECTION:
               level: 2
-    '4': # reward number
-      type: item  # Types: item, mob, command
-      material: STONE # Material name
-      amount: 1
-      chance: 60 # chance 1-100
-    '5': # reward number
-      type: command  # Types: item, mob, command
+    '3':
+      type: command
       command: 'give {player} diamond 1' # Command
-      chance: 50 # chance 1-100
+      chance: 50
