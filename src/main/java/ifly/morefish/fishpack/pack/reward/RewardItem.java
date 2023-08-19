@@ -24,8 +24,6 @@ public class RewardItem extends RewardAbstract{
         player.getInventory().addItem(item.clone());
     }
 
-
-
     public void addEnchantments(Enchantment enchantment, int level){
         this.item.addUnsafeEnchantment(enchantment, level);
     }
@@ -35,38 +33,32 @@ public class RewardItem extends RewardAbstract{
     }
 
     @Override
-    public void Save(YamlConfiguration conf)
-    {
-        int num = confSize(conf);
-        num++;
-        String displayname = null;
-        int modeldata = -1;
-        if(item.hasItemMeta())
-        {
-            ItemMeta im = item.getItemMeta();
-            if(im.hasDisplayName())
-            {
-                displayname = ((TextComponent)im.displayName()).content();
-            }
-            if(im.hasCustomModelData())
-            {
-                modeldata = im.getCustomModelData();
-            }
-        }
+    public void Save(YamlConfiguration conf) {
+		int num = confSize(conf);
+		num++;
+		String displayname = null;
+		int modeldata = -1;
+		if (item.hasItemMeta()) {
+			ItemMeta im = item.getItemMeta();
+			if (im.hasDisplayName()) {
+				displayname = ((TextComponent) im.displayName()).content();
+			}
+			if (im.hasCustomModelData()) {
+				modeldata = im.getCustomModelData();
+			}
+		}
 
-        conf.set("Pack.rewards."+num+".type", "item");
-        conf.set("Pack.rewards."+num+".material", item.getType().name());
-        conf.set("Pack.rewards."+num+".displayname", displayname);
-        conf.set("Pack.rewards."+num+".amount", item.getAmount());
-        if(modeldata > -1)
-        {
-            conf.set("Pack.rewards."+num+".custommodeldata", modeldata);
-        }
-        conf.set("Pack.rewards."+num+".chance", chance);
-        Map<Enchantment, Integer> enchs = item.getEnchantments();
-        for(Map.Entry<Enchantment, Integer> ench: enchs.entrySet())
-        {
-            conf.set("Pack.rewards."+num+".enchants."+ench.getKey().getKey().getKey()+".level", ench.getValue());
-        }
-    }
+		conf.set("Pack.rewards." + num + ".type", "item");
+		conf.set("Pack.rewards." + num + ".material", item.getType().name());
+		conf.set("Pack.rewards." + num + ".displayname", displayname);
+		conf.set("Pack.rewards." + num + ".amount", item.getAmount());
+		if (modeldata > -1) {
+			conf.set("Pack.rewards." + num + ".custommodeldata", modeldata);
+		}
+		conf.set("Pack.rewards." + num + ".chance", chance);
+		Map<Enchantment, Integer> enchs = item.getEnchantments();
+		for (Map.Entry<Enchantment, Integer> ench : enchs.entrySet()) {
+			conf.set("Pack.rewards." + num + ".enchants." + ench.getKey().getKey().getKey() + ".level", ench.getValue());
+		}
+	}
 }
