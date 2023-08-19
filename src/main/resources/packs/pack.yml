@@ -40,5 +40,5 @@ Pack: # Default pack example 12 5215 125
               level: 2
     '3':
       type: command
-      command: 'give {player} diamond 1' # Command
+      command: 'give {player} diamond 1' # Command to be executed
       chance: 50
