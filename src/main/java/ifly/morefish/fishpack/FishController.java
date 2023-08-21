@@ -1,6 +1,7 @@
 package ifly.morefish.fishpack;
 
 import ifly.morefish.datastorage.FileStorage;
+import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.fishpack.pack.Pack;
@@ -13,12 +14,12 @@ import java.util.*;
 
 public class FishController {
 
-    List<Pack> packList;
+    static public List<Pack> packList;
 
     StorageCreator storage;
     public FishController(StorageCreator storageCreator){
         this.storage = storageCreator;
-       List<Pack> packs = storage.getStorage().getPacks();
+        List<Pack> packs = storage.getStorage().getPacks();
         setPackList(packs);
         Bukkit.getLogger().info(Lang.getMessage("loaded "+ packs.size() + " packs"));
     }
@@ -36,7 +37,7 @@ public class FishController {
     {
         for(int i = 0; i < packList.size(); i++) {
             if(packList.get(i).Name.equals(packname)) {
-                FileStorage fs = storage.getStorage();
+                IStorage fs = storage.getStorage();
                 Pack pack = fs.UpdatePack(packList.get(i));
 
                 if(pack == null) { return false; }
@@ -72,7 +73,7 @@ public class FishController {
         }
     }
 
-    public FileStorage getStorage()
+    public IStorage getStorage()
     {
         return storage.getStorage();
     }
@@ -80,4 +81,5 @@ public class FishController {
     public List<Pack> getPackList() {
         return packList;
     }
+
 }

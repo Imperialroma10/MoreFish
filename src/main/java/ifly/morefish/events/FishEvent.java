@@ -2,7 +2,8 @@ package ifly.morefish.events;
 
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
-import ifly.morefish.gui.MainMenu;
+import ifly.morefish.gui.menus.MainMenu;
+import ifly.morefish.main;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -56,7 +57,7 @@ public class FishEvent implements Listener, CommandExecutor {
             if (args.length > 0){
                 if (args[0].equalsIgnoreCase("admin")){
                     Player p = (Player) sender;
-                    p.openInventory(MainMenu.inventory);
+                    new MainMenu(main.getPlayerUtils(p)).open();
                 }
                 if(args[0].equalsIgnoreCase("reload-pack"))
                 {

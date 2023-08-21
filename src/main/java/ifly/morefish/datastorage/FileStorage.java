@@ -7,6 +7,7 @@ import ifly.morefish.fishpack.pack.reward.RewardEntity;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class FileStorage {
+public class FileStorage implements IStorage {
 
     File f;
     public FileStorage() {

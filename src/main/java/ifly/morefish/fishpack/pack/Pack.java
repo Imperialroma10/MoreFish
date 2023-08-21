@@ -20,7 +20,6 @@ public class Pack {
     int dropChance;
 
     int customModelData;
-    boolean status = false;
     ItemStack chest = new ItemStack(Material.CHEST);
     public Pack(String name, String displayname, int customModelData){
         this.Displayname = displayname;
@@ -41,6 +40,10 @@ public class Pack {
         meta.displayName(Component.text(getDisplayname()));
         chest.setItemMeta(meta);
     }
+
+    public void addReward(RewardAbstract rewardAbstract){
+        this.rewards.add(rewardAbstract);
+    }
     public String getDisplayname() {
         return Displayname;
     }
@@ -59,10 +62,9 @@ public class Pack {
     public void giveReward(Player player){
         Random a = new Random();
 
-
         for (RewardAbstract reward : rewards){
             int random = a.nextInt(100);
-            if (reward.getChance() == 0){
+            if (reward.getChance() == 0 || reward.getChance() == 100){
                 reward.giveReward(player);
             }else{
                 if (reward.checkChance(random)){
@@ -72,12 +74,6 @@ public class Pack {
         }
         player.sendMessage(Component.text(Lang.getMessage(Lang.getLang().openpackmessage.replace("[pack]", this.Displayname))));
         player.getInventory().getItemInMainHand().subtract();
-    }
-    public void changeStatus(){
-        status = !status;
-    }
-    public boolean getStatus(){
-        return this.status;
     }
 
     public List<RewardAbstract> getRewards() {

@@ -32,13 +32,13 @@ public class RewardItem extends RewardAbstract{
         return item;
     }
 
-    @Override
+
     public void Save(YamlConfiguration conf) {
 		int num = confSize(conf);
 		num++;
 		String displayname = null;
 		int modeldata = -1;
-		if (item.hasItemMeta()) {
+		if (this.item.hasItemMeta()) {
 			ItemMeta im = item.getItemMeta();
 			if (im.hasDisplayName()) {
 				displayname = ((TextComponent) im.displayName()).content();

@@ -8,7 +8,7 @@ import java.util.Set;
 
 abstract public class RewardAbstract {
 
-    int chance;
+    int chance = 0;
 
     public int getChance() {
         return chance;

@@ -1,13 +1,17 @@
 package ifly.morefish.datastorage;
 
 public class StorageCreator {
-    FileStorage storage;
+    private static IStorage storage;
 
     public StorageCreator() {
         storage = new FileStorage();
     }
 
-    public FileStorage getStorage() {
+    public IStorage getStorage() {
+        return storage;
+    }
+
+    public static IStorage getStorageIns(){
         return storage;
     }
 }

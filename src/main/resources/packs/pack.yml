@@ -8,7 +8,7 @@ Pack: # Default pack example 12 5215 125
       type: item   # The type of object to be given (Types: item, mob, command)
       material: GOLD_INGOT # Material name
       displayname: "&2item" # display name of item (Optional)
-      amount: 1 # The number of how many items will be given out
+      amount: 5 # The number of how many items will be given out
       custommodeldata: 1 # model number for texture pack (Optional)
       chance: 1 # Chance 1-100
       enchants: # Enchant list (Optional). (You can get the enchantment name from this https://www.digminecraft.com/lists/enchantment_list_pc.php)
