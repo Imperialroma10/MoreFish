@@ -43,27 +43,23 @@ public class PackRewardsMenu extends Menu {
     public void handleInventoryClick(InventoryClickEvent e) {
         if (e.getSlot() >= getSlots()*9-9 && e.getSlot() <= getSlots()*9){
             if (e.getSlot() == getSlots()*9-5){
-
+                List<RewardAbstract> rewards = new ArrayList<>();
                 for (int i = 0; i < pack.getRewards().size(); i++){
-                    if (pack.getRewards().get(i) instanceof RewardItem){
-                        pack.getRewards().remove(i);
+                    if (!(pack.getRewards().get(i) instanceof RewardItem)){
+                        rewards.add(pack.getRewards().get(i));
                     }
                 }
-//                for (RewardAbstract rewardAbstract: pack.getRewards()){
-//                    if (rewardAbstract instanceof RewardItem){
-//                        pack.getRewards().remove(rewardAbstract);
-//                    }
-//                }
+                pack.getRewards().clear();
                 int x = 0;
                 for (ItemStack itemStack : getInventory().getContents()){
                     if (x < getSlots()*9-9){
                         if (itemStack != null && itemStack.getType() != Material.AIR){
-                            pack.addReward(new RewardItem(itemStack, 100));
+                            rewards.add(new RewardItem(itemStack, 100));
                         }
                     }
-
                     x ++;
                 }
+                pack.setRewards(rewards);
             }
             if (e.getSlot() == getSlots()*9-9){
                 EditMenu menu = new EditMenu(getPlayerMenuUtil());

@@ -79,4 +79,8 @@ public class Pack {
     public List<RewardAbstract> getRewards() {
         return rewards;
     }
+
+    public void setRewards(List<RewardAbstract> rewards) {
+        this.rewards = rewards;
+    }
 }
