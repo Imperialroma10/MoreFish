@@ -122,25 +122,28 @@ public class FileStorage implements IStorage {
         return list;
     }
 
-    public void Save(Pack pack) {
+    public void addReward(Pack pack) {
 		String packname = pack.Name.replace(' ', '_');
 		File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + packname + ".yml");
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			}
-			catch (IOException e) { e.printStackTrace(); }
+
+		try {
+			f.createNewFile();
 		}
+		catch (IOException e) { e.printStackTrace(); }
 
 		YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
 		conf.set("Pack.name", packname);
 		conf.set("Pack.displayname", pack.getDisplayname().replace('§', '&'));
 		conf.set("Pack.custommodeldata", pack.getCustomModelData());
 		conf.set("Pack.chance", pack.getDropChance());
-
-		for (RewardAbstract reward : pack.getRewards()) {
-			reward.Save(conf);
-		}
+		conf.set("Pack.rewards", null);
+		if(pack.getRewards().size() > 0)
+        {
+            ConfigurationSection section = conf.createSection("Pack.rewards");
+            for (RewardAbstract reward : pack.getRewards()) {
+                reward.Save(section);
+            }
+        }
 
 		try {
 			conf.save(f);

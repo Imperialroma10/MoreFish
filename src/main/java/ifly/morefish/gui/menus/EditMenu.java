@@ -9,7 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 
 public class EditMenu extends Menu {
@@ -45,7 +44,7 @@ public class EditMenu extends Menu {
             packRewardsMenu.open();
         }
         if (e.getSlot() == 3*9-1){
-            StorageCreator.getStorageIns().Save(pack);
+            StorageCreator.getStorageIns().addReward(pack);
         }
         if (e.getSlot() == 3*9-9){
             new PackListMenu(getPlayerMenuUtil()).open();

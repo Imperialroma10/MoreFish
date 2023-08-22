@@ -1,7 +1,7 @@
 package ifly.morefish.fishpack.pack.reward;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 public class RewardCommand extends RewardAbstract {
@@ -18,12 +18,12 @@ public class RewardCommand extends RewardAbstract {
     }
 
     @Override
-    public void Save(YamlConfiguration conf) {
-        int num = confSize(conf);
+    public void Save(ConfigurationSection section) {
+        int num = confSize(section);
         num++;
 
-        conf.set("Pack.rewards."+num+".type", "command");
-        conf.set("Pack.rewards."+num+".command", command);
-        conf.set("Pack.rewards."+num+".chance", chance);
+        section.set(num+".type", "command");
+        section.set(num+".command", command);
+        section.set(num+".chance", chance);
     }
 }

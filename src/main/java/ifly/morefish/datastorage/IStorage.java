@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IStorage {
     List<Pack> getPacks();
-    void Save(Pack pack);
+    void addReward(Pack pack);
     Pack UpdatePack(Pack pack);
 
 }

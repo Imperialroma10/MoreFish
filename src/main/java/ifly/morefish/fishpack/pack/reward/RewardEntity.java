@@ -1,7 +1,6 @@
 package ifly.morefish.fishpack.pack.reward;
 
-import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -86,21 +85,21 @@ public class RewardEntity extends RewardAbstract{
     }
 
     @Override
-    public void Save(YamlConfiguration conf)
+    public void Save(ConfigurationSection section)
 	{
-		int num = confSize(conf);
+		int num = confSize(section);
 		num++;
 
-		conf.set("Pack.rewards." + num + ".type", "mob");
-		conf.set("Pack.rewards." + num + ".entitytype", entityType.name());
-		conf.set("Pack.rewards." + num + ".amount", amount);
-		conf.set("Pack.rewards." + num + ".chance", chance);
+		section.set(num + ".type", "mob");
+		section.set(num + ".entitytype", entityType.name());
+		section.set(num + ".amount", amount);
+		section.set(num + ".chance", chance);
 
 		for(ItemStack armor : armors) {
 		    if(armor == null) { continue; }
 			Map<Enchantment, Integer> enchs = armor.getEnchantments();
 			for(Map.Entry<Enchantment, Integer> ench : enchs.entrySet()) {
-				conf.set("Pack.rewards." + num + ".equipment." + armor.getType().name() + ".enchants." + ench.getKey().getKey().getKey() + ".level", ench.getValue());
+				section.set(num + ".equipment." + armor.getType().name() + ".enchants." + ench.getKey().getKey().getKey() + ".level", ench.getValue());
 			}
 		}
 	}

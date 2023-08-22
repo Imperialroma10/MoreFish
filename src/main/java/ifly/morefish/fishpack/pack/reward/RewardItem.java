@@ -1,7 +1,7 @@
 package ifly.morefish.fishpack.pack.reward;
 
 import net.kyori.adventure.text.TextComponent;
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -33,8 +33,8 @@ public class RewardItem extends RewardAbstract{
     }
 
 
-    public void Save(YamlConfiguration conf) {
-		int num = confSize(conf);
+    public void Save(ConfigurationSection section) {
+		int num = confSize(section);
 		num++;
 		String displayname = null;
 		int modeldata = -1;
@@ -48,17 +48,17 @@ public class RewardItem extends RewardAbstract{
 			}
 		}
 
-		conf.set("Pack.rewards." + num + ".type", "item");
-		conf.set("Pack.rewards." + num + ".material", item.getType().name());
-		conf.set("Pack.rewards." + num + ".displayname", displayname);
-		conf.set("Pack.rewards." + num + ".amount", item.getAmount());
+		section.set(num + ".type", "item");
+		section.set(num + ".material", item.getType().name());
+		section.set(num + ".displayname", displayname);
+		section.set(num + ".amount", item.getAmount());
 		if (modeldata > -1) {
-			conf.set("Pack.rewards." + num + ".custommodeldata", modeldata);
+			section.set(num + ".custommodeldata", modeldata);
 		}
-		conf.set("Pack.rewards." + num + ".chance", chance);
+		section.set(num + ".chance", chance);
 		Map<Enchantment, Integer> enchs = item.getEnchantments();
 		for (Map.Entry<Enchantment, Integer> ench : enchs.entrySet()) {
-			conf.set("Pack.rewards." + num + ".enchants." + ench.getKey().getKey().getKey() + ".level", ench.getValue());
+			section.set(num + ".enchants." + ench.getKey().getKey().getKey() + ".level", ench.getValue());
 		}
 	}
 }
