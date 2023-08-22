@@ -34,5 +34,6 @@ public class MainMenu extends Menu {
     @Override
     public void setMenuItems() {
         getInventory().setItem(11,ItemCreator.create(Material.CHEST, "Packs"));
+
     }
 }

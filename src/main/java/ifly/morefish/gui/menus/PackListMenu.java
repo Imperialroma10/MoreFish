@@ -50,6 +50,9 @@ public class PackListMenu extends Menu {
             new EditMenu(getPlayerMenuUtil()).setPack(pack).open();
             Bukkit.broadcast(Component.text("dfgdfg"));
         }
+        if (e.getSlot() == getSlots()*9-9){
+            new MainMenu(getPlayerMenuUtil()).open();
+        }
         e.setCancelled(true);
     }
     int page = 0;
@@ -68,6 +71,7 @@ public class PackListMenu extends Menu {
         }
 
         getInventory().setItem(49, ItemCreator.create(Material.COMMAND_BLOCK, "Create new pack"));
+        getInventory().setItem(getSlots()*9-9, ItemCreator.create(Material.BARRIER,"Back"));
     }
     public void nextPage(){
         page++;

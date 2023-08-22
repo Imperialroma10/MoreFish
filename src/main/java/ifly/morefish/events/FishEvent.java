@@ -51,7 +51,6 @@ public class FishEvent implements Listener, CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
     {
-
         if (cmd.getName().equalsIgnoreCase("fishrewards")){
             Bukkit.broadcast(Component.text("asd"));
             if (args.length > 0){

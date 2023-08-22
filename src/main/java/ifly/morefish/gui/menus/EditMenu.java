@@ -5,8 +5,12 @@ import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.helper.ItemCreator;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.AnvilInventory;
+import org.bukkit.inventory.Inventory;
 
 public class EditMenu extends Menu {
     Pack pack;
@@ -26,7 +30,7 @@ public class EditMenu extends Menu {
 
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
-        e.setCancelled(true);
+
         if (e.getSlot() == 11-9){
             pack.setDropChance(pack.getDropChance()+5);
             getInventory().setItem(11, ItemCreator.replace(getInventory().getItem(11), "Chance "+ pack.getDropChance()));
@@ -46,6 +50,12 @@ public class EditMenu extends Menu {
         if (e.getSlot() == 3*9-9){
             new PackListMenu(getPlayerMenuUtil()).open();
         }
+        if (e.getSlot() == 10){
+            Inventory inventory1 = Bukkit.createInventory(null, InventoryType.ANVIL);
+            getPlayerMenuUtil().getOwner().openInventory(inventory1);
+
+        }
+        e.setCancelled(true);
     }
     public EditMenu setPack(Pack pack){
         this.pack = pack;
@@ -57,7 +67,7 @@ public class EditMenu extends Menu {
         getInventory().setItem(11, ItemCreator.create(Material.PISTON, "Chance "+ pack.getDropChance()));
         getInventory().setItem(11+9, ItemCreator.create(Material.RED_WOOL, "Chance-"));
         getInventory().setItem(12, ItemCreator.create(Material.CHEST, "Pack rewards"));
-
+        getInventory().setItem(10, ItemCreator.create(Material.PAPER, "Edit packname"));
         getInventory().setItem(3*9-1, ItemCreator.create(Material.PISTON, "Save"));
         getInventory().setItem(3*9-9, ItemCreator.create(Material.BARRIER, "Back"));
     }
