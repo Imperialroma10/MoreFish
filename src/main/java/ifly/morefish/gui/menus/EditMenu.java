@@ -43,9 +43,13 @@ public class EditMenu extends Menu {
         if (e.getSlot() == 3*9-1){
             StorageCreator.getStorageIns().Save(pack);
         }
+        if (e.getSlot() == 3*9-9){
+            new PackListMenu(getPlayerMenuUtil()).open();
+        }
     }
-    public void setPack(Pack pack){
+    public EditMenu setPack(Pack pack){
         this.pack = pack;
+        return this;
     }
     @Override
     public void setMenuItems() {
@@ -55,5 +59,6 @@ public class EditMenu extends Menu {
         getInventory().setItem(12, ItemCreator.create(Material.CHEST, "Pack rewards"));
 
         getInventory().setItem(3*9-1, ItemCreator.create(Material.PISTON, "Save"));
+        getInventory().setItem(3*9-9, ItemCreator.create(Material.BARRIER, "Back"));
     }
 }

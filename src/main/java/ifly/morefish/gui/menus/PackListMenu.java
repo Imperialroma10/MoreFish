@@ -9,6 +9,7 @@ import ifly.morefish.main;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.command.Command;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -32,12 +33,22 @@ public class PackListMenu extends Menu {
 
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
-        if (e.getSlot() < packList.size()){
-            int slot = e.getSlot();
-            if (slot < packList.size()){
-                menu.setPack(packList.get(slot));
-                menu.open();
+
+        if ( 0 <= e.getSlot() && e.getSlot() <= getSlots()*9-9){ // Block chests
+            if (e.getSlot() < packList.size()){
+                int slot = e.getSlot();
+                if (slot < packList.size()){
+                    menu.setPack(packList.get(slot));
+                    menu.open();
+                }
             }
+
+        }
+        if (e.getSlot() == 49){
+            Pack pack = new Pack("Pack_name", "New pack", 0);
+            FishController.packList.add(pack);
+            new EditMenu(getPlayerMenuUtil()).setPack(pack).open();
+            Bukkit.broadcast(Component.text("dfgdfg"));
         }
         e.setCancelled(true);
     }
