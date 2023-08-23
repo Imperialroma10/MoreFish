@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.InventoryHolder;
 
 public class MenuListener implements Listener {
@@ -18,8 +19,6 @@ public class MenuListener implements Listener {
         if (holder instanceof Menu){
             Menu menu = (Menu) holder;
             menu.handleInventoryClick(e);
-
-
         }
     }
 

@@ -83,4 +83,8 @@ public class Pack {
     public void setRewards(List<RewardAbstract> rewards) {
         this.rewards = rewards;
     }
+
+    public void setDisplayname(String displayname) {
+        Displayname = displayname;
+    }
 }

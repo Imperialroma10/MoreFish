@@ -43,7 +43,7 @@ public class FileStorage implements IStorage {
 
         for(File file : files) {
 			if(!file.isFile()) { continue; }
-
+			Pack pack;
             YamlConfiguration conf = YamlConfiguration.loadConfiguration(file);
             String pack_displayname = conf.getString("Pack.displayname", "").replace('&', '§');
             String pack_name = conf.getString("Pack.name", "");
@@ -51,71 +51,74 @@ public class FileStorage implements IStorage {
             int dropchance = conf.getInt("Pack.chance");
 
             ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
-            if(sec_rewards == null) { continue; }
-            Set<String> keys_rewards = sec_rewards.getKeys(false);
+            if(sec_rewards != null) {
+				Set<String> keys_rewards = sec_rewards.getKeys(false);
 
-            List<RewardAbstract> rewards = new ArrayList<>(keys_rewards.size());
-            for(String key_reward : keys_rewards) {
-                String type = sec_rewards.getString(key_reward + ".type");
-                if(type.equals("item")) {
-                    String material = sec_rewards.getString(key_reward + ".material").toUpperCase();
-                    int count = sec_rewards.getInt(key_reward + ".amount");
-                    int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
-                    String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
+				List<RewardAbstract> rewards = new ArrayList<>(keys_rewards.size());
+				for (String key_reward : keys_rewards) {
+					String type = sec_rewards.getString(key_reward + ".type");
+					if (type.equals("item")) {
+						String material = sec_rewards.getString(key_reward + ".material").toUpperCase();
+						int count = sec_rewards.getInt(key_reward + ".amount");
+						int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
+						String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
 
-                    int chance = sec_rewards.getInt(key_reward + ".chance");
+						int chance = sec_rewards.getInt(key_reward + ".chance");
 
-                    Material m = Material.getMaterial(material);
-                    ItemStack is = new ItemStack(m, count);
-                    if(displayname.length() > 0)
-                        is.editMeta(im -> im.displayName(Component.text(displayname)));
-                    if(custommodeldata > -1)
-                        is.editMeta(im -> im.setCustomModelData(custommodeldata));
+						Material m = Material.getMaterial(material);
+						ItemStack is = new ItemStack(m, count);
+						if (displayname.length() > 0)
+							is.editMeta(im -> im.displayName(Component.text(displayname)));
+						if (custommodeldata > -1)
+							is.editMeta(im -> im.setCustomModelData(custommodeldata));
 
-                    RewardItem rewardItem = new RewardItem(is, chance);
+						RewardItem rewardItem = new RewardItem(is, chance);
 
-                    ConfigurationSection enchantSection = sec_rewards.getConfigurationSection(key_reward+".enchants");
-                    if (enchantSection != null){
-                        for (String enchant: enchantSection.getKeys(false)){
-                            rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant+".level"));
-                        }
-                    }
-                    rewards.add(rewardItem);
+						ConfigurationSection enchantSection = sec_rewards.getConfigurationSection(key_reward + ".enchants");
+						if (enchantSection != null) {
+							for (String enchant : enchantSection.getKeys(false)) {
+								rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
+							}
+						}
+						rewards.add(rewardItem);
 
 
-                }
-                if(type.equals("mob")) {
-                    String mobtype = sec_rewards.getString(key_reward + ".entitytype");
-                    EntityType etype = EntityType.valueOf(mobtype);
-                    int amount = sec_rewards.getInt(key_reward + ".amount");
-                    int chance = sec_rewards.getInt(key_reward + ".chance");
-                    RewardEntity rewardEntity = new RewardEntity(etype, amount, chance);
+					}
+					if (type.equals("mob")) {
+						String mobtype = sec_rewards.getString(key_reward + ".entitytype");
+						EntityType etype = EntityType.valueOf(mobtype);
+						int amount = sec_rewards.getInt(key_reward + ".amount");
+						int chance = sec_rewards.getInt(key_reward + ".chance");
+						RewardEntity rewardEntity = new RewardEntity(etype, amount, chance);
 
-                    ConfigurationSection equipsection = sec_rewards.getConfigurationSection(key_reward+".equipment");
-                    if (equipsection != null){
-                        for (String type1: equipsection.getKeys(false)) {
-							Material m = Material.getMaterial(type1);
-							rewardEntity.setArmor(type1, new ItemStack(m));
+						ConfigurationSection equipsection = sec_rewards.getConfigurationSection(key_reward + ".equipment");
+						if (equipsection != null) {
+							for (String type1 : equipsection.getKeys(false)) {
+								Material m = Material.getMaterial(type1);
+								rewardEntity.setArmor(type1, new ItemStack(m));
 
-							ConfigurationSection enchantSection = equipsection.getConfigurationSection(type1 + ".enchants");
-							if(enchantSection != null) {
-								for(String enchant : enchantSection.getKeys(false)) {
-									rewardEntity.getArmor(type1).addEnchantment(Enchantment.getByKey(NamespacedKey.fromString(enchant)), enchantSection.getInt(enchant + ".level"));
+								ConfigurationSection enchantSection = equipsection.getConfigurationSection(type1 + ".enchants");
+								if (enchantSection != null) {
+									for (String enchant : enchantSection.getKeys(false)) {
+										rewardEntity.getArmor(type1).addEnchantment(Enchantment.getByKey(NamespacedKey.fromString(enchant)), enchantSection.getInt(enchant + ".level"));
+									}
 								}
 							}
 						}
-                    }
 
-                    rewards.add(rewardEntity);
-                }
-                if(type.equals("command")) {
-                    String command = sec_rewards.getString(key_reward + ".command");
-                    RewardCommand rewardCommand = new RewardCommand(command);
-                    rewards.add(rewardCommand);
-                }
-            }
+						rewards.add(rewardEntity);
+					}
+					if (type.equals("command")) {
+						String command = sec_rewards.getString(key_reward + ".command");
+						RewardCommand rewardCommand = new RewardCommand(command);
+						rewards.add(rewardCommand);
+					}
+				}
+				pack = new Pack(pack_name, pack_displayname, pack_custommodeldata, rewards);
+			}else{
+				pack = new Pack(pack_name, pack_displayname, pack_custommodeldata);
+			}
 
-            Pack pack = new Pack(pack_name, pack_displayname, pack_custommodeldata, rewards);
             pack.setDropChance(dropchance);
             list.add(pack);
         }
@@ -186,59 +189,63 @@ public class FileStorage implements IStorage {
 		int dropchance = conf.getInt("Pack.chance");
 
 		ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
+		if (sec_rewards != null) {
 		Set<String> keys_rewards = sec_rewards.getKeys(false);
 
-		List<RewardAbstract> rewards = new ArrayList<>(keys_rewards.size());
-		for(String key_reward : keys_rewards) {
-			String type = sec_rewards.getString(key_reward + ".type");
-			if(type.equals("item")) {
-				String material = sec_rewards.getString(key_reward + ".material");
-				int count = sec_rewards.getInt(key_reward + ".amount");
-				int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
-				String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
+			List<RewardAbstract> rewards = new ArrayList<>(keys_rewards.size());
+			for (String key_reward : keys_rewards) {
+				String type = sec_rewards.getString(key_reward + ".type");
+				if (type.equals("item")) {
+					String material = sec_rewards.getString(key_reward + ".material");
+					int count = sec_rewards.getInt(key_reward + ".amount");
+					int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
+					String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
 
-				int chance = sec_rewards.getInt(key_reward + ".chance");
+					int chance = sec_rewards.getInt(key_reward + ".chance");
 
-				Material m = Material.getMaterial(material);
-				ItemStack is = new ItemStack(m, count);
-				if(displayname.length() > 0)
-					is.editMeta(im -> im.displayName(Component.text(displayname)));
-				if(custommodeldata > -1)
-					is.editMeta(im -> im.setCustomModelData(custommodeldata));
-				RewardItem rewardItem = new RewardItem(is, chance);
-				rewards.add(rewardItem);
-			}
-			if(type.equals("mob")) {
-				String mobtype = sec_rewards.getString(key_reward + ".entitytype");
-				EntityType etype = EntityType.valueOf(mobtype);
-				int amount = sec_rewards.getInt(key_reward + ".amount");
-				int chance = sec_rewards.getInt(key_reward + ".chance");
-				RewardEntity rewardEntity = new RewardEntity(etype, amount, chance);
+					Material m = Material.getMaterial(material);
+					ItemStack is = new ItemStack(m, count);
+					if (displayname.length() > 0)
+						is.editMeta(im -> im.displayName(Component.text(displayname)));
+					if (custommodeldata > -1)
+						is.editMeta(im -> im.setCustomModelData(custommodeldata));
+					RewardItem rewardItem = new RewardItem(is, chance);
+					rewards.add(rewardItem);
+				}
+				if (type.equals("mob")) {
+					String mobtype = sec_rewards.getString(key_reward + ".entitytype");
+					EntityType etype = EntityType.valueOf(mobtype);
+					int amount = sec_rewards.getInt(key_reward + ".amount");
+					int chance = sec_rewards.getInt(key_reward + ".chance");
+					RewardEntity rewardEntity = new RewardEntity(etype, amount, chance);
 
-				ConfigurationSection equipsection = sec_rewards.getConfigurationSection(key_reward+".equipment");
-				if (equipsection != null){
-					for (String type1: equipsection.getKeys(false)) {
-						Material m = Material.getMaterial(type1);
-						rewardEntity.setArmor(type1, new ItemStack(m));
+					ConfigurationSection equipsection = sec_rewards.getConfigurationSection(key_reward + ".equipment");
+					if (equipsection != null) {
+						for (String type1 : equipsection.getKeys(false)) {
+							Material m = Material.getMaterial(type1);
+							rewardEntity.setArmor(type1, new ItemStack(m));
 
-						ConfigurationSection enchantSection = equipsection.getConfigurationSection(type1 + ".enchants");
-						if(enchantSection != null) {
-							for(String enchant : enchantSection.getKeys(false)) {
-								rewardEntity.getArmor(type1).addEnchantment(Enchantment.getByKey(NamespacedKey.fromString(enchant)), enchantSection.getInt(enchant + ".level"));
+							ConfigurationSection enchantSection = equipsection.getConfigurationSection(type1 + ".enchants");
+							if (enchantSection != null) {
+								for (String enchant : enchantSection.getKeys(false)) {
+									rewardEntity.getArmor(type1).addEnchantment(Enchantment.getByKey(NamespacedKey.fromString(enchant)), enchantSection.getInt(enchant + ".level"));
+								}
 							}
 						}
 					}
-				}
 
-				rewards.add(rewardEntity);
+					rewards.add(rewardEntity);
+				}
+				if (type.equals("command")) {
+					String command = sec_rewards.getString(key_reward + ".command");
+					RewardCommand rewardCommand = new RewardCommand(command);
+					rewards.add(rewardCommand);
+				}
 			}
-			if(type.equals("command")) {
-				String command = sec_rewards.getString(key_reward + ".command");
-				RewardCommand rewardCommand = new RewardCommand(command);
-				rewards.add(rewardCommand);
-			}
+			pack = new Pack(pack_name, pack_displayname, pack_custommodeldata, rewards);
+		}else{
+			pack = new Pack(pack_name, pack_displayname, pack_custommodeldata);
 		}
-		pack = new Pack(pack_name, pack_displayname, pack_custommodeldata, rewards);
 		pack.setDropChance(dropchance);
 		return pack;
 	}
