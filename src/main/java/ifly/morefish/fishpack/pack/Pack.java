@@ -16,7 +16,7 @@ public class Pack {
 
     String Displayname;
     List<RewardAbstract> rewards;
-    public final String Name;
+    public String Name;
     int dropChance;
 
     int customModelData;
