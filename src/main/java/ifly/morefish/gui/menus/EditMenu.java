@@ -6,9 +6,12 @@ import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
+import ifly.morefish.gui.anvil.AnvilController;
+import ifly.morefish.gui.anvil.actions.EditPack;
 import ifly.morefish.gui.helper.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -52,7 +55,7 @@ public class EditMenu extends Menu {
             new PackListMenu(getPlayerMenuUtil()).open();
         }
         if (e.getSlot() == 10){
-
+            AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPack((Player) e.getWhoClicked()));
         }
         if (e.getSlot() == 3*9-2){
             Pack newPack = StorageCreator.getStorageIns().UpdatePack(pack);

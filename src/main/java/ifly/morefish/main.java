@@ -6,6 +6,7 @@ import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.gui.MenuListener;
 import ifly.morefish.gui.PlayerMenuUtil;
+import ifly.morefish.gui.anvil.ActionListener;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,6 +29,7 @@ public final class main extends JavaPlugin {
        FishEvent fishEvents = new FishEvent(controller);
        getServer().getPluginManager().registerEvents(new MenuListener(), this);
        getServer().getPluginManager().registerEvents(fishEvents, this);
+       getServer().getPluginManager().registerEvents(new ActionListener(), this);
        getCommand("fishrewards").setExecutor(fishEvents);
     }
 
