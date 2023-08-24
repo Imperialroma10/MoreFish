@@ -42,7 +42,6 @@ public class FishEvent implements Listener, CommandExecutor {
                 Pack pack = fishMain.getPack(item);
                 if (pack != null){
                     pack.giveReward(e.getPlayer());
-
                 }
             }
         }

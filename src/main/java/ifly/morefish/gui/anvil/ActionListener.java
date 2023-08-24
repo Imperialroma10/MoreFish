@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.util.Map;
@@ -30,6 +31,12 @@ public class ActionListener implements Listener {
             if (action.getInventory() == e.getInventory()){
                 action.inventoryClickEvent(e);
             }
+        }
+    }
+    @EventHandler
+    public void leavePlayer(PlayerQuitEvent e){
+        if (AnvilController.anvils.get(e.getPlayer()) != null){
+            AnvilController.anvils.remove(e.getPlayer());
         }
     }
 

@@ -3,6 +3,7 @@ package ifly.morefish.gui;
 import ifly.morefish.gui.menus.Action;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -46,7 +47,7 @@ public abstract class Menu implements InventoryHolder {
 
     public void open(){
         if (playerMenuUtil.getOwner().hasPermission("fishrewarads.admin")) {
-            this.inventory = Bukkit.createInventory(this, getSlots()*9, getMenuName());
+            this.inventory = Bukkit.createInventory(this, getSlots()*9, "§5"+getMenuName());
 
             setMenuItems();
 

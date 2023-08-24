@@ -31,8 +31,6 @@ public class EditPackDisplayName extends Action {
             ItemMeta meta = itemStack.getItemMeta();
             meta.displayName(Component.text(pack.getDisplayname()));
             itemStack.setItemMeta(meta);
-
         }
-
     }
 }

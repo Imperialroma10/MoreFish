@@ -8,6 +8,7 @@ import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.anvil.actions.EditPackDisplayName;
 import ifly.morefish.gui.helper.ItemCreator;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -20,7 +21,7 @@ public class EditMenu extends Menu {
 
     @Override
     public String getMenuName() {
-        return "Edit menu";
+        return  "Edit "+pack.getDisplayname()+" pack";
     }
 
     @Override
@@ -87,6 +88,7 @@ public class EditMenu extends Menu {
 
     public EditMenu setPack(Pack pack){
         this.pack = pack;
+
         return this;
     }
     @Override
