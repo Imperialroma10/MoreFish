@@ -46,7 +46,7 @@ public class EditMenu extends Menu {
             packRewardsMenu.open();
         }
         if (e.getSlot() == 3*9-1){
-            StorageCreator.getStorageIns().addReward(pack);
+            StorageCreator.getStorageIns().UpdatePack(pack);
 
         }
         if (e.getSlot() == 3*9-9){
