@@ -5,6 +5,8 @@ import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
+import ifly.morefish.gui.anvil.AnvilController;
+import ifly.morefish.gui.anvil.actions.EditPack;
 import ifly.morefish.gui.helper.ItemCreator;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -54,14 +56,15 @@ public class EditMenu extends Menu {
             new PackListMenu(getPlayerMenuUtil()).open();
         }
         if (e.getSlot() == 10){
-            Player p = getPlayerMenuUtil().getOwner();
-            Menu.actions.put(this, Action.RenamePack);
-            InventoryView invv = p.openAnvil(p.getLocation(), true);
-            AnvilInventory anv = (AnvilInventory)invv.getTopInventory();
-            anv.setMaximumRepairCost(0);
-            ItemStack is = new ItemStack(Material.PAPER);
-            is.editMeta(im->im.displayName(Component.text("Name")));
-            anv.setFirstItem(is);
+//            Player p = getPlayerMenuUtil().getOwner();
+//            Menu.actions.put(this, Action.RenamePack);
+//            InventoryView invv = p.openAnvil(p.getLocation(), true);
+//            AnvilInventory anv = (AnvilInventory)invv.getTopInventory();
+//            anv.setMaximumRepairCost(0);
+//            ItemStack is = new ItemStack(Material.PAPER);
+//            is.editMeta(im->im.displayName(Component.text("Name")));
+//            anv.setFirstItem(is);
+            AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPack((Player) e.getWhoClicked(), pack));
         }
         if (e.getSlot() == 3*9-2){
             Pack newPack = StorageCreator.getStorageIns().UpdatePack(pack);

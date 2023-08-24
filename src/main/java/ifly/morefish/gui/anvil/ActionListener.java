@@ -24,8 +24,13 @@ public class ActionListener implements Listener {
         }
     }
     @EventHandler
-    public void InventoryClickEvent(InventoryClickEvent e){
-
+    public void inventoryClick(InventoryClickEvent e){
+        if (AnvilController.anvils.get((Player) e.getWhoClicked()) != null){
+            ifly.morefish.gui.anvil.Action action = AnvilController.anvils.get((Player) e.getWhoClicked());
+            if (action.getInventory() == e.getInventory()){
+                action.inventoryClickEvent(e);
+            }
+        }
     }
 
 }

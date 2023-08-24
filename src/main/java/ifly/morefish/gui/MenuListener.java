@@ -1,5 +1,6 @@
 package ifly.morefish.gui;
 
+import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.menus.Action;
 import ifly.morefish.gui.menus.EditMenu;
 import org.bukkit.entity.Player;
