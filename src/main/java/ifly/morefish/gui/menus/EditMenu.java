@@ -34,11 +34,11 @@ public class EditMenu extends Menu {
 
         if (e.getSlot() == 12-9){
             pack.setDropChance(pack.getDropChance()+5);
-            getInventory().setItem(11, ItemCreator.replace(getInventory().getItem(11), "Chance "+ pack.getDropChance()));
+            getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), "Chance "+ pack.getDropChance()));
         }
         if (e.getSlot() == 12+9){
             pack.setDropChance(pack.getDropChance()-5);
-            getInventory().setItem(11, ItemCreator.replace(getInventory().getItem(11), "Chance "+ pack.getDropChance()));
+            getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), "Chance "+ pack.getDropChance()));
         }
         if (e.getSlot() == 14){
             PackRewardsMenu packRewardsMenu = new PackRewardsMenu(getPlayerMenuUtil());
