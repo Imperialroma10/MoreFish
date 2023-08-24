@@ -33,7 +33,6 @@ public class PackListMenu extends Menu {
 
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
-
         if ( 0 <= e.getSlot() && e.getSlot() <= getSlots()*9-9){ // Block chests
             if (e.getSlot() < packList.size()){
                 int slot = e.getSlot();
@@ -42,7 +41,6 @@ public class PackListMenu extends Menu {
                     menu.open();
                 }
             }
-
         }
         if (e.getSlot() == 49){
             Pack pack = new Pack("Pack_name", "New pack", 0);

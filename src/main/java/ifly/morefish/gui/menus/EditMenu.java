@@ -6,15 +6,11 @@ import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.AnvilController;
-import ifly.morefish.gui.anvil.actions.EditPack;
+import ifly.morefish.gui.anvil.actions.EditPackDisplayName;
 import ifly.morefish.gui.helper.ItemCreator;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.AnvilInventory;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
 
 public class EditMenu extends Menu {
     Pack pack;
@@ -35,15 +31,15 @@ public class EditMenu extends Menu {
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
 
-        if (e.getSlot() == 11-9){
+        if (e.getSlot() == 12-9){
             pack.setDropChance(pack.getDropChance()+5);
             getInventory().setItem(11, ItemCreator.replace(getInventory().getItem(11), "Chance "+ pack.getDropChance()));
         }
-        if (e.getSlot() == 11+9){
+        if (e.getSlot() == 12+9){
             pack.setDropChance(pack.getDropChance()-5);
             getInventory().setItem(11, ItemCreator.replace(getInventory().getItem(11), "Chance "+ pack.getDropChance()));
         }
-        if (e.getSlot() == 12){
+        if (e.getSlot() == 14){
             PackRewardsMenu packRewardsMenu = new PackRewardsMenu(getPlayerMenuUtil());
             packRewardsMenu.setPack(pack);
             packRewardsMenu.open();
@@ -64,7 +60,7 @@ public class EditMenu extends Menu {
 //            ItemStack is = new ItemStack(Material.PAPER);
 //            is.editMeta(im->im.displayName(Component.text("Name")));
 //            anv.setFirstItem(is);
-            AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPack((Player) e.getWhoClicked(), pack));
+            AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPackDisplayName((Player) e.getWhoClicked(), pack));
         }
         if (e.getSlot() == 3*9-2){
             Pack newPack = StorageCreator.getStorageIns().UpdatePack(pack);
@@ -75,6 +71,10 @@ public class EditMenu extends Menu {
                 open();
             }
 
+        }
+        if (e.getSlot() == 3*9-3){
+            FishController.packList.remove(pack);
+            new PackListMenu(getPlayerMenuUtil()).open();
         }
         e.setCancelled(true);
     }
@@ -97,6 +97,7 @@ public class EditMenu extends Menu {
         getInventory().setItem(14, ItemCreator.create(Material.CHEST, "Pack rewards"));
         getInventory().setItem(10, ItemCreator.create(Material.PAPER, "Edit packname"));
         getInventory().setItem(3*9-1, ItemCreator.create(Material.PISTON, "Save"));
+        getInventory().setItem(3*9-3, ItemCreator.create(Material.HOPPER, "Remove pack"));
         getInventory().setItem(3*9-2, ItemCreator.create(Material.COMMAND_BLOCK, "Reload pack"));
         getInventory().setItem(3*9-9, ItemCreator.create(Material.BARRIER, "Back"));
     }

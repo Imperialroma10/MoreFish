@@ -10,7 +10,6 @@ public class AnvilController {
 
     public static void createAnvil(Player player, Action action){
         anvils.put(player, action);
-
     }
 
 }

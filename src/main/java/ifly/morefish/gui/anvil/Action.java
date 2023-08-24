@@ -1,6 +1,7 @@
 package ifly.morefish.gui.anvil;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,6 +11,7 @@ import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class Action {
 
@@ -23,11 +25,18 @@ public abstract class Action {
     }
 
     public void closeInventory(InventoryCloseEvent e){
-        AnvilController.anvils.remove(e.getPlayer());
+        AnvilController.anvils.remove((Player) e.getPlayer());
     }
     public void inventoryClickEvent(InventoryClickEvent e){
         if (e.getSlot() == 2){
-            setResult(getInventory().getItem(2).getItemMeta().displayName().toString());
+            ItemStack itemStack = getInventory().getItem(2);
+            if (itemStack != null && itemStack.hasItemMeta()){
+                ItemMeta meta = itemStack.getItemMeta();
+                setResult(((TextComponent)meta.displayName()).content());
+                e.getWhoClicked().closeInventory();
+                AnvilController.anvils.remove((Player) e.getWhoClicked());
+                addAction();
+            }
         }
         e.setCancelled(true);
     }
@@ -48,5 +57,9 @@ public abstract class Action {
 
     public void setInventoryItems(){
         getInventory().setItem(0, new ItemStack(Material.PAPER));
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
