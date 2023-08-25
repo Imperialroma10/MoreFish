@@ -1,5 +1,6 @@
 package ifly.morefish.gui.menus;
 
+import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
@@ -8,7 +9,6 @@ import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.anvil.actions.EditPackDisplayName;
 import ifly.morefish.gui.helper.ItemCreator;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -76,6 +76,8 @@ public class EditMenu extends Menu {
         if (e.getSlot() == 3*9-3){
             FishController.packList.remove(pack);
             new PackListMenu(getPlayerMenuUtil()).open();
+            FileStorage storage = (FileStorage)StorageCreator.getStorageIns();
+            storage.removePack(pack);
         }
         e.setCancelled(true);
     }

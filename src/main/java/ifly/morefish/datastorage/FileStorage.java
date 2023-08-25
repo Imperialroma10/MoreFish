@@ -177,6 +177,18 @@ public class FileStorage implements IStorage {
 		catch (IOException e) { e.printStackTrace(); }
 	}
 
+	public boolean removePack(Pack pack)
+	{
+		File f = new File(main.mainPlugin.getDataFolder() + File.separator +"packs"+File.separator+ pack.Name + ".yml");
+		return f.delete();
+	}
+
+	public boolean removePack(String name)
+	{
+		File f = new File(main.mainPlugin.getDataFolder() + File.separator +"packs"+File.separator+ name + ".yml");
+		return f.delete();
+	}
+
     public Pack UpdatePack(Pack pack)
 	{
 		File f = new File(main.mainPlugin.getDataFolder() + File.separator +"packs"+File.separator+ pack.Name + ".yml");
