@@ -1,6 +1,5 @@
 package ifly.morefish.fishpack;
 
-import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.lang.Lang;
@@ -38,7 +37,7 @@ public class FishController {
         for(int i = 0; i < packList.size(); i++) {
             if(packList.get(i).Name.equals(packname)) {
                 IStorage fs = storage.getStorage();
-                Pack pack = fs.UpdatePack(packList.get(i));
+                Pack pack = fs.laodFromFile(packList.get(i));
 
                 if(pack == null) { return false; }
                 packList.set(i, pack);

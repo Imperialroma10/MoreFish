@@ -15,6 +15,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class EditMenu extends Menu {
     Pack pack;
+    boolean isnewpack;
+    public EditMenu(PlayerMenuUtil playerMenuUtil, boolean editnewpack) {
+        super(playerMenuUtil);
+        isnewpack = editnewpack;
+    }
     public EditMenu(PlayerMenuUtil playerMenuUtil) {
         super(playerMenuUtil);
     }
@@ -46,8 +51,8 @@ public class EditMenu extends Menu {
             packRewardsMenu.open();
         }
         if (e.getSlot() == 3*9-1){
-            StorageCreator.getStorageIns().UpdatePack(pack);
-
+            StorageCreator.getStorageIns().Save(pack, isnewpack);
+            isnewpack = false;
         }
         if (e.getSlot() == 3*9-9){
             new PackListMenu(getPlayerMenuUtil()).open();
@@ -64,7 +69,7 @@ public class EditMenu extends Menu {
             AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPackDisplayName((Player) e.getWhoClicked(), pack));
         }
         if (e.getSlot() == 3*9-2){
-            Pack newPack = StorageCreator.getStorageIns().UpdatePack(pack);
+            Pack newPack = StorageCreator.getStorageIns().laodFromFile(pack);
             if (newPack != null){
                 FishController.packList.remove(pack);
                 FishController.packList.add(newPack);

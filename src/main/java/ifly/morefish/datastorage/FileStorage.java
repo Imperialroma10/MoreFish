@@ -33,8 +33,6 @@ public class FileStorage implements IStorage {
     }
 
     public List<Pack> getPacks() {
-
-
         if (!f_packs.exists()){
             f_packs.mkdirs();
         }
@@ -125,19 +123,17 @@ public class FileStorage implements IStorage {
         return list;
     }
 
-    int getLastFileNum(File[] files)
-	{
+    int getLastFileNum(File[] files) {
 		int mx = 0;
-		for(int i = 0; i < files.length; i++)
-		{
-			if(files[i].isFile())
-			{
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].isFile()) {
 				String name = files[i].getName().replace(".yml", "");
-				name = name.substring(name.lastIndexOf('_')+1);
-				if(!NumberUtils.isDigits(name)) { continue; }
+				name = name.substring(name.lastIndexOf('_') + 1);
+				if (!NumberUtils.isDigits(name)) {
+					continue;
+				}
 				int n = Integer.parseInt(name);
-				if(n > mx)
-				{
+				if (n > mx) {
 					mx = n;
 				}
 			}
@@ -145,11 +141,53 @@ public class FileStorage implements IStorage {
 		return mx;
 	}
 
-    public void addReward(Pack pack) {
-    	File[] files = f_packs.listFiles();
-    	int num = getLastFileNum(files);
-    	num++;
-		pack.Name = "Pack_"+num;
+	String generateName() {
+		File[] files = f_packs.listFiles();
+		int num = getLastFileNum(files);
+		num++;
+		return "Pack_" + num;
+	}
+
+	public void Save(Pack pack, boolean isnew)
+	{
+		if(isnew)
+		{ addNewPack(pack); }
+		else
+		{ Save(pack); }
+	}
+
+	public void Save(Pack pack) {
+		File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
+		conf.set("Pack.name", pack.Name);
+		conf.set("Pack.displayname", pack.getDisplayname().replace('§', '&'));
+		conf.set("Pack.custommodeldata", pack.getCustomModelData());
+		conf.set("Pack.chance", pack.getDropChance());
+		conf.set("Pack.rewards", null);
+		if (pack.getRewards().size() > 0) {
+			ConfigurationSection section = conf.createSection("Pack.rewards");
+			for (RewardAbstract reward : pack.getRewards()) {
+				reward.Save(section);
+			}
+		}
+
+		try {
+			conf.save(f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+    public void addNewPack(Pack pack) {
+		pack.Name = generateName();
 		File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
 
 		try {
@@ -189,7 +227,7 @@ public class FileStorage implements IStorage {
 		return f.delete();
 	}
 
-    public Pack UpdatePack(Pack pack)
+    public Pack laodFromFile(Pack pack)
 	{
 		File f = new File(main.mainPlugin.getDataFolder() + File.separator +"packs"+File.separator+ pack.Name + ".yml");
 		if(!f.exists()) { return null; }

@@ -45,7 +45,7 @@ public class PackListMenu extends Menu {
         if (e.getSlot() == 49){
             Pack pack = new Pack("Pack_name", "New pack", 0);
             FishController.packList.add(pack);
-            new EditMenu(getPlayerMenuUtil()).setPack(pack).open();
+            new EditMenu(getPlayerMenuUtil(), true).setPack(pack).open();
             Bukkit.broadcast(Component.text("dfgdfg"));
         }
         if (e.getSlot() == getSlots()*9-9){
