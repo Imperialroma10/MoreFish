@@ -18,7 +18,7 @@ public class MainMenu extends Menu {
     PackListMenu packListMenu = new PackListMenu(getPlayerMenuUtil());
     @Override
     public String getMenuName() {
-        return "Main menu";
+        return "Admin menu";
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MainMenu extends Menu {
 
     @Override
     public void setMenuItems() {
-        getInventory().setItem(11,ItemCreator.create(Material.CHEST, "Packs"));
+        getInventory().setItem(11,ItemCreator.create(Material.CHEST, "§bPacks"));
         getInventory().setItem(13,ItemCreator.create(Material.COMMAND_BLOCK, "Reload packs"));
     }
 }

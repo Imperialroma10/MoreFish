@@ -23,7 +23,7 @@ public class PackListMenu extends Menu {
     List<Pack> packList = FishController.packList;
     @Override
     public String getMenuName() {
-        return "Pack list";
+        return "List of packs";
     }
 
     @Override
@@ -46,7 +46,6 @@ public class PackListMenu extends Menu {
             Pack pack = new Pack("Pack_name", "New pack", 0);
             FishController.packList.add(pack);
             new EditMenu(getPlayerMenuUtil(), true).setPack(pack).open();
-            Bukkit.broadcast(Component.text("dfgdfg"));
         }
         if (e.getSlot() == getSlots()*9-9){
             new MainMenu(getPlayerMenuUtil()).open();
@@ -64,7 +63,11 @@ public class PackListMenu extends Menu {
 
         for (int i = start; i < end; i++){
             if (i < count){
-                getInventory().setItem(i, ItemCreator.create(Material.CHEST, packList.get(i).getDisplayname()));
+                Pack pack = packList.get(i);
+                getInventory().setItem(i, ItemCreator.create(Material.CHEST, packList.get(i).getDisplayname(),
+                        "§aDrop chance §f: §b" + pack.getDropChance() +"§a%",
+                        "§aFile configuration §b" + pack.getName()+".yml"
+                ));
             }
         }
 

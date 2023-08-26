@@ -45,7 +45,7 @@ public class Pack {
         this.rewards.add(rewardAbstract);
     }
     public String getDisplayname() {
-        return Displayname;
+        return Displayname.replace("$","§");
     }
     public void setDropChance(int dropChance) {
         this.dropChance = dropChance;
@@ -61,7 +61,6 @@ public class Pack {
     }
     public void giveReward(Player player){
         Random a = new Random();
-
         for (RewardAbstract reward : rewards){
             int random = a.nextInt(100);
             if (reward.getChance() == 0 || reward.getChance() == 100){
@@ -86,5 +85,9 @@ public class Pack {
 
     public void setDisplayname(String displayname) {
         Displayname = displayname;
+    }
+
+    public String getName() {
+        return Name;
     }
 }

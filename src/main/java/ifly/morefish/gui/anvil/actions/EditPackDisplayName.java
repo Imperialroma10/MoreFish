@@ -1,5 +1,6 @@
 package ifly.morefish.gui.anvil.actions;
 
+import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.anvil.Action;
 import ifly.morefish.gui.menus.EditMenu;
@@ -21,8 +22,9 @@ public class EditPackDisplayName extends Action {
 
     @Override
     public void addAction() {
+        int id = FishController.packList.indexOf(pack);
         pack.setDisplayname(getResult());
-        new EditMenu(main.getPlayerUtils(getPlayer())).setPack(pack).open();
+        new EditMenu(main.getPlayerUtils(getPlayer())).setPack(FishController.packList.get(id)).open();
     }
 
     public void firstItemEditTitle(){

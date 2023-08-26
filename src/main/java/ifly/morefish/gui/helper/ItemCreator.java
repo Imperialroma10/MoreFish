@@ -16,6 +16,7 @@ public class ItemCreator {
         for (String lors : lore){
             lorelist.add(Component.text(lors));
         }
+        meta.lore(lorelist);
         meta.displayName(Component.text(title));
         itemStack.setItemMeta(meta);
         return itemStack;

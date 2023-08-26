@@ -1,19 +1,16 @@
 package ifly.morefish.gui.menus;
 
-import ifly.morefish.datastorage.FileStorage;
-import ifly.morefish.datastorage.IStorage;
-import ifly.morefish.datastorage.StorageCreator;
-import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
+import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.helper.ItemCreator;
-import ifly.morefish.main;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,7 +24,7 @@ public class PackRewardsMenu extends Menu {
     Pack pack;
     @Override
     public String getMenuName() {
-        return "Pack rewards";
+        return "Pack awards";
     }
 
     public void setPack(Pack pack) {
@@ -41,7 +38,9 @@ public class PackRewardsMenu extends Menu {
 
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
+
         if (e.getSlot() >= getSlots()*9-9 && e.getSlot() <= getSlots()*9){
+
             if (e.getSlot() == getSlots()*9-5){
                 List<RewardAbstract> rewards = new ArrayList<>();
                 for (int i = 0; i < pack.getRewards().size(); i++){

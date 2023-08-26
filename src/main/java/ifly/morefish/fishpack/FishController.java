@@ -1,9 +1,12 @@
 package ifly.morefish.fishpack;
 
+import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.fishpack.pack.Pack;
+import ifly.morefish.fishpack.pack.reward.RewardAbstract;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -59,11 +62,15 @@ public class FishController {
 
         Random random = new Random();
 
-        int x = random.nextInt(100);
+        int chance = packList.stream().mapToInt(Pack::getDropChance).sum();
 
+        if (chance <= 100){
+            chance = 100;
+        }
+        int x = random.nextInt(chance);
         int back = 0;
-
         for (Pack pack: packList){
+            Bukkit.broadcast(Component.text("All chance - "+Component.text(chance).content() + " random = " + x));
             if (back <= x && x <= pack.getDropChance()+back){
                new FishTask(p, pack, location);
                 return;

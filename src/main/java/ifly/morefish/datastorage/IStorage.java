@@ -10,5 +10,6 @@ public interface IStorage {
     void Save(Pack pack);
     void Save(Pack pack, boolean isnew);
     Pack laodFromFile(Pack pack);
+    boolean removePack(Pack pack);
 
 }
