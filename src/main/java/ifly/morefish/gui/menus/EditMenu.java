@@ -55,6 +55,9 @@ public class EditMenu extends Menu {
             packRewardsMenu.open();
         }
         if (e.getSlot() == 3*9-1){
+            if(isnewpack) {
+                FishController.packList.add(pack);
+            }
             StorageCreator.getStorageIns().Save(pack, isnewpack);
             isnewpack = false;
         }

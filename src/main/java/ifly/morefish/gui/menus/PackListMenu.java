@@ -44,7 +44,6 @@ public class PackListMenu extends Menu {
         }
         if (e.getSlot() == 49){
             Pack pack = new Pack("Pack_name", "New pack", 0);
-            FishController.packList.add(pack);
             new EditMenu(getPlayerMenuUtil(), true).setPack(pack).open();
         }
         if (e.getSlot() == getSlots()*9-9){
@@ -65,7 +64,7 @@ public class PackListMenu extends Menu {
             if (i < count){
                 Pack pack = packList.get(i);
                 getInventory().setItem(i, ItemCreator.create(Material.CHEST, packList.get(i).getDisplayname(),
-                        "§aDrop chance §f: §b" + pack.getDropChance() +"§a%",
+                        "§aDrop chance§f: §b" + pack.getDropChance() +"§a%",
                         "§aFile configuration §b" + pack.getName()+".yml"
                 ));
             }
