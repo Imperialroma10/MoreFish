@@ -62,7 +62,7 @@ public class EditMenu extends Menu {
             new PackListMenu(getPlayerMenuUtil()).open();
         }
         if (e.getSlot() == 10){
-            AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPackDisplayName((Player) e.getWhoClicked(), pack));
+            AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPackDisplayName((Player) e.getWhoClicked(), pack, isnewpack));
         }
         if (e.getSlot() == 3*9-2){
             Pack newPack = StorageCreator.getStorageIns().laodFromFile(pack);
