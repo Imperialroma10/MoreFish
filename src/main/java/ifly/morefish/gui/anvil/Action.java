@@ -1,15 +1,12 @@
 package ifly.morefish.gui.anvil;
 
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -21,11 +18,17 @@ public abstract class Action {
     public Action(Player player){
         this.player = player;
         inventory = player.openAnvil(player.getLocation(), true).getTopInventory();
+        AnvilInventory anvilInv = (AnvilInventory)inventory;
+        anvilInv.setMaximumRepairCost(0);
         setInventoryItems();
     }
 
     public void closeInventory(InventoryCloseEvent e){
-        AnvilController.anvils.remove((Player) e.getPlayer());
+        Action v = AnvilController.anvils.remove((Player) e.getPlayer());
+        if(v != null)
+        {
+            e.getInventory().setItem(0, null);
+        }
     }
     public void inventoryClickEvent(InventoryClickEvent e){
         if (e.getSlot() == 2){
