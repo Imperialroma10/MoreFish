@@ -100,7 +100,8 @@ public class FileStorage implements IStorage {
 								ConfigurationSection enchantSection = equipsection.getConfigurationSection(type1 + ".enchants");
 								if (enchantSection != null) {
 									for (String enchant : enchantSection.getKeys(false)) {
-										rewardEntity.getArmor(type1).addEnchantment(Enchantment.getByKey(NamespacedKey.fromString(enchant)), enchantSection.getInt(enchant + ".level"));
+										enchant = enchant.toLowerCase();
+										rewardEntity.getArmor(type1).addUnsafeEnchantment(Enchantment.getByKey(NamespacedKey.fromString(enchant)), enchantSection.getInt(enchant + ".level"));
 									}
 								}
 							}
