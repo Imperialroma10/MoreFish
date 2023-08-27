@@ -1,5 +1,6 @@
 package ifly.morefish;
 
+import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.events.FishEvent;
 import ifly.morefish.fishpack.FishController;
@@ -25,6 +26,9 @@ public final class main extends JavaPlugin {
        mainPlugin = this;
        Lang.getLang();
        storage = new StorageCreator();
+       FileStorage storageStorage = (FileStorage)storage.getStorage();
+       storageStorage.copy();
+
        controller = new FishController(storage);
        FishEvent fishEvents = new FishEvent(controller);
        getServer().getPluginManager().registerEvents(new MenuListener(), this);
