@@ -1,11 +1,10 @@
 package ifly.morefish.events;
 
 import ifly.morefish.fishpack.FishController;
+import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.menus.MainMenu;
 import ifly.morefish.main;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -41,6 +40,11 @@ public class FishEvent implements Listener, CommandExecutor {
             if (item != null && item.getType() == Material.CHEST) {
                 Pack pack = fishMain.getPack(item);
                 if (pack != null){
+                    if(!pack.enoughSpace(e.getPlayer()))
+                    {
+                        e.getPlayer().sendMessage(Lang.getMessage(Lang.getLang().notenoughspace));
+                        return;
+                    }
                     pack.giveReward(e.getPlayer());
                 }
             }

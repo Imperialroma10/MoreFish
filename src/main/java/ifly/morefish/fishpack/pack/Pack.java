@@ -3,14 +3,17 @@ package ifly.morefish.fishpack.pack;
 
 import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
+import ifly.morefish.fishpack.pack.reward.RewardItem;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Pack {
 
@@ -39,6 +42,34 @@ public class Pack {
         meta.setCustomModelData(getCustomModelData());
         meta.displayName(Component.text(getDisplayname()));
         chest.setItemMeta(meta);
+    }
+
+    int freeCountOfItem(PlayerInventory inv, ItemStack is) {
+        ItemStack[] contents = inv.getStorageContents();
+        int c = 0;
+        for (ItemStack stack : contents) {
+            if (stack == null) {
+                c += is.getMaxStackSize();
+                continue;
+            }
+            if (stack.isSimilar(is)) {
+                c += stack.getMaxStackSize() - stack.getAmount();
+            }
+        }
+        return c;
+    }
+
+    public boolean enoughSpace(Player p) {
+        for (RewardAbstract reward : rewards) {
+            if (reward instanceof RewardItem) {
+                RewardItem rewardItem = (RewardItem) reward;
+                int amount = freeCountOfItem(p.getInventory(), rewardItem.getItem());
+                if (amount < rewardItem.getItem().getAmount()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public void addReward(RewardAbstract rewardAbstract){
