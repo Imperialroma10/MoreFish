@@ -2,3 +2,4 @@ enable-plugin-prefix: true
 plugin-prefix: "[FishRewards] "
 caught-fish-message: "You caught [pack] "
 open-pack-message: "You opened [pack]"
+not-enough-space: "You have not enough space!"

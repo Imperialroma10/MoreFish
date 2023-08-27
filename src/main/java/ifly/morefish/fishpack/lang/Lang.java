@@ -11,6 +11,7 @@ public class Lang {
     String filename = "lang.yml";
     private static Lang lang;
 
+    public final String notenoughspace;
     public final Boolean enablechatprefix;
     public final String pluginchatprefix;
     public final String caughtfish;
@@ -33,6 +34,7 @@ public class Lang {
         pluginchatprefix = configuration.getString("plugin-prefix");
         caughtfish = configuration.getString("caught-fish-message");
         openpackmessage = configuration.getString("open-pack-message");
+        notenoughspace = configuration.getString("not-enough-space");
     }
 
     public static String getMessage(String message){
