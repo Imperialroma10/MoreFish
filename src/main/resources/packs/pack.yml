@@ -1,15 +1,15 @@
 Pack: # Default pack example 12 5215 125
   displayname: "&6Default pack" # Pack display name
-  chance: 50 # case drop chance
-  custommodeldata: 1 # The unique number of model data for texture pack.
-  name: pack #pack name
+  chance: 50 # Case (Pack) drop chance
+  custommodeldata: 1 # Custom Model Data (Number) for texture pack (Optional)
+  name: pack # Pack name (i.e. file name)
   rewards:
-    '1': # reward number
-      type: item   # The type of object to be given (Types: item, mob, command)
-      material: GOLD_INGOT # Material name
-      displayname: "&2item" # display name of item (Optional)
-      amount: 5 # The number of how many items will be given out
-      custommodeldata: 1 # model number for texture pack (Optional)
+    '1': # Reward number
+      type: item   # The type of Reward to be given out (Types: item, mob, command)
+      material: GOLD_INGOT # Material name of item
+      displayname: "&2item" # Display name of item (Optional. If you don't want to specify, just remove this line)
+      amount: 5 # Number of items to be given
+      custommodeldata: 1 # Custom Model Data (Number) for texture pack (Optional)
       chance: 1 # Chance 1-100
       enchants: # Enchant list (Optional). (You can get the enchantment name from this https://www.digminecraft.com/lists/enchantment_list_pc.php)
         FIRE_ASPECT:
