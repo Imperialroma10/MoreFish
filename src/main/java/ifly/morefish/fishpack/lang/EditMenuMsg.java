@@ -46,8 +46,8 @@ public class EditMenuMsg {
         String title8 = section.getString("save-pack-item.title");
         String[] list8 = section.getStringList("save-pack-item.description").toArray(new String[0]);
 
-        String title9 = section.getString("back-item-item.title");
-        String[] list9 = section.getStringList("back-item-item.description").toArray(new String[0]);
+        String title9 = section.getString("back-item.title");
+        String[] list9 = section.getStringList("back-item.description").toArray(new String[0]);
 
         add_chance = ItemCreator.create(Material.GREEN_WOOL, title1, list1);
         sub_chance = ItemCreator.create(Material.RED_WOOL, title2, list2);
