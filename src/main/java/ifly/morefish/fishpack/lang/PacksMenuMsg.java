@@ -14,13 +14,13 @@ public class PacksMenuMsg {
 
     public PacksMenuMsg(ConfigurationSection section)
     {
-        title = section.getString("creation-pack.title", "");
+        title = section.getString("title", "");
         lore = section.getStringList("list-template-items.list").toArray(new String[0]);
 
         String title1 = section.getString("back-item.title", "");
         String[] list1 = section.getStringList("back-item.description").toArray(new String[0]);
 
-        String title2 = section.getString("creation-pack.title");
+        String title2 = section.getString("creation-pack.title", "");
         String[] list2 = section.getStringList("creation-pack.description").toArray(new String[0]);
 
         back = ItemCreator.create(Material.BARRIER, title1, list1);
