@@ -26,7 +26,7 @@ public class MenuMsgs {
     private MenuMsgs()
     {
         Plugin plg = main.mainPlugin;
-        File f = new File(plg.getDataFolder()+File.separator+"Menus.yml");
+        File f = new File(plg.getDataFolder() + File.separator + "Menus.yml");
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
 
         MainMenu = new MainMenuMsg(conf.getConfigurationSection("menus.main-menu"));

@@ -12,13 +12,14 @@ menus:
     list-template-items:
       title: "{title}"
       list:
-       - "§aDrop chance§f: §b{chance}§a%"
-       - "§aFile configuration §b{filename}.yml"
+        - "§aDrop chance§f: §b{chance}§a%"
+        - "§aFile configuration: §b{filename}.yml"
     creation-pack:
       title: "Create new pack"
     back-item:
       title: "Back"
-  pack-creation-menu:
+  edit-pack-menu:
+    title: "Edit {packname}"
     add-chance-item:
       title: "§bAdd §a5% §bchance"
     subruct-chance-item:
@@ -34,6 +35,12 @@ menus:
     reload-pack-item:
       title: "§bReload pack"
     save-pack-item:
+      title: "§bSave"
+    back-item:
+      title: "§cBack"
+  rewards-menu:
+    title: "Items"
+    save-item:
       title: "§bSave"
     back-item:
       title: "§cBack"

@@ -1,5 +1,7 @@
 package ifly.morefish.gui.menus;
 
+import ifly.morefish.fishpack.lang.MenuMsgs;
+import ifly.morefish.fishpack.lang.RewardsMenuMsg;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
@@ -18,13 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PackRewardsMenu extends Menu {
+    private final RewardsMenuMsg menu;
+
     public PackRewardsMenu(PlayerMenuUtil playerMenuUtil) {
         super(playerMenuUtil);
+        menu = MenuMsgs.get().RewardsMenu;
     }
     Pack pack;
     @Override
     public String getMenuName() {
-        return "Pack awards";
+        return menu.title.replace("{packname}", pack.getDisplayname());
     }
 
     public void setPack(Pack pack) {
@@ -83,7 +88,7 @@ public class PackRewardsMenu extends Menu {
                 i++;
             }
         }
-        getInventory().setItem(getSlots()*9-9, ItemCreator.create(Material.BARRIER, "Back"));
-        getInventory().setItem(getSlots()*9-5, ItemCreator.create(Material.COMMAND_BLOCK, "Save rewards"));
+        getInventory().setItem(getSlots()*9-5, menu.save_item);
+        getInventory().setItem(getSlots()*9-9, menu.back_item);
     }
 }

@@ -2,23 +2,25 @@ package ifly.morefish.gui.menus;
 
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
+import ifly.morefish.fishpack.lang.MainMenuMsg;
+import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
-import ifly.morefish.gui.helper.ItemCreator;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
 public class MainMenu extends Menu {
 
+    private final MainMenuMsg menu;
+
     public MainMenu(PlayerMenuUtil playerMenuUtil) {
         super(playerMenuUtil);
+        menu = MenuMsgs.get().MainMenu;
     }
     PackListMenu packListMenu = new PackListMenu(getPlayerMenuUtil());
     @Override
     public String getMenuName() {
-        return "Admin menu";
+        return menu.title;
     }
 
     @Override
@@ -42,7 +44,8 @@ public class MainMenu extends Menu {
 
     @Override
     public void setMenuItems() {
-        getInventory().setItem(11,ItemCreator.create(Material.CHEST, "§bPacks"));
-        getInventory().setItem(13,ItemCreator.create(Material.COMMAND_BLOCK, "Reload packs"));
+
+        getInventory().setItem(11, menu.packs_item);
+        getInventory().setItem(13, menu.packs_reload);
     }
 }

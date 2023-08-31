@@ -1,29 +1,28 @@
 package ifly.morefish.gui.menus;
 
 import ifly.morefish.fishpack.FishController;
+import ifly.morefish.fishpack.lang.MenuMsgs;
+import ifly.morefish.fishpack.lang.PacksMenuMsg;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
-import ifly.morefish.gui.helper.ItemCreator;
-import ifly.morefish.main;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.command.Command;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
 public class PackListMenu extends Menu {
+    private final PacksMenuMsg menumsg;
+
     public PackListMenu(PlayerMenuUtil playerMenuUtil) {
         super(playerMenuUtil);
+        menumsg = MenuMsgs.get().PacksMenuMsg;
     }
     EditMenu menu = new EditMenu(getPlayerMenuUtil());
     List<Pack> packList = FishController.packList;
     @Override
     public String getMenuName() {
-        return "List of packs";
+        return menumsg.title;
     }
 
     @Override
@@ -63,15 +62,13 @@ public class PackListMenu extends Menu {
         for (int i = start; i < end; i++){
             if (i < count){
                 Pack pack = packList.get(i);
-                getInventory().setItem(i, ItemCreator.create(Material.CHEST, packList.get(i).getDisplayname(),
-                        "§aDrop chance§f: §b" + pack.getDropChance() +"§a%",
-                        "§aFile configuration §b" + pack.getName()+".yml"
-                ));
+                ItemStack item = menumsg.item(pack.getDisplayname(), pack.getDropChance(), pack.getName());
+                inventory.setItem(i, item);
             }
         }
 
-        getInventory().setItem(49, ItemCreator.create(Material.COMMAND_BLOCK, "Create new pack"));
-        getInventory().setItem(getSlots()*9-9, ItemCreator.create(Material.BARRIER,"Back"));
+        getInventory().setItem(49, menumsg.create_new);
+        getInventory().setItem(getSlots()*9-9, menumsg.back);
     }
     public void nextPage(){
         page++;
