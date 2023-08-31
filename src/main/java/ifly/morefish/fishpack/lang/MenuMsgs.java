@@ -11,6 +11,8 @@ public class MenuMsgs {
     private static MenuMsgs msg;
     public final MainMenuMsg MainMenu;
     public final PacksMenuMsg PacksMenuMsg;
+    public final EditMenuMsg EditMenu;
+    public final RewardsMenuMsg RewardsMenu;
 
     public static MenuMsgs get()
     {
@@ -29,6 +31,7 @@ public class MenuMsgs {
 
         MainMenu = new MainMenuMsg(conf.getConfigurationSection("menus.main-menu"));
         PacksMenuMsg = new PacksMenuMsg(conf.getConfigurationSection("menus.packs-menu"));
-
+        EditMenu = new EditMenuMsg(conf.getConfigurationSection("menus.edit-pack-menu"));
+        RewardsMenu = new RewardsMenuMsg(conf.getConfigurationSection("menus.rewards-menu"));
     }
 }
