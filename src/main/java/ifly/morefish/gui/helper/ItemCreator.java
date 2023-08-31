@@ -19,7 +19,7 @@ public class ItemCreator {
         }
         meta.lore(lorelist);
         if(title != null)
-            meta.displayName(Component.text(title));
+            meta.displayName(Component.text(title).decoration(TextDecoration.ITALIC, false));
         itemStack.setItemMeta(meta);
         return itemStack;
     }
