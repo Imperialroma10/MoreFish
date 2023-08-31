@@ -27,14 +27,11 @@ public class FileStorage implements IStorage {
     File f_packs;
     public FileStorage() {
         f_packs = new File(main.mainPlugin.getDataFolder().getPath()+File.separator+ "packs");
-        if(!f_packs.exists()) {
-            main.mainPlugin.saveResource("packs/pack.yml", false);
-        }
     }
 
     public void copy()
 	{
-		main.mainPlugin.saveResource("lang.yml", false);
+		//main.mainPlugin.saveResource("lang.yml", false);
 		main.mainPlugin.saveResource("packs/pack.yml", false);
 		main.mainPlugin.saveResource("packs/pack_2.yml", false);
 	}
