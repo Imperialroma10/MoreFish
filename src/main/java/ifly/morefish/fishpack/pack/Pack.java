@@ -1,7 +1,7 @@
 package ifly.morefish.fishpack.pack;
 
 
-import ifly.morefish.fishpack.lang.Lang;
+import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import net.kyori.adventure.text.Component;
@@ -102,7 +102,7 @@ public class Pack {
                 }
             }
         }
-        player.sendMessage(Component.text(Lang.getMessage(Lang.getLang().openpackmessage.replace("[pack]", this.Displayname))));
+        player.sendMessage(Component.text(Config.getMessage(Config.getConfig().openpackmessage.replace("[pack]", this.Displayname))));
         player.getInventory().getItemInMainHand().subtract();
     }
 

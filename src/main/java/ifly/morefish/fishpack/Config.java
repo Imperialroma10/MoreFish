@@ -1,4 +1,4 @@
-package ifly.morefish.fishpack.lang;
+package ifly.morefish.fishpack;
 
 import ifly.morefish.main;
 import org.bukkit.configuration.file.FileConfiguration;

@@ -1,11 +1,8 @@
 package ifly.morefish.fishpack;
 
-import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
-import ifly.morefish.fishpack.lang.Lang;
 import ifly.morefish.fishpack.pack.Pack;
-import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -23,7 +20,7 @@ public class FishController {
         this.storage = storageCreator;
         List<Pack> packs = storage.getStorage().getPacks();
         setPackList(packs);
-        Bukkit.getLogger().info(Lang.getMessage("loaded "+ packs.size() + " packs"));
+        Bukkit.getLogger().info(Config.getMessage("loaded "+ packs.size() + " packs"));
     }
 
     public Pack getPack(ItemStack itemStack){
@@ -55,7 +52,7 @@ public class FishController {
     }
 
     public void setPackList(List<Pack> packList) {
-        this.packList = packList;
+        FishController.packList = packList;
     }
 
     public void init(Player p, Location location){

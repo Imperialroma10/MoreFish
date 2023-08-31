@@ -4,7 +4,7 @@ import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.events.FishEvent;
 import ifly.morefish.fishpack.FishController;
-import ifly.morefish.fishpack.lang.Lang;
+import ifly.morefish.fishpack.Config;
 import ifly.morefish.gui.MenuListener;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.ActionListener;
@@ -24,7 +24,7 @@ public final class main extends JavaPlugin {
     @Override
     public void onEnable() {
        mainPlugin = this;
-       Lang.getLang();
+       Config.getConfig();
        storage = new StorageCreator();
        FileStorage storageStorage = (FileStorage)storage.getStorage();
        storageStorage.copy();

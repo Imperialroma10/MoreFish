@@ -1,7 +1,7 @@
 package ifly.morefish.events;
 
 import ifly.morefish.fishpack.FishController;
-import ifly.morefish.fishpack.lang.Lang;
+import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.menus.MainMenu;
 import ifly.morefish.main;
@@ -42,7 +42,7 @@ public class FishEvent implements Listener, CommandExecutor {
                 if (pack != null){
                     if(!pack.enoughSpace(e.getPlayer()))
                     {
-                        e.getPlayer().sendMessage(Lang.getMessage(Lang.getLang().notenoughspace));
+                        e.getPlayer().sendMessage(Config.getMessage(Config.getConfig().notenoughspace));
                         return;
                     }
                     pack.giveReward(e.getPlayer());
