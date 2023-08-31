@@ -1,0 +1,39 @@
+menus:
+  main-menu:
+    title: "§3Admin Menu"
+    packs-item:
+      title: "§bPacks"
+      #description:
+      #  - "line1"
+      #  - "line2"
+    reload-pack-item:
+      title: "§bReload packs"
+  packs-menu:
+    list-template-items:
+      title: "{title}"
+      list:
+       - "§aDrop chance§f: §b{chance}§a%"
+       - "§aFile configuration §b{filename}.yml"
+    creation-pack:
+      title: "Create new pack"
+    back-item:
+      title: "Back"
+  pack-creation-menu:
+    add-chance-item:
+      title: "§bAdd §a5% §bchance"
+    subruct-chance-item:
+      title: "§bSubtruct §45% §bchance"
+    chance-status-item:
+      title: "§bChance §a{chance}%"
+    change-pack-name-item:
+      title: "§bChange displayname"
+    rewards-item:
+      title: "§bRewads item"
+    remove-pack-item:
+      title: "§bRemove pack"
+    reload-pack-item:
+      title: "§bReload pack"
+    save-pack-item:
+      title: "§bSave"
+    back-item:
+      title: "§cBack"
