@@ -29,19 +29,20 @@ public class PacksMenuMsg {
 
     public ItemStack item(String name, int dropchance, String filename)
     {
-        for(int i = 0; i < lore.length; i++)
+        String[] lore1 = lore.clone();
+        for(int i = 0; i < lore1.length; i++)
         {
-            if(lore[i].contains("{chance}"))
+            if(lore1[i].contains("{chance}"))
             {
-                lore[i] = lore[i].replace("{chance}", String.valueOf(dropchance));
+                lore1[i] = lore1[i].replace("{chance}", String.valueOf(dropchance));
             }
 
-            if(lore[i].contains("{filename}"))
+            if(lore1[i].contains("{filename}"))
             {
-                lore[i] = lore[i].replace("{filename}", String.valueOf(filename));
+                lore1[i] = lore1[i].replace("{filename}", String.valueOf(filename));
             }
         }
 
-        return ItemCreator.create(Material.CHEST, name, lore);
+        return ItemCreator.create(Material.CHEST, name, lore1);
     }
 }
