@@ -9,6 +9,7 @@ menus:
     reload-pack-item:
       title: "§bReload packs"
   packs-menu:
+    title: "§3Packs"
     list-template-items:
       title: "{title}"
       list:
