@@ -67,7 +67,6 @@ public class FishController {
         int x = random.nextInt(chance);
         int back = 0;
         for (Pack pack: packList){
-            Bukkit.broadcast(Component.text("All chance - "+Component.text(chance).content() + " random = " + x));
             if (back <= x && x <= pack.getDropChance()+back){
                new FishTask(p, pack, location);
                 return;

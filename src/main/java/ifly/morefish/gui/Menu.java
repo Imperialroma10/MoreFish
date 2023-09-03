@@ -34,7 +34,8 @@ public abstract class Menu implements InventoryHolder {
 
             playerMenuUtil.getOwner().openInventory(inventory);
         }else{
-            Bukkit.broadcast(Component.text("No permission"));
+            playerMenuUtil.getOwner().sendMessage("No permission");
+
         }
 
     }

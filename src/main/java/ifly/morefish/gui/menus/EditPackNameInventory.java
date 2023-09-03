@@ -41,8 +41,6 @@ public class EditPackNameInventory extends Menu {
            ItemStack itemStack = e.getView().getItem(2);
            if (itemStack == null) return;
            ItemMeta meta = itemStack.getItemMeta();
-
-           Bukkit.broadcast(Component.text(meta.displayName().toString()));
        }
 
 
