@@ -29,19 +29,17 @@ public class FileStorage implements IStorage {
         f_packs = new File(main.mainPlugin.getDataFolder().getPath()+File.separator+ "packs");
     }
 
-    public void copy()
-	{
-		main.mainPlugin.saveResource("Menus.yml", false);
-		main.mainPlugin.saveResource("packs/pack.yml", false);
-		main.mainPlugin.saveResource("packs/pack_2.yml", false);
+    public void copy() {
+    	main.mainPlugin.saveResource("Menus.yml", false);
+		if (!f_packs.exists()) {
+			f_packs.mkdirs();
+			main.mainPlugin.saveResource("packs/pack.yml", false);
+			main.mainPlugin.saveResource("packs/pack_2.yml", false);
+		}
 	}
 
     public List<Pack> getPacks() {
 
-
-        if (!f_packs.exists()){
-            f_packs.mkdirs();
-        }
         File[] files = f_packs.listFiles();
         List<Pack> list = new ArrayList<>(files.length);
 
