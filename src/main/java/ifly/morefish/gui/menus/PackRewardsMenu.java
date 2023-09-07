@@ -73,13 +73,11 @@ public class PackRewardsMenu extends Menu {
 
             e.setCancelled(true);
         }
-        Bukkit.broadcast(Component.text(pack.getRewards().size()));
     }
 
     @Override
     public void setMenuItems() {
         int i = 0;
-        Bukkit.broadcast(Component.text(pack.getRewards().size()));
         for (RewardAbstract reward : pack.getRewards()) {
             if (reward instanceof RewardItem){
                 if (i < getSlots()*9-9){

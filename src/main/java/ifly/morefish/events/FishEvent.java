@@ -5,10 +5,14 @@ import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.menus.MainMenu;
 import ifly.morefish.main;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Fish;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,9 +31,8 @@ public class FishEvent implements Listener, CommandExecutor {
 
     @EventHandler
     public void onfishEvent(PlayerFishEvent e){
-       if (e.getCaught() != null){
+       if (e.getState() == PlayerFishEvent.State.CAUGHT_FISH){
             this.fishMain.init(e.getPlayer(), e.getHook().getLocation());
-
        }
     }
     @EventHandler
