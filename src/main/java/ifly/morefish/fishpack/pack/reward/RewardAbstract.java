@@ -2,16 +2,18 @@ package ifly.morefish.fishpack.pack.reward;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Set;
 
 abstract public class RewardAbstract {
 
     int chance = 0;
-
+    ItemStack item;
     public int getChance() {
         return chance;
     }
+
 
     public void setChance(int chance) {
         this.chance = chance;
@@ -30,7 +32,13 @@ abstract public class RewardAbstract {
 
      }
 
-     protected int confSize(ConfigurationSection section)
+    public abstract ItemStack getItem();
+
+    public void setItem(ItemStack item) {
+        this.item = item;
+    }
+
+    protected int confSize(ConfigurationSection section)
      {
          int num = 0;
          Set<String> keys = section.getKeys(false);

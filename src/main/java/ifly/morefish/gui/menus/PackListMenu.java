@@ -18,7 +18,7 @@ public class PackListMenu extends Menu {
         super(playerMenuUtil);
         menumsg = MenuMsgs.get().PacksMenuMsg;
     }
-    EditMenu menu = new EditMenu(getPlayerMenuUtil());
+
     List<Pack> packList = FishController.packList;
     @Override
     public String getMenuName() {
@@ -36,14 +36,14 @@ public class PackListMenu extends Menu {
             if (e.getSlot() < packList.size()){
                 int slot = e.getSlot();
                 if (slot < packList.size()){
-                    menu.setPack(packList.get(slot));
+                    EditMenu menu = new EditMenu(getPlayerMenuUtil(), false, packList.get(slot));
                     menu.open();
                 }
             }
         }
         if (e.getSlot() == 49){
             Pack pack = new Pack("Pack_name", "New pack", 0);
-            new EditMenu(getPlayerMenuUtil(), true).setPack(pack).open();
+            new EditMenu(getPlayerMenuUtil(), true, pack).open();
         }
         if (e.getSlot() == getSlots()*9-9){
             new MainMenu(getPlayerMenuUtil()).open();

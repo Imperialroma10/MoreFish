@@ -15,12 +15,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.awt.font.TextHitInfo;
+
 public class EditMenu extends Menu {
     private final EditMenuMsg menu;
     Pack pack;
     boolean isnewpack;
-    public EditMenu(PlayerMenuUtil playerMenuUtil, boolean editnewpack) {
+    public EditMenu(PlayerMenuUtil playerMenuUtil, boolean editnewpack, Pack pack) {
         super(playerMenuUtil);
+        this.pack = pack;
         isnewpack = editnewpack;
         menu = MenuMsgs.get().EditMenu;
     }
@@ -53,8 +56,7 @@ public class EditMenu extends Menu {
             getPlayerMenuUtil().getOwner().sendMessage(Component.text("§bPack chance set to: §a"+pack.getDropChance()+"%"));
         }
         if (e.getSlot() == 14){
-            PackRewardsMenu packRewardsMenu = new PackRewardsMenu(getPlayerMenuUtil());
-            packRewardsMenu.setPack(pack);
+            PackRewardsMenu packRewardsMenu = new PackRewardsMenu(getPlayerMenuUtil(), pack);
             packRewardsMenu.open();
         }
         if (e.getSlot() == 3*9-1){
@@ -75,7 +77,7 @@ public class EditMenu extends Menu {
             if (newPack != null){
                 FishController.packList.remove(pack);
                 FishController.packList.add(newPack);
-                setPack(newPack);
+                this.pack = newPack;
                 open();
             }
 
@@ -92,12 +94,6 @@ public class EditMenu extends Menu {
     public Pack getPack()
     {
         return pack;
-    }
-
-    public EditMenu setPack(Pack pack){
-        this.pack = pack;
-
-        return this;
     }
     @Override
     public void setMenuItems() {

@@ -1,18 +1,14 @@
 package ifly.morefish.events;
 
-import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.Config;
+import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.menus.MainMenu;
 import ifly.morefish.main;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Fish;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -59,18 +55,21 @@ public class FishEvent implements Listener, CommandExecutor {
     {
         if (cmd.getName().equalsIgnoreCase("fishrewards")){
             if (args.length > 0){
-                if (args[0].equalsIgnoreCase("admin")){
-                    Player p = (Player) sender;
-                    new MainMenu(main.getPlayerUtils(p)).open();
-                }
-                if(args[0].equalsIgnoreCase("reload-pack"))
-                {
-                    if(args.length == 2)
+                if (sender.hasPermission("fishrewarads.admin")){
+                    if (args[0].equalsIgnoreCase("admin")){
+                        Player p = (Player) sender;
+                        new MainMenu(main.getPlayerUtils(p)).open();
+                    }
+                    if(args[0].equalsIgnoreCase("reload-pack"))
                     {
-                        boolean reloaded = fishMain.Reload(args[1]);
-                        sender.sendMessage(reloaded? "§2Successful reloaded": "§cFile not found");
+                        if(args.length == 2)
+                        {
+                            boolean reloaded = fishMain.Reload(args[1]);
+                            sender.sendMessage(reloaded? "§2Successful reloaded": "§cFile not found");
+                        }
                     }
                 }
+
             }
         }
 

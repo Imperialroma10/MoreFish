@@ -1,7 +1,6 @@
 package ifly.morefish.gui.anvil;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.InventoryView;
 
 import java.util.HashMap;
 

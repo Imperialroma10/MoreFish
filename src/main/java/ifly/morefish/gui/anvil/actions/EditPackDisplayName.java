@@ -23,7 +23,7 @@ public class EditPackDisplayName extends Action {
     @Override
     public void addAction() {
         pack.setDisplayname(getResult());
-        new EditMenu(main.getPlayerUtils(getPlayer()), isnewpack).setPack(pack).open();
+        new EditMenu(main.getPlayerUtils(getPlayer()), isnewpack, pack).open();
     }
 
     public void firstItemEditTitle(){

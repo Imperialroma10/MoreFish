@@ -4,12 +4,9 @@ import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.helper.ItemCreator;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 

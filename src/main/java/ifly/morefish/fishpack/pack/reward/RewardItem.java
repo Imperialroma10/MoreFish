@@ -12,25 +12,26 @@ import java.util.Map;
 
 public class RewardItem extends RewardAbstract{
 
-    ItemStack item;
+
 
    public RewardItem(ItemStack is, int chance){
        item = is;
        this.chance = chance;
    }
-
     @Override
     public void giveReward(Player player) {
         player.getInventory().addItem(item.clone());
     }
 
-    public void addEnchantments(Enchantment enchantment, int level){
+	@Override
+	public ItemStack getItem() {
+		return item;
+	}
+
+	public void addEnchantments(Enchantment enchantment, int level){
         this.item.addUnsafeEnchantment(enchantment, level);
     }
 
-    public ItemStack getItem() {
-        return item;
-    }
 
 
     public void Save(ConfigurationSection section) {

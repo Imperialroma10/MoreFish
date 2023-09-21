@@ -3,13 +3,13 @@ package ifly.morefish.fishpack;
 import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 public class FishController {
 
