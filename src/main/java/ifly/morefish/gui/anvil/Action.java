@@ -1,5 +1,6 @@
 package ifly.morefish.gui.anvil;
 
+import ifly.morefish.gui.helper.ItemCreator;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Material;
@@ -60,7 +61,7 @@ public abstract class Action {
     }
 
     public void setInventoryItems(){
-        getInventory().setItem(0, new ItemStack(Material.PAPER));
+        getInventory().setItem(0, ItemCreator.create(Material.PAPER, "Command"));
     }
 
     public Player getPlayer() {
