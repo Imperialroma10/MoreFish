@@ -1,5 +1,7 @@
 package ifly.morefish.gui.menus.rewardcreator;
 
+import ifly.morefish.fishpack.lang.EntityMenuMsg;
+import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardEntity;
 import ifly.morefish.gui.Menu;
@@ -14,16 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntityReward extends Menu {
+    private EntityMenuMsg menu;
     List<EntityType> entityTypeList = new ArrayList<>();
     Pack pack;
     public EntityReward(PlayerMenuUtil playerMenuUtil, Pack pack) {
         super(playerMenuUtil);
         this.pack = pack;
+        menu = MenuMsgs.get().EntityMenu;
     }
 
     @Override
     public String getMenuName() {
-        return "Select entity";
+        return menu.title;
     }
 
     @Override
@@ -53,9 +57,9 @@ public class EntityReward extends Menu {
         entityTypeList.add(EntityType.CREEPER);
         for (EntityType entity : entityTypeList){
             getInventory().setItem(i, ItemCreator.create(Material.getMaterial(entity.name()+"_SPAWN_EGG"),entity.getName(),
-                    "Left click to add"));
+                    menu.desc));
             i++;
         }
-        getInventory().setItem(getSlots()*9-9, ItemCreator.create(Material.BARRIER, "Back"));
+        getInventory().setItem(getSlots()*9-9, menu.back_item);
     }
 }

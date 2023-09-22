@@ -76,3 +76,10 @@ menus:
       title: "§3Subtruct"
     back-item:
       title: "§cBack"
+  entity-menu:
+    back-item:
+      title: "§cBack"
+    title: "Select Entity"
+    entity-items:
+      description:
+        - "§3Left Click to Add"

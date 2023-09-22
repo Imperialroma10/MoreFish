@@ -15,6 +15,7 @@ public class MenuMsgs {
     public final RewardsMenuMsg RewardsMenu;
     public final EditItemMenuMsg EditItemMenu;
     public final PutItemMenuMsg PutItemMenu;
+    public final EntityMenuMsg EntityMenu;
 
     public static MenuMsgs get()
     {
@@ -37,5 +38,6 @@ public class MenuMsgs {
         RewardsMenu = new RewardsMenuMsg(conf.getConfigurationSection("menus.rewards-menu"));
         EditItemMenu = new EditItemMenuMsg(conf.getConfigurationSection("menus.edit-item-menu"));
         PutItemMenu = new PutItemMenuMsg(conf.getConfigurationSection("menus.put-item-menu"));
+        EntityMenu = new EntityMenuMsg(conf.getConfigurationSection("menus.entity-menu"));
     }
 }
