@@ -94,7 +94,7 @@ public class Pack {
         Random a = new Random();
         for (RewardAbstract reward : rewards){
             int random = a.nextInt(100);
-            if (reward.getChance() == 0 || reward.getChance() == 100){
+            if (reward.getChance() == 100){
                 reward.giveReward(player);
             }else{
                 if (reward.checkChance(random)){

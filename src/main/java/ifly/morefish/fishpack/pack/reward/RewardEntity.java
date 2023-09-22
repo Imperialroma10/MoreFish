@@ -21,8 +21,6 @@ public class RewardEntity extends RewardAbstract{
     ItemStack[] armors;
     int amount;
 
-    int chance;
-
 
     public RewardEntity(EntityType type, int amount, int chance){
         entityType = type;
@@ -97,7 +95,7 @@ public class RewardEntity extends RewardAbstract{
 		section.set(num + ".type", "mob");
 		section.set(num + ".entitytype", entityType.name());
 		section.set(num + ".amount", amount);
-		section.set(num + ".chance", chance);
+		section.set(num + ".chance", getChance());
 
 		for(ItemStack armor : armors) {
 		    if(armor == null) { continue; }

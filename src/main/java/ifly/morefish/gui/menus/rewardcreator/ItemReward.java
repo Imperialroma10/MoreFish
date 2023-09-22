@@ -32,8 +32,6 @@ public class ItemReward extends Menu {
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
         if (e.getSlot() >= ((getSlots()-1)*9)-9){
-
-
             if (e.getSlot() == getSlots()*9-9){
                 new PackRewardsMenu(getPlayerMenuUtil(), pack).open();
             }

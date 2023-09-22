@@ -23,7 +23,7 @@ abstract public class RewardAbstract {
          if (chance == 100){
              return true;
          }else{
-             if (this.chance < chance){
+             if (this.chance >= chance){
                  return true;
              }else{
                  return false;
