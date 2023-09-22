@@ -77,7 +77,7 @@ public class EditItem extends Menu {
 
     @Override
     public void setMenuItems() {
-        getInventory().setItem(10, ItemCreator.create(Material.CLOCK, "Edit item name"));
+        getInventory().setItem(10, ItemCreator.create(Material.PAPER, "Edit item name"));
         getInventory().setItem(13-9, ItemCreator.create(Material.GREEN_WOOL, "Add amount"));
         getInventory().setItem(13, item.getItem());
         getInventory().setItem(16, ItemCreator.create(Material.COMPASS, "Item drop chance "+item.getChance() +"%",

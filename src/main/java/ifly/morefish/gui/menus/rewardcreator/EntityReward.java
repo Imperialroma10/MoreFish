@@ -52,7 +52,8 @@ public class EntityReward extends Menu {
         entityTypeList.add(EntityType.ZOMBIE);
         entityTypeList.add(EntityType.CREEPER);
         for (EntityType entity : entityTypeList){
-            getInventory().setItem(i, ItemCreator.create(Material.getMaterial(entity.name()+"_SPAWN_EGG"),"spawn "+ entity.getName()));
+            getInventory().setItem(i, ItemCreator.create(Material.getMaterial(entity.name()+"_SPAWN_EGG"),entity.getName(),
+                    "Left click to add"));
             i++;
         }
         getInventory().setItem(getSlots()*9-9, ItemCreator.create(Material.BARRIER, "Back"));
