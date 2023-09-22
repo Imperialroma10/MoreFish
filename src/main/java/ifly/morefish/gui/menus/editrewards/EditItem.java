@@ -1,5 +1,7 @@
 package ifly.morefish.gui.menus.editrewards;
 
+import ifly.morefish.fishpack.lang.EditItemMenuMsg;
+import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.gui.Menu;
@@ -15,15 +17,18 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 public class EditItem extends Menu {
     RewardItem item;
     Pack pack;
+
+    EditItemMenuMsg menu;
     public EditItem(PlayerMenuUtil playerMenuUtil, RewardItem item, Pack pack) {
         super(playerMenuUtil);
         this.item = item;
         this.pack = pack;
+        menu = MenuMsgs.get().EditItemMenu;
     }
 
     @Override
     public String getMenuName() {
-        return "Edit item";
+        return menu.title;
     }
 
     @Override
@@ -77,12 +82,13 @@ public class EditItem extends Menu {
 
     @Override
     public void setMenuItems() {
-        getInventory().setItem(10, ItemCreator.create(Material.PAPER, "Edit item name"));
-        getInventory().setItem(13-9, ItemCreator.create(Material.GREEN_WOOL, "Add amount"));
+        getInventory().setItem(10, menu.editname_item);
+        getInventory().setItem(13-9, menu.addamount_item);
         getInventory().setItem(13, item.getItem());
-        getInventory().setItem(16, ItemCreator.create(Material.COMPASS, "Item drop chance "+item.getChance() +"%",
-                "Left click add 5%", "Right click subtract 5%"));
-        getInventory().setItem(13+9, ItemCreator.create(Material.RED_WOOL, "Subtract amount"));
-        getInventory().setItem(getSlots()*9-9, ItemCreator.create(Material.BARRIER, "Back"));
+        String title = menu.dropchance.replace("{1}", String.valueOf(item.getChance()));
+        getInventory().setItem(16, ItemCreator.create(Material.COMPASS, title,
+                menu.dropchancelist));
+        getInventory().setItem(13+9, menu.subtructamount_item);
+        getInventory().setItem(getSlots()*9-9, menu.back_item);
     }
 }

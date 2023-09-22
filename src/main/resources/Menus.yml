@@ -61,3 +61,18 @@ menus:
       title: "§cBack"
     add-to-pack-item:
       title: "§3Add this item to Pack"
+  edit-item-menu:
+    title: "Item Edit"
+    edit-name-item:
+      title: "§3Edit item name"
+    add-amount-item:
+      title: "§3Add amount"
+    edit-drop-chance-item:
+      title: "§3Item drop chance {1}%"
+      description:
+        - "§2Left click add 5%"
+        - "§2Right click subtract 5%"
+    subtruct-amount-item:
+      title: "§3Subtruct"
+    back-item:
+      title: "§cBack"
