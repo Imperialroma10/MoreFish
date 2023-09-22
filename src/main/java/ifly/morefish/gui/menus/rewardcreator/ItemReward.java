@@ -1,5 +1,7 @@
 package ifly.morefish.gui.menus.rewardcreator;
 
+import ifly.morefish.fishpack.lang.MenuMsgs;
+import ifly.morefish.fishpack.lang.PutItemMenuMsg;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.gui.Menu;
@@ -14,14 +16,16 @@ import org.bukkit.inventory.ItemStack;
 
 public class ItemReward extends Menu {
     Pack pack;
+    PutItemMenuMsg menu;
     public ItemReward(PlayerMenuUtil playerMenuUtil, Pack pack) {
         super(playerMenuUtil);
         this.pack = pack;
+        menu = MenuMsgs.get().PutItemMenu;
     }
 
     @Override
     public String getMenuName() {
-        return "Put the item";
+        return menu.title;
     }
 
     @Override
@@ -57,7 +61,7 @@ public class ItemReward extends Menu {
         for (int i = 3*9-9; i < 3*9; i++){
             getInventory().setItem(i, ItemCreator.create(Material.RED_STAINED_GLASS, ""));
         }
-        getInventory().setItem(getSlots()*9-9, ItemCreator.create(Material.BARRIER, "Back"));
-        getInventory().setItem(getSlots()*9-5, ItemCreator.create(Material.COMMAND_BLOCK, "Add this items to pack"));
+        getInventory().setItem(getSlots()*9-9, menu.back_item);
+        getInventory().setItem(getSlots()*9-5, menu.put_item);
     }
 }

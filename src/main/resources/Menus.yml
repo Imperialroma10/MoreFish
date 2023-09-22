@@ -55,3 +55,9 @@ menus:
       title: "§6Add an entity"
     addcommand-item:
       title: "§6Add command"
+  put-item-menu:
+    title: "§3Put the Item"
+    back-item:
+      title: "§cBack"
+    add-to-pack-item:
+      title: "§3Add this item to Pack"
