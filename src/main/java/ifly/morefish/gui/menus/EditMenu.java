@@ -11,6 +11,7 @@ import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.anvil.actions.EditPackDisplayName;
 import ifly.morefish.gui.helper.ItemCreator;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -87,6 +88,10 @@ public class EditMenu extends Menu {
             new PackListMenu(getPlayerMenuUtil()).open();
             StorageCreator.getStorageIns().removePack(pack);
         }
+
+        if (e.getSlot() == 8){
+            getPlayerMenuUtil().getOwner().getInventory().addItem(pack.getChest());
+        }
         e.setCancelled(true);
     }
 
@@ -101,6 +106,7 @@ public class EditMenu extends Menu {
         ItemStack itemchance = menu.chance_status_item.clone();
         itemchance.editMeta(im->im.displayName(Component.text(menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance())))));
         getInventory().setItem(12, itemchance);
+        getInventory().setItem(8, ItemCreator.create(Material.GRAY_DYE, "Get a pack"));
         getInventory().setItem(12+9, menu.sub_chance);
         getInventory().setItem(14, menu.rewards_item);
         getInventory().setItem(10, menu.change_pack_name);

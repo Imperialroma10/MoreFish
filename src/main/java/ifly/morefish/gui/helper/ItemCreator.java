@@ -34,4 +34,29 @@ public class ItemCreator {
         itemStack.setItemMeta(meta);
         return itemStack;
     }
+    public static ItemStack replace(ItemStack itemStack, String title, int amount, String... lore){
+        List<Component> lorelist = new ArrayList<>();
+
+        ItemMeta meta = itemStack.getItemMeta();
+        for (String lors : lore){
+            lorelist.add(Component.text(lors));
+        }
+        meta.lore(lorelist);
+        meta.displayName(Component.text(title));
+        itemStack.setItemMeta(meta);
+        itemStack.setAmount(amount);
+        return itemStack;
+    }
+    public static ItemStack setLore(ItemStack itemStack, String... lore){
+        List<Component> lorelist = new ArrayList<>();
+
+        ItemMeta meta = itemStack.getItemMeta();
+        for (String lors : lore){
+            lorelist.add(Component.text(lors));
+        }
+        meta.lore(lorelist);
+        itemStack.setItemMeta(meta);
+
+        return itemStack;
+    }
 }

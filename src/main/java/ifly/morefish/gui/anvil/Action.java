@@ -1,5 +1,6 @@
 package ifly.morefish.gui.anvil;
 
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -64,5 +65,13 @@ public abstract class Action {
 
     public Player getPlayer() {
         return player;
+    }
+    public void firstItemEditTitle(String text){
+        ItemStack itemStack = getInventory().getItem(0);
+        if (itemStack != null){
+            ItemMeta meta = itemStack.getItemMeta();
+            meta.displayName(Component.text(text));
+            itemStack.setItemMeta(meta);
+        }
     }
 }

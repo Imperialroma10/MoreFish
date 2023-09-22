@@ -27,7 +27,7 @@ public class RewardEntity extends RewardAbstract{
     public RewardEntity(EntityType type, int amount, int chance){
         entityType = type;
         this.amount = amount;
-        this.chance = chance;
+        setChance(chance);
         armors = new ItemStack[4];
     }
 
@@ -107,4 +107,16 @@ public class RewardEntity extends RewardAbstract{
 			}
 		}
 	}
+
+    public EntityType getEntityType() {
+        return entityType;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 }

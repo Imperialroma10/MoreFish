@@ -16,7 +16,7 @@ public class RewardItem extends RewardAbstract{
 
    public RewardItem(ItemStack is, int chance){
        item = is;
-       this.chance = chance;
+       setChance(chance);
    }
     @Override
     public void giveReward(Player player) {

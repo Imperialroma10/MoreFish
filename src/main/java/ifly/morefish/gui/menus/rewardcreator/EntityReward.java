@@ -23,7 +23,7 @@ public class EntityReward extends Menu {
 
     @Override
     public String getMenuName() {
-        return null;
+        return "Select entity";
     }
 
     @Override

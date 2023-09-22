@@ -38,4 +38,12 @@ public class RewardCommand extends RewardAbstract {
         section.set(num+".chance", chance);
     }
 
+    public void setCommand(String command) {
+        this.item = ItemCreator.create(Material.PAPER, command);
+        this.command = command;
+    }
+
+    public String getCommand() {
+        return command;
+    }
 }

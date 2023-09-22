@@ -5,16 +5,24 @@ import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.lang.RewardsMenuMsg;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
+import ifly.morefish.fishpack.pack.reward.RewardCommand;
+import ifly.morefish.fishpack.pack.reward.RewardEntity;
+import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.anvil.actions.CreateNewComandReward;
+import ifly.morefish.gui.anvil.actions.EditCommand;
 import ifly.morefish.gui.helper.ItemCreator;
+import ifly.morefish.gui.menus.editrewards.EditEntity;
+import ifly.morefish.gui.menus.editrewards.EditItem;
 import ifly.morefish.gui.menus.rewardcreator.EntityReward;
 import ifly.morefish.gui.menus.rewardcreator.ItemReward;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -49,7 +57,15 @@ public class PackRewardsMenu extends Menu {
         if (e.getSlot() <= getSlots()*9-9){
             if (e.getSlot() < pack.getRewards().size()){
                 RewardAbstract rewardAbstract = pack.getRewards().get(e.getSlot());
-
+                if (rewardAbstract instanceof RewardItem){
+                    new EditItem(getPlayerMenuUtil(), (RewardItem) rewardAbstract, pack).open();
+                }
+                if (rewardAbstract instanceof RewardEntity){
+                    new EditEntity(getPlayerMenuUtil(), (RewardEntity) rewardAbstract, pack).open();
+                }
+                if (rewardAbstract instanceof RewardCommand){
+                    AnvilController.createAnvil((Player) e.getWhoClicked(), new EditCommand((Player) e.getWhoClicked(), pack, (RewardCommand) rewardAbstract));
+                }
                 if (e.isShiftClick() && e.isLeftClick()){
                     pack.getRewards().remove(rewardAbstract);
                     this.open();
@@ -84,7 +100,10 @@ public class PackRewardsMenu extends Menu {
         int i = 0;
         for (RewardAbstract rewardAbstract : pack.getRewards()){
             if (i < getSlots()*9-9){
-                this.getInventory().setItem(i, rewardAbstract.getItem());
+                getInventory().setItem(i, ItemCreator.setLore(rewardAbstract.getItem(),
+                        "chance " + rewardAbstract.getChance() +"%",
+                        "Left click to edit",
+                        "Left click + shift to remove"));
             }
 
             i++;

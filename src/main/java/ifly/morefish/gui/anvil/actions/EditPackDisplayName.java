@@ -16,7 +16,7 @@ public class EditPackDisplayName extends Action {
     public EditPackDisplayName(Player player, Pack pack, boolean newpack) {
         super(player);
         this.pack = pack;
-        firstItemEditTitle();
+        firstItemEditTitle(pack.getDisplayname());
         isnewpack = newpack;
     }
 
@@ -26,12 +26,5 @@ public class EditPackDisplayName extends Action {
         new EditMenu(main.getPlayerUtils(getPlayer()), isnewpack, pack).open();
     }
 
-    public void firstItemEditTitle(){
-        ItemStack itemStack = getInventory().getItem(0);
-        if (itemStack != null){
-            ItemMeta meta = itemStack.getItemMeta();
-            meta.displayName(Component.text(pack.getDisplayname()));
-            itemStack.setItemMeta(meta);
-        }
-    }
+
 }
