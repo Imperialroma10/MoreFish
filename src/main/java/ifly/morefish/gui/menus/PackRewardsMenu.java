@@ -13,18 +13,12 @@ import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.anvil.actions.CreateNewComandReward;
 import ifly.morefish.gui.anvil.actions.EditCommand;
-import ifly.morefish.gui.helper.ItemCreator;
 import ifly.morefish.gui.menus.editrewards.EditEntity;
 import ifly.morefish.gui.menus.editrewards.EditItem;
 import ifly.morefish.gui.menus.rewardcreator.EntityReward;
 import ifly.morefish.gui.menus.rewardcreator.ItemReward;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 
 public class PackRewardsMenu extends Menu {
     private final RewardsMenuMsg menu;
@@ -100,18 +94,16 @@ public class PackRewardsMenu extends Menu {
         int i = 0;
         for (RewardAbstract rewardAbstract : pack.getRewards()){
             if (i < getSlots()*9-9){
-                getInventory().setItem(i, ItemCreator.setLore(rewardAbstract.getItem(),
-                        "chance " + rewardAbstract.getChance() +"%",
-                        "Left click to edit",
-                        "Left click + shift to remove"));
+                menu.makeLore(rewardAbstract.getItem(), rewardAbstract.getChance());
+                getInventory().setItem(i, rewardAbstract.getItem());
             }
 
             i++;
         }
 
-        getInventory().setItem(29, ItemCreator.create(Material.ITEM_FRAME, "Add an item"));
-        getInventory().setItem(31, ItemCreator.create(Material.ZOMBIE_HEAD, "Add entity"));
-        getInventory().setItem(33, ItemCreator.create(Material.PAPER, "Add command"));
+        getInventory().setItem(29, menu.additem);
+        getInventory().setItem(31, menu.addentity);
+        getInventory().setItem(33, menu.addcommand);
 
         getInventory().setItem(getSlots()*9-1, menu.save_item);
         getInventory().setItem(getSlots()*9-9, menu.back_item);

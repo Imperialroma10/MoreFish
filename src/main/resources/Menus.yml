@@ -40,8 +40,18 @@ menus:
     back-item:
       title: "§cBack"
   rewards-menu:
-    title: "Items"
+    title: "Rewards"
+    list-template-items:
+      - "§6Chance {1}%"
+      - "§3Left click to edit"
+      - "§3Left click + shift to remove"
     save-item:
       title: "§bSave"
     back-item:
       title: "§cBack"
+    additem-item:
+      title: "§6Add an Item"
+    addentity-item:
+      title: "§6Add an entity"
+    addcommand-item:
+      title: "§6Add command"
