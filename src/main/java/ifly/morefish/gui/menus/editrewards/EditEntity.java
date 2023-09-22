@@ -1,5 +1,7 @@
 package ifly.morefish.gui.menus.editrewards;
 
+import ifly.morefish.fishpack.lang.EditEntityMenuMsg;
+import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardEntity;
 import ifly.morefish.gui.Menu;
@@ -14,16 +16,18 @@ public class EditEntity extends Menu {
     RewardEntity entity;
     Pack pack;
 
+    EditEntityMenuMsg menu;
     public EditEntity(PlayerMenuUtil playerMenuUtil, RewardEntity entity, Pack pack) {
         super(playerMenuUtil);
         this.entity = entity;
         this.pack = pack;
+        menu = MenuMsgs.get().EditEntityMenu;
     }
 
 
     @Override
     public String getMenuName() {
-        return "Edit entyty";
+        return menu.title.replace("{1}", entity.getEntityType().name());
     }
 
     @Override
@@ -72,10 +76,10 @@ public class EditEntity extends Menu {
     @Override
     public void setMenuItems() {
 
-        getInventory().setItem(11, ItemCreator.replace(entity.getItem(), "entity count "+entity.getAmount(),entity.getAmount(),
-                "left click +1 "+entity.getEntityType(),
-                "right click -1 "+ entity.getEntityType()));
-        getInventory().setItem(15, ItemCreator.create(Material.COMPASS, entity.getEntityType().name().toLowerCase() +" entity spawn chance "+entity.getChance()+"%"));
-        getInventory().setItem(getSlots()*9-9, ItemCreator.create(Material.BARRIER, "Back"));
+        String title = menu.amount_item.replace("{1}", String.valueOf(entity.getAmount()));
+        getInventory().setItem(11, ItemCreator.replace(entity.getItem(), title, entity.getAmount(),
+                menu.desc));
+        getInventory().setItem(15, ItemCreator.create(Material.COMPASS, menu.spawnchance_item.replace("{1}", String.valueOf(entity.getChance())), menu.spawnchance_desc));
+        getInventory().setItem(getSlots()*9-9, menu.back_item);
     }
 }

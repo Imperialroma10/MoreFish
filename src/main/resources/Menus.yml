@@ -83,3 +83,17 @@ menus:
     entity-items:
       description:
         - "§3Left Click to Add"
+  edit-entity-menu:
+    title: "Edit entity {1}"
+    back-item:
+      title: "§cBack"
+    edit-entity-amount:
+      title: "§6Amount: {1}"
+      description:
+        - "§3Left Click +1"
+        - "§3Right Click -1"
+    spawn-chance-item:
+      title: "§6Chance {1}%"
+      description:
+        - "§3Left Click +5%"
+        - "§3Right Click -5%"
