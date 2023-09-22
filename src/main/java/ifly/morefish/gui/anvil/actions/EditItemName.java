@@ -9,6 +9,8 @@ import ifly.morefish.gui.menus.PackRewardsMenu;
 import ifly.morefish.gui.menus.editrewards.EditItem;
 import ifly.morefish.main;
 import jdk.tools.jmod.Main;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
 
 public class EditItemName extends Action {
@@ -18,6 +20,7 @@ public class EditItemName extends Action {
         super(player);
         this.rewardAbstract = rewardAbstract;
         this.pack = pack;
+        firstItemEditTitle(PlainTextComponentSerializer.plainText().serialize(rewardAbstract.getItem().displayName()).replace("[", "").replace("]",""));
     }
 
 
