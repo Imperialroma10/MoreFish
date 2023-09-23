@@ -5,6 +5,7 @@ import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.events.FishEvent;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.FishController;
+import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.gui.MenuListener;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.ActionListener;
@@ -28,6 +29,7 @@ public final class main extends JavaPlugin {
        storage = new StorageCreator();
        FileStorage storageStorage = (FileStorage)storage.getStorage();
        storageStorage.copy();
+       MenuMsgs.get();
 
        controller = new FishController(storage);
        FishEvent fishEvents = new FishEvent(controller);

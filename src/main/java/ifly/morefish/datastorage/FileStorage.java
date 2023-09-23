@@ -30,7 +30,7 @@ public class FileStorage implements IStorage {
     }
 
     public void copy() {
-    	main.mainPlugin.saveResource("Menus.yml", false);
+    	//main.mainPlugin.saveResource("Menus.yml", false);
 		if (!f_packs.exists()) {
 			f_packs.mkdirs();
 			main.mainPlugin.saveResource("packs/pack.yml", false);

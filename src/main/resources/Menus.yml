@@ -1,3 +1,7 @@
+ver: 1.0
+update: true
+#It automationally make backup
+
 menus:
   main-menu:
     title: "§3Admin Menu"
