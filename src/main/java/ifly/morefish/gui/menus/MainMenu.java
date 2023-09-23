@@ -6,7 +6,6 @@ import ifly.morefish.fishpack.lang.MainMenuMsg;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
-import net.kyori.adventure.text.Component;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class MainMenu extends Menu {
@@ -37,7 +36,7 @@ public class MainMenu extends Menu {
         if (e.getSlot() == 13){
             FishController.packList.clear();
             FishController.packList.addAll(StorageCreator.getStorageIns().getPacks());
-            e.getWhoClicked().sendMessage(Component.text("Pack reloaded"));
+            e.getWhoClicked().sendMessage("Pack reloaded");
 
         }
     }

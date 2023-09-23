@@ -2,7 +2,6 @@ package ifly.morefish.gui.anvil.actions;
 
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardCommand;
-import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.Action;
 import ifly.morefish.gui.menus.PackRewardsMenu;
 import ifly.morefish.main;

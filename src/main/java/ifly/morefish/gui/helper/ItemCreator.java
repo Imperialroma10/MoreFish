@@ -1,7 +1,5 @@
 package ifly.morefish.gui.helper;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -11,50 +9,50 @@ import java.util.List;
 
 public class ItemCreator {
     public static ItemStack create(Material material, String title, String... lore){
-        List<Component> lorelist = new ArrayList<>(lore.length);
+        List<String> lorelist = new ArrayList<>(lore.length);
         ItemStack itemStack = new ItemStack(material);
         ItemMeta meta = itemStack.getItemMeta();
         for (String lors : lore){
-            lorelist.add(Component.text(lors).decoration(TextDecoration.ITALIC, false));
+            lorelist.add(lors);
         }
-        meta.lore(lorelist);
+        meta.setLore(lorelist);
         if(title != null)
-            meta.displayName(Component.text(title).decoration(TextDecoration.ITALIC, false));
+            meta.setDisplayName(title);
         itemStack.setItemMeta(meta);
         return itemStack;
     }
     public static ItemStack replace(ItemStack itemStack, String title, String... lore){
-        List<Component> lorelist = new ArrayList<>();
+        List<String> lorelist = new ArrayList<>();
 
         ItemMeta meta = itemStack.getItemMeta();
         for (String lors : lore){
-            lorelist.add(Component.text(lors));
+            lorelist.add(lors);
         }
-        meta.displayName(Component.text(title));
+        meta.setDisplayName(title);
         itemStack.setItemMeta(meta);
         return itemStack;
     }
     public static ItemStack replace(ItemStack itemStack, String title, int amount, String... lore){
-        List<Component> lorelist = new ArrayList<>();
+        List<String> lorelist = new ArrayList<>();
 
         ItemMeta meta = itemStack.getItemMeta();
         for (String lors : lore){
-            lorelist.add(Component.text(lors));
+            lorelist.add(lors);
         }
-        meta.lore(lorelist);
-        meta.displayName(Component.text(title));
+        meta.setLore(lorelist);
+        meta.setDisplayName(title);
         itemStack.setItemMeta(meta);
         itemStack.setAmount(amount);
         return itemStack;
     }
     public static ItemStack setLore(ItemStack itemStack, String... lore){
-        List<Component> lorelist = new ArrayList<>();
+        List<String> lorelist = new ArrayList<>();
 
         ItemMeta meta = itemStack.getItemMeta();
         for (String lors : lore){
-            lorelist.add(Component.text(lors));
+            lorelist.add(lors);
         }
-        meta.lore(lorelist);
+        meta.setLore(lorelist);
         itemStack.setItemMeta(meta);
 
         return itemStack;

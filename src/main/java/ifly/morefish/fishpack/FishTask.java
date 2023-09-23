@@ -2,7 +2,6 @@ package ifly.morefish.fishpack;
 
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.main;
-import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -38,7 +37,7 @@ public class FishTask {
          stand.setInvisible(true);
          stand.setGravity(false);
          stand.setCustomNameVisible(true);
-         stand.customName(Component.text(pack.getDisplayname()));
+         stand.setCustomName(pack.getDisplayname());
 
         taskid = scheduler.scheduleSyncRepeatingTask(main.mainPlugin, this::Run, 0 ,1);
     }
@@ -76,7 +75,7 @@ public class FishTask {
                 Location particleLocation = loc1.clone().add(direction.clone().multiply(distancepased));
                 particleLocation.getWorld().spawnParticle(Particle.SCRAPE, particleLocation, 1, 0,0,0);
             }
-            player.sendMessage(Component.text(Config.getMessage(Config.getConfig().caughtfish.replace("[pack]", pack.getDisplayname()))));
+            player.sendMessage(Config.getMessage(Config.getConfig().caughtfish.replace("[pack]", pack.getDisplayname())));
             player.getInventory().addItem(pack.getChest());
             stand.remove();
 

@@ -1,12 +1,12 @@
 package ifly.morefish.gui.anvil;
 
 import ifly.morefish.gui.helper.ItemCreator;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -19,10 +19,13 @@ public abstract class Action {
     Player player;
     public Action(Player player){
         this.player = player;
-        inventory = player.openAnvil(player.getLocation(), true).getTopInventory();
-        AnvilInventory anvilInv = (AnvilInventory)inventory;
-        anvilInv.setMaximumRepairCost(0);
+
+
+        inventory =  Bukkit.createInventory(player, InventoryType.ANVIL);
+
+//        inventory.setMaximumRepairCost(0);
         setInventoryItems();
+        player.openInventory(inventory);
     }
 
     public void closeInventory(InventoryCloseEvent e){
@@ -37,7 +40,7 @@ public abstract class Action {
             ItemStack itemStack = getInventory().getItem(2);
             if (itemStack != null && itemStack.hasItemMeta()){
                 ItemMeta meta = itemStack.getItemMeta();
-                setResult(((TextComponent)meta.displayName()).content());
+                setResult(meta.getDisplayName());
                 e.getWhoClicked().closeInventory();
                 AnvilController.anvils.remove((Player) e.getWhoClicked());
                 addAction();
@@ -71,7 +74,7 @@ public abstract class Action {
         ItemStack itemStack = getInventory().getItem(0);
         if (itemStack != null){
             ItemMeta meta = itemStack.getItemMeta();
-            meta.displayName(Component.text(text));
+            meta.setDisplayName(text);
             itemStack.setItemMeta(meta);
         }
     }

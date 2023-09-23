@@ -1,12 +1,10 @@
 package ifly.morefish.fishpack.lang;
 
 import ifly.morefish.gui.helper.ItemCreator;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,7 @@ public class RewardsMenuMsg {
     public final ItemStack addentity;
     public final ItemStack addcommand;
     public final String[] lore;
-    private final List<TextComponent> components;
+    private final List<String> components;
 
     public RewardsMenuMsg(ConfigurationSection section)
     {
@@ -44,7 +42,7 @@ public class RewardsMenuMsg {
         components = new ArrayList<>(3);
         for (int i = 0; i < lore.length; i++)
         {
-            components.add(Component.text(lore[i]));
+            components.add(lore[i]);
         }
 
         save_item = ItemCreator.create(Material.COMMAND_BLOCK, title1, list1);
@@ -57,12 +55,13 @@ public class RewardsMenuMsg {
 
     public void makeLore(ItemStack is, int chance)
     {
-        List<TextComponent> list = new ArrayList<>(components);
-
+        List<String> list = new ArrayList<>(components);
+        ItemMeta meta = is.getItemMeta();
         for(int i = 0; i < list.size(); i++)
         {
-            list.set(i, Component.text(list.get(i).content().replace("{1}", String.valueOf(chance))));
+            list.set(i, list.get(i).replace("{1}", String.valueOf(chance)));
         }
-        is.editMeta(im->im.lore(list));
+        meta.setLore(list);
+        is.setItemMeta(meta);
     }
 }

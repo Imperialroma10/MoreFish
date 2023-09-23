@@ -7,7 +7,6 @@ import ifly.morefish.fishpack.pack.reward.RewardEntity;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.helper.ItemCreator;
-import ifly.morefish.gui.menus.EditMenu;
 import ifly.morefish.gui.menus.PackRewardsMenu;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;

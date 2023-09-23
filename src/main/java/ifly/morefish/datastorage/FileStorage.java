@@ -6,8 +6,6 @@ import ifly.morefish.fishpack.pack.reward.RewardCommand;
 import ifly.morefish.fishpack.pack.reward.RewardEntity;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
-import net.kyori.adventure.text.Component;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
@@ -15,6 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
 import java.io.IOException;
@@ -69,11 +68,12 @@ public class FileStorage implements IStorage {
 
 						Material m = Material.getMaterial(material);
 						ItemStack is = new ItemStack(m, count);
+						ItemMeta meta = is.getItemMeta();
 						if (displayname.length() > 0)
-							is.editMeta(im -> im.displayName(Component.text(displayname)));
+							meta.setDisplayName(displayname);
 						if (custommodeldata > -1)
-							is.editMeta(im -> im.setCustomModelData(custommodeldata));
-
+							meta.setCustomModelData(custommodeldata);
+						is.setItemMeta(meta);
 						RewardItem rewardItem = new RewardItem(is, chance);
 
 						ConfigurationSection enchantSection = sec_rewards.getConfigurationSection(key_reward + ".enchants");
@@ -134,9 +134,10 @@ public class FileStorage implements IStorage {
 			if (files[i].isFile()) {
 				String name = files[i].getName().replace(".yml", "");
 				name = name.substring(name.lastIndexOf('_') + 1);
-				if (!NumberUtils.isDigits(name)) {
-					continue;
-				}
+
+//				if (!Integer.isDigits(name)) {
+//					continue;
+//				}
 				int n = Integer.parseInt(name);
 				if (n > mx) {
 					mx = n;
@@ -260,10 +261,12 @@ public class FileStorage implements IStorage {
 
 					Material m = Material.getMaterial(material);
 					ItemStack is = new ItemStack(m, count);
+					ItemMeta meta = is.getItemMeta();
 					if (displayname.length() > 0)
-						is.editMeta(im -> im.displayName(Component.text(displayname)));
+						meta.setDisplayName(displayname);
 					if (custommodeldata > -1)
-						is.editMeta(im -> im.setCustomModelData(custommodeldata));
+						meta.setCustomModelData(custommodeldata);
+						is.setItemMeta(meta);
 					RewardItem rewardItem = new RewardItem(is, chance);
 					rewards.add(rewardItem);
 				}

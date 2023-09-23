@@ -9,6 +9,7 @@ import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.gui.MenuListener;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.ActionListener;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,6 +25,7 @@ public final class main extends JavaPlugin {
    public static HashMap<Player, PlayerMenuUtil> menuUtilHashMap = new HashMap<>();
     @Override
     public void onEnable() {
+       new Metrics(this, 19862);
        mainPlugin = this;
        Config.getConfig();
        storage = new StorageCreator();

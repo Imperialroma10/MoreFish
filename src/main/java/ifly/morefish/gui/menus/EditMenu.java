@@ -10,13 +10,11 @@ import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.anvil.actions.EditPackDisplayName;
 import ifly.morefish.gui.helper.ItemCreator;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.awt.font.TextHitInfo;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class EditMenu extends Menu {
     private final EditMenuMsg menu;
@@ -49,12 +47,12 @@ public class EditMenu extends Menu {
         if (e.getSlot() == 12-9){
             pack.setDropChance(pack.getDropChance()+5);
             getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
-            getPlayerMenuUtil().getOwner().sendMessage(Component.text("§bPack chance set to: §a"+pack.getDropChance()+"%"));
+            getPlayerMenuUtil().getOwner().sendMessage("§bPack chance set to: §a"+pack.getDropChance()+"%");
         }
         if (e.getSlot() == 12+9){
             pack.setDropChance(pack.getDropChance()-5);
             getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
-            getPlayerMenuUtil().getOwner().sendMessage(Component.text("§bPack chance set to: §a"+pack.getDropChance()+"%"));
+            getPlayerMenuUtil().getOwner().sendMessage("§bPack chance set to: §a"+pack.getDropChance()+"%");
         }
         if (e.getSlot() == 14){
             PackRewardsMenu packRewardsMenu = new PackRewardsMenu(getPlayerMenuUtil(), pack);
@@ -104,7 +102,9 @@ public class EditMenu extends Menu {
     public void setMenuItems() {
         getInventory().setItem(12-9, menu.add_chance);
         ItemStack itemchance = menu.chance_status_item.clone();
-        itemchance.editMeta(im->im.displayName(Component.text(menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance())))));
+        ItemMeta meta = itemchance.getItemMeta();
+        meta.setDisplayName(menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance())));
+
         getInventory().setItem(12, itemchance);
         getInventory().setItem(8, ItemCreator.create(Material.GRAY_DYE, "Get a pack"));
         getInventory().setItem(12+9, menu.sub_chance);

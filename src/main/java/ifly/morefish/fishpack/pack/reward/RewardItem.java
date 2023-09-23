@@ -1,6 +1,5 @@
 package ifly.morefish.fishpack.pack.reward;
 
-import net.kyori.adventure.text.TextComponent;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -42,7 +41,7 @@ public class RewardItem extends RewardAbstract{
 		if (this.item.hasItemMeta()) {
 			ItemMeta im = item.getItemMeta();
 			if (im.hasDisplayName()) {
-				displayname = ((TextComponent) im.displayName()).content();
+				displayname = im.getDisplayName();
 			}
 			if (im.hasCustomModelData()) {
 				modeldata = im.getCustomModelData();

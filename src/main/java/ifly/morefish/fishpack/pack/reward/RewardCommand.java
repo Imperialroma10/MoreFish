@@ -41,6 +41,7 @@ public class RewardCommand extends RewardAbstract {
     public void setCommand(String command) {
         this.item = ItemCreator.create(Material.PAPER, command);
         this.command = command;
+
     }
 
     public String getCommand() {
