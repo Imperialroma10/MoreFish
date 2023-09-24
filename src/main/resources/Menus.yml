@@ -41,6 +41,8 @@ menus:
       title: "§bReload pack"
     save-pack-item:
       title: "§bSave"
+    get-pack-item:
+      title: "§bGet pack"
     back-item:
       title: "§cBack"
   rewards-menu:

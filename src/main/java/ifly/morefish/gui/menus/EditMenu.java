@@ -104,9 +104,10 @@ public class EditMenu extends Menu {
         ItemStack itemchance = menu.chance_status_item.clone();
         ItemMeta meta = itemchance.getItemMeta();
         meta.setDisplayName(menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance())));
+        itemchance.setItemMeta(meta);
 
         getInventory().setItem(12, itemchance);
-        getInventory().setItem(8, ItemCreator.create(Material.GRAY_DYE, "Get a pack"));
+        getInventory().setItem(8, menu.getpack_item);
         getInventory().setItem(12+9, menu.sub_chance);
         getInventory().setItem(14, menu.rewards_item);
         getInventory().setItem(10, menu.change_pack_name);

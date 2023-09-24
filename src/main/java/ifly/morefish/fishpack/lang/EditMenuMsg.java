@@ -18,6 +18,7 @@ public class EditMenuMsg {
     public final ItemStack reload_pack;
     public final ItemStack save_item;
     public final ItemStack back_item;
+    public final ItemStack getpack_item;
 
     public EditMenuMsg(ConfigurationSection section)
     {
@@ -49,6 +50,9 @@ public class EditMenuMsg {
         String title9 = section.getString("back-item.title");
         String[] list9 = section.getStringList("back-item.description").toArray(new String[0]);
 
+        String title10 = section.getString("get-pack-item.title");
+        String[] list10 = section.getStringList("get-pack-item.description").toArray(new String[0]);
+
         add_chance = ItemCreator.create(Material.GREEN_WOOL, title1, list1);
         sub_chance = ItemCreator.create(Material.RED_WOOL, title2, list2);
         chance_status_item = ItemCreator.create(Material.CRAFTING_TABLE, chance_status, list3);
@@ -58,6 +62,7 @@ public class EditMenuMsg {
         reload_pack = ItemCreator.create(Material.COMMAND_BLOCK, title7, list7);
         save_item = ItemCreator.create(Material.PISTON, title8, list8);
         back_item = ItemCreator.create(Material.BARRIER, title9, list9);
+        getpack_item = ItemCreator.create(Material.PISTON, title10, list10);
     }
 
 }
