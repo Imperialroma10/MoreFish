@@ -62,7 +62,7 @@ public class EditMenuMsg {
         reload_pack = ItemCreator.create(Material.COMMAND_BLOCK, title7, list7);
         save_item = ItemCreator.create(Material.PISTON, title8, list8);
         back_item = ItemCreator.create(Material.BARRIER, title9, list9);
-        getpack_item = ItemCreator.create(Material.PISTON, title10, list10);
+        getpack_item = ItemCreator.create(Material.GRAY_DYE, title10, list10);
     }
 
 }
