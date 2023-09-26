@@ -13,12 +13,20 @@ import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.anvil.actions.CreateNewComandReward;
 import ifly.morefish.gui.anvil.actions.EditCommand;
+import ifly.morefish.gui.helper.ItemCreator;
 import ifly.morefish.gui.menus.editrewards.EditEntity;
 import ifly.morefish.gui.menus.editrewards.EditItem;
 import ifly.morefish.gui.menus.rewardcreator.EntityReward;
 import ifly.morefish.gui.menus.rewardcreator.ItemReward;
+import ifly.morefish.main;
+import net.wesjd.anvilgui.AnvilGUI;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Collections;
 
 public class PackRewardsMenu extends Menu {
     private final RewardsMenuMsg menu;
@@ -58,7 +66,27 @@ public class PackRewardsMenu extends Menu {
                     new EditEntity(getPlayerMenuUtil(), (RewardEntity) rewardAbstract, pack).open();
                 }
                 if (rewardAbstract instanceof RewardCommand){
-                    AnvilController.createAnvil((Player) e.getWhoClicked(), new EditCommand((Player) e.getWhoClicked(), pack, (RewardCommand) rewardAbstract));
+
+                    AnvilGUI.Builder builder = new AnvilGUI.Builder();
+                    ItemStack paper = new ItemStack(Material.PAPER);
+                    ItemMeta meta = paper.getItemMeta();
+                    meta.setDisplayName(((RewardCommand) rewardAbstract).getCommand());
+                    paper.setItemMeta(meta);
+                    builder.itemLeft(paper);
+                    builder.
+                            plugin(main.mainPlugin).
+                            onClick((slot, stateSnapshot) -> {
+                                if (slot == AnvilGUI.Slot.OUTPUT){
+                                    stateSnapshot.getPlayer().sendMessage(stateSnapshot.getText());
+                                    ((RewardCommand) rewardAbstract).setCommand(stateSnapshot.getText());
+                                    stateSnapshot.getPlayer().closeInventory();
+                                }
+                                return Collections.emptyList();
+                            }).
+                            open(getPlayerMenuUtil().getOwner());
+
+
+                    //AnvilController.createAnvil((Player) e.getWhoClicked(), new EditCommand((Player) e.getWhoClicked(), pack, (RewardCommand) rewardAbstract));
                 }
                 if (e.isShiftClick() && e.isLeftClick()){
                     pack.getRewards().remove(rewardAbstract);
@@ -82,7 +110,26 @@ public class PackRewardsMenu extends Menu {
                 new EntityReward(getPlayerMenuUtil(), pack).open();
             }
             if (e.getSlot() == 33){
-                AnvilController.createAnvil(getPlayerMenuUtil().getOwner(),new CreateNewComandReward(getPlayerMenuUtil().getOwner(), pack));
+
+                AnvilGUI.Builder builder = new AnvilGUI.Builder();
+                ItemStack paper = new ItemStack(Material.PAPER);
+                ItemMeta meta = paper.getItemMeta();
+                meta.setDisplayName("command");
+                paper.setItemMeta(meta);
+                builder.itemLeft(paper);
+                builder.
+                        plugin(main.mainPlugin).
+                        onClick((slot, stateSnapshot) -> {
+                            if (slot == AnvilGUI.Slot.OUTPUT){
+                                pack.getRewards().add(new RewardCommand(stateSnapshot.getText()));
+                                stateSnapshot.getPlayer().closeInventory();
+                            }
+                            return Collections.emptyList();
+                        }).
+                        open(getPlayerMenuUtil().getOwner());
+
+
+                //AnvilController.createAnvil(getPlayerMenuUtil().getOwner(),new CreateNewComandReward(getPlayerMenuUtil().getOwner(), pack));
             }
 
             e.setCancelled(true);

@@ -10,11 +10,16 @@ import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.anvil.AnvilController;
 import ifly.morefish.gui.anvil.actions.EditPackDisplayName;
 import ifly.morefish.gui.helper.ItemCreator;
+import ifly.morefish.main;
+import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Collection;
+import java.util.Collections;
 
 public class EditMenu extends Menu {
     private final EditMenuMsg menu;
@@ -69,7 +74,24 @@ public class EditMenu extends Menu {
             new PackListMenu(getPlayerMenuUtil()).open();
         }
         if (e.getSlot() == 10){
-            AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPackDisplayName((Player) e.getWhoClicked(), pack, isnewpack));
+            AnvilGUI.Builder builder = new AnvilGUI.Builder();
+            ItemStack paper = new ItemStack(Material.PAPER);
+            ItemMeta meta = paper.getItemMeta();
+            meta.setDisplayName(pack.getDisplayname());
+            paper.setItemMeta(meta);
+            builder.itemLeft(paper);
+                builder.
+                    plugin(main.mainPlugin).
+                    onClick((slot, stateSnapshot) -> {
+                        if (slot == AnvilGUI.Slot.OUTPUT){
+                            pack.setDisplayname(stateSnapshot.getText());
+                            stateSnapshot.getPlayer().closeInventory();
+                        }
+                        return Collections.emptyList();
+                    }).
+                    open(getPlayerMenuUtil().getOwner());
+
+            //AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPackDisplayName((Player) e.getWhoClicked(), pack, isnewpack));
         }
         if (e.getSlot() == 3*9-2){
             Pack newPack = StorageCreator.getStorageIns().laodFromFile(pack);

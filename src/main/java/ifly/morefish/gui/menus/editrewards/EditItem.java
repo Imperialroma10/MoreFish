@@ -6,13 +6,16 @@ import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
-import ifly.morefish.gui.anvil.AnvilController;
-import ifly.morefish.gui.anvil.actions.EditItemName;
 import ifly.morefish.gui.helper.ItemCreator;
 import ifly.morefish.gui.menus.PackRewardsMenu;
+import ifly.morefish.main;
+import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Collections;
 
 public class EditItem extends Menu {
     RewardItem item;
@@ -39,7 +42,19 @@ public class EditItem extends Menu {
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
         if (e.getSlot() == 10){
-            AnvilController.createAnvil((Player) e.getWhoClicked(), new EditItemName((Player) e.getWhoClicked(), item, pack));
+            AnvilGUI.Builder builder = new AnvilGUI.Builder();
+            builder.itemLeft(item.getItem());
+            builder.
+                    plugin(main.mainPlugin).
+                    onClick((slot, stateSnapshot) -> {
+                        if (slot == AnvilGUI.Slot.OUTPUT){
+                            ItemCreator.replace(this.item.getItem(), stateSnapshot.getText());
+                            stateSnapshot.getPlayer().closeInventory();
+                        }
+                        return Collections.emptyList();
+                    }).
+                    open(getPlayerMenuUtil().getOwner());
+           // AnvilController.createAnvil((Player) e.getWhoClicked(), new EditItemName((Player) e.getWhoClicked(), item, pack));
         }
         if (e.getSlot() == getSlots()*9-9){
             new PackRewardsMenu(getPlayerMenuUtil(), pack).open();
