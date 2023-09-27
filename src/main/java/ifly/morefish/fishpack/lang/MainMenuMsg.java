@@ -20,6 +20,6 @@ public class MainMenuMsg
         String[] list2 = section.getStringList("reload-pack-item.description").toArray(new String[0]);
 
         packs_item = ItemCreator.create(Material.CHEST, title, list);
-        packs_reload = ItemCreator.create(Material.COMMAND_BLOCK, title2, list2);
+        packs_reload = ItemCreator.create(Material.REDSTONE, title2, list2);
     }
 }

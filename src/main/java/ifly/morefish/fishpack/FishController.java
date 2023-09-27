@@ -3,6 +3,7 @@ package ifly.morefish.fishpack;
 import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
+import ifly.morefish.main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -20,7 +21,7 @@ public class FishController {
         this.storage = storageCreator;
         List<Pack> packs = storage.getStorage().getPacks();
         setPackList(packs);
-        Bukkit.getLogger().info(Config.getMessage("loaded "+ packs.size() + " packs"));
+        Bukkit.getLogger().info("["+ main.mainPlugin.getDescription().getName() + "] loaded "+ packs.size() + " packs");
     }
 
     public Pack getPack(ItemStack itemStack){

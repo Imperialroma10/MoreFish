@@ -2,7 +2,7 @@ name: FishRewards
 version: '${project.version}'
 author: 'Imperialroma10, miph_'
 main: ifly.morefish.main
-api-version: "1.20"
+api-version: 1.13
 commands:
   fishrewards:
     usage: /fishrewards
