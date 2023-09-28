@@ -67,6 +67,11 @@ public class FishController {
         int x = random.nextInt(chance);
         int back = 0;
         for (Pack pack : packList) {
+            if (pack.isEnablepermission()){
+                if (!(p.hasPermission("*") || p.hasPermission(pack.getPermissionsToOpen()))){
+                    continue;
+                }
+            }
             if (back <= x && x <= pack.getDropChance() + back) {
                 new FishTask(p, pack, location);
                 return;

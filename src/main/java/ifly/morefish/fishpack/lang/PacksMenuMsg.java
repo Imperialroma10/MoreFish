@@ -1,9 +1,12 @@
 package ifly.morefish.fishpack.lang;
 
+import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.helper.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
 
 public class PacksMenuMsg {
 
@@ -26,18 +29,25 @@ public class PacksMenuMsg {
         create_new = ItemCreator.create(Material.COMMAND_BLOCK, title2, list2);
     }
 
-    public ItemStack item(String name, int dropchance, String filename) {
-        String[] lore1 = lore.clone();
-        for (int i = 0; i < lore1.length; i++) {
-            if (lore1[i].contains("{chance}")) {
-                lore1[i] = lore1[i].replace("{chance}", String.valueOf(dropchance));
+    public ItemStack item(String name, Pack pack) {
+        String[] list = lore.clone();
+        ArrayList<String> lore = new ArrayList<>();
+        for (int i = 0; i < list.length; i++) {
+            if (list[i].contains("{chance}")) {
+                lore.add(list[i].replace("{chance}", String.valueOf(pack.getDropChance())));
+                continue;
             }
-
-            if (lore1[i].contains("{filename}")) {
-                lore1[i] = lore1[i].replace("{filename}", String.valueOf(filename));
+            if (list[i].contains("{filename}")) {
+               lore.add(list[i].replace("{filename}", String.valueOf(pack.getName())));
+               continue;
             }
+            lore.add(list[i]);
         }
-
-        return ItemCreator.create(Material.CHEST, name, lore1);
+        if (pack.isEnablepermission()){
+            lore.add("§aYou need a permit to get one : §b"+pack.getPermissionsToOpen());
+        }else{
+            lore.add("§aAny player can get one.");
+        }
+        return ItemCreator.create(Material.CHEST, name, lore);
     }
 }

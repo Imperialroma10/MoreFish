@@ -20,8 +20,11 @@ public class Pack {
     String Displayname;
     List<RewardAbstract> rewards;
     int dropChance;
-
     int customModelData;
+
+
+
+    boolean enablepermission;
     ItemStack chest = new ItemStack(Material.CHEST);
 
     public Pack(String name, String displayname, int customModelData) {
@@ -102,6 +105,12 @@ public class Pack {
     }
 
     public void giveReward(Player player) {
+        if (isEnablepermission()){
+            if (!(player.hasPermission("*") || player.hasPermission(getPermissionsToOpen()))){
+                player.sendMessage(Config.getMessage("You need permission: "+ getPermissionsToOpen() +" to open pack"));
+                return;
+            }
+        }
         Random a = new Random();
         for (RewardAbstract reward : rewards) {
             int random = a.nextInt(100);
@@ -128,5 +137,17 @@ public class Pack {
 
     public String getName() {
         return Name;
+    }
+    public boolean isEnablepermission() {
+        return enablepermission;
+    }
+
+    public void setEnablepermission(boolean enablepermission) {
+        this.enablepermission = enablepermission;
+    }
+
+    public String getPermissionsToOpen(){
+        String permission = "skydrop.pack."+this.getName();
+        return permission.replace("_",".");
     }
 }

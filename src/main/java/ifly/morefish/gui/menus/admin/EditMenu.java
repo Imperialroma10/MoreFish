@@ -17,7 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
 
-public class EditMenu extends Menu {
+public class    EditMenu extends Menu {
     private final EditMenuMsg menu;
     Pack pack;
     boolean isnewpack;
@@ -91,6 +91,10 @@ public class EditMenu extends Menu {
 
             //AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPackDisplayName((Player) e.getWhoClicked(), pack, isnewpack));
         }
+        if (e.getSlot() == 16){
+            pack.setEnablepermission(!getPack().isEnablepermission());
+            setMenuItems();
+        }
         if (e.getSlot() == 3 * 9 - 2) {
             Pack newPack = StorageCreator.getStorageIns().laodFromFile(pack);
             if (newPack != null) {
@@ -130,6 +134,9 @@ public class EditMenu extends Menu {
         getInventory().setItem(8, menu.getpack_item);
         getInventory().setItem(12 + 9, menu.sub_chance);
         getInventory().setItem(14, menu.rewards_item);
+        getInventory().setItem(16, pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "Enable permission", "§aYou need a permit to get one : §b"+pack.getPermissionsToOpen()) :
+                                                                  ItemCreator.create(Material.RED_WOOL, "Disable permission", "§aAny player can get one.")
+                );
         getInventory().setItem(10, menu.change_pack_name);
         getInventory().setItem(3 * 9 - 1, menu.save_item);
         getInventory().setItem(3 * 9 - 3, menu.remove_pack);

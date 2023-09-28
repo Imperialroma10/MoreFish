@@ -53,7 +53,7 @@ public class FileStorage implements IStorage {
             String pack_name = conf.getString("Pack.name", "");
             int pack_custommodeldata = conf.getInt("Pack.custommodeldata");
             int dropchance = conf.getInt("Pack.chance");
-
+            boolean permissions = conf.getBoolean("Pack.permissions");
             ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
             if (sec_rewards != null) {
                 Set<String> keys_rewards = sec_rewards.getKeys(false);
@@ -124,7 +124,7 @@ public class FileStorage implements IStorage {
             } else {
                 pack = new Pack(pack_name, pack_displayname, pack_custommodeldata);
             }
-
+            pack.setEnablepermission(permissions);
             pack.setDropChance(dropchance);
             list.add(pack);
         }
@@ -181,6 +181,7 @@ public class FileStorage implements IStorage {
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
         conf.set("Pack.rewards", null);
+        conf.set("Pack.permissions", pack.isEnablepermission());
         if (pack.getRewards().size() > 0) {
             ConfigurationSection section = conf.createSection("Pack.rewards");
             for (RewardAbstract reward : pack.getRewards()) {
@@ -246,7 +247,7 @@ public class FileStorage implements IStorage {
         String pack_name = conf.getString("Pack.name", "");
         int pack_custommodeldata = conf.getInt("Pack.custommodeldata");
         int dropchance = conf.getInt("Pack.chance");
-
+        boolean permissions = conf.getBoolean("Pack.permissions");
         ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
         if (sec_rewards != null) {
             Set<String> keys_rewards = sec_rewards.getKeys(false);
@@ -308,6 +309,7 @@ public class FileStorage implements IStorage {
             pack = new Pack(pack_name, pack_displayname, pack_custommodeldata);
         }
         pack.setDropChance(dropchance);
+        pack.setEnablepermission(permissions);
         return pack;
     }
 

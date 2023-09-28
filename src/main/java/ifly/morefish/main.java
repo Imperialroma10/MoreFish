@@ -39,11 +39,11 @@ public final class main extends JavaPlugin {
     public void onEnable() {
         mainPlugin = this;
         new Metrics(this, 19862);
-        VersionChecker checker = new VersionChecker(this, 111966);
-
-        if (checker.isUpgrade()) {
-            Bukkit.getLogger().info("[" + this.getDescription().getName() + "] A new plugin update is available. Download link: https://www.spigotmc.org/resources/111966/");
-        }
+//        VersionChecker checker = new VersionChecker(this, 111966);
+//
+//        if (checker.isUpgrade()) {
+//            Bukkit.getLogger().info("[" + this.getDescription().getName() + "] A new plugin update is available. Download link: https://www.spigotmc.org/resources/111966/");
+//        }
 
         Config.getConfig();
         storage = new StorageCreator();

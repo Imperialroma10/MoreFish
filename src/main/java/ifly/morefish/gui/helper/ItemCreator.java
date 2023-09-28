@@ -20,6 +20,17 @@ public class ItemCreator {
         itemStack.setItemMeta(meta);
         return itemStack;
     }
+    public static ItemStack create(Material material, String title,List<String> lore) {
+
+        ItemStack itemStack = new ItemStack(material);
+        ItemMeta meta = itemStack.getItemMeta();
+
+        meta.setLore(lore);
+        if (title != null)
+            meta.setDisplayName(title);
+        itemStack.setItemMeta(meta);
+        return itemStack;
+    }
 
     public static ItemStack replace(ItemStack itemStack, String title, String... lore) {
         List<String> lorelist = new ArrayList<>();

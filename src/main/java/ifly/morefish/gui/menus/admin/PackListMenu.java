@@ -63,7 +63,7 @@ public class PackListMenu extends Menu {
         for (int i = start; i < end; i++) {
             if (i < count) {
                 Pack pack = packList.get(i);
-                ItemStack item = menumsg.item(pack.getDisplayname(), pack.getDropChance(), pack.getName());
+                ItemStack item = menumsg.item(pack.getDisplayname(), pack);
                 inventory.setItem(i, item);
             }
         }
