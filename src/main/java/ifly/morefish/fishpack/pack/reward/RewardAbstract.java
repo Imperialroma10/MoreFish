@@ -10,6 +10,7 @@ abstract public class RewardAbstract {
 
     int chance = 0;
     ItemStack item;
+
     public int getChance() {
         return chance;
     }
@@ -18,19 +19,17 @@ abstract public class RewardAbstract {
     public void setChance(int chance) {
         this.chance = chance;
     }
-    abstract public void giveReward(Player player);
-     public boolean checkChance(int chance){
-         if (chance == 100){
-             return true;
-         }else{
-             if (this.chance >= chance){
-                 return true;
-             }else{
-                 return false;
-             }
-         }
 
-     }
+    abstract public void giveReward(Player player);
+
+    public boolean checkChance(int chance) {
+        if (chance == 100) {
+            return true;
+        } else {
+            return this.chance >= chance;
+        }
+
+    }
 
     public abstract ItemStack getItem();
 
@@ -38,14 +37,13 @@ abstract public class RewardAbstract {
         this.item = item;
     }
 
-    protected int confSize(ConfigurationSection section)
-     {
-         int num = 0;
-         Set<String> keys = section.getKeys(false);
-         String[] arr = keys.toArray(new String[0]);
-         num = arr.length > 0?Integer.parseInt(arr[arr.length-1]):0;
-         return num;
-     }
+    protected int confSize(ConfigurationSection section) {
+        int num = 0;
+        Set<String> keys = section.getKeys(false);
+        String[] arr = keys.toArray(new String[0]);
+        num = arr.length > 0 ? Integer.parseInt(arr[arr.length - 1]) : 0;
+        return num;
+    }
 
-     public abstract void Save(ConfigurationSection sect);
+    public abstract void Save(ConfigurationSection sect);
 }

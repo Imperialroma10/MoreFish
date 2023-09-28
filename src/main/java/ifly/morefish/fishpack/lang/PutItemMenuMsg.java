@@ -5,14 +5,12 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
-public class PutItemMenuMsg
-{
+public class PutItemMenuMsg {
     public final String title;
     public final ItemStack back_item;
     public final ItemStack put_item;
 
-    public PutItemMenuMsg(ConfigurationSection section)
-    {
+    public PutItemMenuMsg(ConfigurationSection section) {
         title = section.getString("title");
 
         String title1 = section.getString("back-item.title");

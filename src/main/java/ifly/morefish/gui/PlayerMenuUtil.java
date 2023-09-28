@@ -6,7 +6,7 @@ public class PlayerMenuUtil {
 
     Player owner;
 
-    public PlayerMenuUtil(Player owner){
+    public PlayerMenuUtil(Player owner) {
         this.owner = owner;
     }
 

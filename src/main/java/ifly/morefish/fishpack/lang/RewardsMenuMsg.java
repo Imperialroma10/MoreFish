@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RewardsMenuMsg {
@@ -20,8 +21,7 @@ public class RewardsMenuMsg {
     public final String[] lore;
     private final List<String> components;
 
-    public RewardsMenuMsg(ConfigurationSection section)
-    {
+    public RewardsMenuMsg(ConfigurationSection section) {
         title = section.getString("title");
         String title1 = section.getString("save-item.title");
         String[] list1 = section.getStringList("save-item.description").toArray(new String[0]);
@@ -40,10 +40,7 @@ public class RewardsMenuMsg {
 
         lore = section.getStringList("list-template-items").toArray(new String[0]);
         components = new ArrayList<>(3);
-        for (int i = 0; i < lore.length; i++)
-        {
-            components.add(lore[i]);
-        }
+        Collections.addAll(components, lore);
 
         save_item = ItemCreator.create(Material.COMMAND_BLOCK, title1, list1);
         back_item = ItemCreator.create(Material.BARRIER, title2, list2);
@@ -53,12 +50,10 @@ public class RewardsMenuMsg {
         addcommand = ItemCreator.create(Material.PAPER, title5, list5);
     }
 
-    public void makeLore(ItemStack is, int chance)
-    {
+    public void makeLore(ItemStack is, int chance) {
         List<String> list = new ArrayList<>(components);
         ItemMeta meta = is.getItemMeta();
-        for(int i = 0; i < list.size(); i++)
-        {
+        for (int i = 0; i < list.size(); i++) {
             list.set(i, list.get(i).replace("{1}", String.valueOf(chance)));
         }
         meta.setLore(list);

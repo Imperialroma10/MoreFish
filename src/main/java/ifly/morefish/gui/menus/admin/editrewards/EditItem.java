@@ -1,4 +1,4 @@
-package ifly.morefish.gui.menus.editrewards;
+package ifly.morefish.gui.menus.admin.editrewards;
 
 import ifly.morefish.fishpack.lang.EditItemMenuMsg;
 import ifly.morefish.fishpack.lang.MenuMsgs;
@@ -7,13 +7,11 @@ import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.helper.ItemCreator;
-import ifly.morefish.gui.menus.PackRewardsMenu;
+import ifly.morefish.gui.menus.admin.PackRewardsMenu;
 import ifly.morefish.main;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
 
@@ -22,6 +20,7 @@ public class EditItem extends Menu {
     Pack pack;
 
     EditItemMenuMsg menu;
+
     public EditItem(PlayerMenuUtil playerMenuUtil, RewardItem item, Pack pack) {
         super(playerMenuUtil);
         this.item = item;
@@ -41,51 +40,51 @@ public class EditItem extends Menu {
 
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
-        if (e.getSlot() == 10){
+        if (e.getSlot() == 10) {
             AnvilGUI.Builder builder = new AnvilGUI.Builder();
             builder.itemLeft(item.getItem());
             builder.
                     plugin(main.mainPlugin).
                     onClick((slot, stateSnapshot) -> {
-                        if (slot == AnvilGUI.Slot.OUTPUT){
+                        if (slot == AnvilGUI.Slot.OUTPUT) {
                             ItemCreator.replace(this.item.getItem(), stateSnapshot.getText());
                             stateSnapshot.getPlayer().closeInventory();
                         }
                         return Collections.emptyList();
                     }).
                     open(getPlayerMenuUtil().getOwner());
-           // AnvilController.createAnvil((Player) e.getWhoClicked(), new EditItemName((Player) e.getWhoClicked(), item, pack));
+            // AnvilController.createAnvil((Player) e.getWhoClicked(), new EditItemName((Player) e.getWhoClicked(), item, pack));
         }
-        if (e.getSlot() == getSlots()*9-9){
+        if (e.getSlot() == getSlots() * 9 - 9) {
             new PackRewardsMenu(getPlayerMenuUtil(), pack).open();
         }
 
-        if (e.getSlot() == 13-9){
-            if (item.getItem().getAmount()+1 <= 64){
-                item.getItem().setAmount(item.getItem().getAmount()+1);
+        if (e.getSlot() == 13 - 9) {
+            if (item.getItem().getAmount() + 1 <= 64) {
+                item.getItem().setAmount(item.getItem().getAmount() + 1);
                 setMenuItems();
             }
 
         }
-        if (e.getSlot() == 13+9){
-            if (item.getItem().getAmount()-1 > 0){
-                item.getItem().setAmount(item.getItem().getAmount()-1);
+        if (e.getSlot() == 13 + 9) {
+            if (item.getItem().getAmount() - 1 > 0) {
+                item.getItem().setAmount(item.getItem().getAmount() - 1);
                 setMenuItems();
             }
         }
-        if (e.getSlot() == 16){
-            if (e.isLeftClick()){
-                if (item.getChance()+5 <= 100){
+        if (e.getSlot() == 16) {
+            if (e.isLeftClick()) {
+                if (item.getChance() + 5 <= 100) {
                     item.setChance(item.getChance() + 5);
-                }else{
+                } else {
                     item.setChance(100);
                 }
 
             }
             if (e.isRightClick()) {
-                if (item.getChance()-5 >= 0){
-                    item.setChance(item.getChance()-5);
-                }else{
+                if (item.getChance() - 5 >= 0) {
+                    item.setChance(item.getChance() - 5);
+                } else {
                     item.setChance(0);
                 }
 
@@ -98,12 +97,12 @@ public class EditItem extends Menu {
     @Override
     public void setMenuItems() {
         getInventory().setItem(10, menu.editname_item);
-        getInventory().setItem(13-9, menu.addamount_item);
+        getInventory().setItem(13 - 9, menu.addamount_item);
         getInventory().setItem(13, item.getItem());
         String title = menu.dropchance.replace("{1}", String.valueOf(item.getChance()));
         getInventory().setItem(16, ItemCreator.create(Material.COMPASS, title,
                 menu.dropchancelist));
-        getInventory().setItem(13+9, menu.subtructamount_item);
-        getInventory().setItem(getSlots()*9-9, menu.back_item);
+        getInventory().setItem(13 + 9, menu.subtructamount_item);
+        getInventory().setItem(getSlots() * 9 - 9, menu.back_item);
     }
 }

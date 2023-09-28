@@ -13,14 +13,8 @@ public class Config {
     public final String pluginchatprefix;
     public final String caughtfish;
     public final String openpackmessage;
-    public static Config getConfig(){
-        if (config == null){
-            config = new Config();
-        }
-        return config;
-    }
 
-    private Config(){
+    private Config() {
         Plugin plg = main.mainPlugin;
         plg.saveDefaultConfig();
         FileConfiguration conf = plg.getConfig();
@@ -32,8 +26,15 @@ public class Config {
         notenoughspace = conf.getString("not-enough-space");
     }
 
-    public static String getMessage(String message){
-        return config.enablechatprefix ? config.pluginchatprefix+message : message;
+    public static Config getConfig() {
+        if (config == null) {
+            config = new Config();
+        }
+        return config;
+    }
+
+    public static String getMessage(String message) {
+        return config.enablechatprefix ? config.pluginchatprefix + message : message;
     }
 
 

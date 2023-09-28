@@ -16,27 +16,29 @@ import java.util.Random;
 
 public class Pack {
 
+    public String Name;
     String Displayname;
     List<RewardAbstract> rewards;
-    public String Name;
     int dropChance;
 
     int customModelData;
     ItemStack chest = new ItemStack(Material.CHEST);
-    public Pack(String name, String displayname, int customModelData){
+
+    public Pack(String name, String displayname, int customModelData) {
         this.Displayname = displayname;
         this.customModelData = customModelData;
         Name = name;
         rewards = new ArrayList<>();
         setMetaChest();
     }
-    public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds){
+
+    public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds) {
         this(name, displayname, customModelData);
         rewards = rwds;
         setMetaChest();
     }
 
-    public void setMetaChest(){
+    public void setMetaChest() {
         ItemMeta meta = chest.getItemMeta();
         meta.setCustomModelData(getCustomModelData());
         meta.setDisplayName(getDisplayname());
@@ -71,39 +73,49 @@ public class Pack {
         return true;
     }
 
-    public void addReward(RewardAbstract rewardAbstract){
+    public void addReward(RewardAbstract rewardAbstract) {
         this.rewards.add(rewardAbstract);
     }
+
     public String getDisplayname() {
-        return Displayname.replace("$","§");
+        return Displayname.replace("$", "§");
     }
-    public void setDropChance(int dropChance) {
-        this.dropChance = dropChance;
+
+    public void setDisplayname(String displayname) {
+        Displayname = displayname;
     }
+
     public int getDropChance() {
         return dropChance;
     }
+
+    public void setDropChance(int dropChance) {
+        this.dropChance = dropChance;
+    }
+
     public int getCustomModelData() {
         return customModelData;
     }
+
     public ItemStack getChest() {
         return chest;
     }
-    public void giveReward(Player player){
+
+    public void giveReward(Player player) {
         Random a = new Random();
-        for (RewardAbstract reward : rewards){
+        for (RewardAbstract reward : rewards) {
             int random = a.nextInt(100);
-            if (reward.getChance() == 100){
+            if (reward.getChance() == 100) {
                 reward.giveReward(player);
-            }else{
-                if (reward.checkChance(random)){
+            } else {
+                if (reward.checkChance(random)) {
                     reward.giveReward(player);
                 }
             }
         }
         player.sendMessage(Config.getMessage(Config.getConfig().openpackmessage.replace("[pack]", this.Displayname)));
         ItemStack itemStack = player.getInventory().getItemInMainHand();
-        itemStack.setAmount(itemStack.getAmount()-1);
+        itemStack.setAmount(itemStack.getAmount() - 1);
     }
 
     public List<RewardAbstract> getRewards() {
@@ -112,10 +124,6 @@ public class Pack {
 
     public void setRewards(List<RewardAbstract> rewards) {
         this.rewards = rewards;
-    }
-
-    public void setDisplayname(String displayname) {
-        Displayname = displayname;
     }
 
     public String getName() {

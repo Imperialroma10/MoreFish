@@ -20,8 +20,7 @@ public class EditMenuMsg {
     public final ItemStack back_item;
     public final ItemStack getpack_item;
 
-    public EditMenuMsg(ConfigurationSection section)
-    {
+    public EditMenuMsg(ConfigurationSection section) {
         title = section.getString("title");
         String title1 = section.getString("add-chance-item.title");
         String[] list1 = section.getStringList("add-chance-item.description").toArray(new String[0]);

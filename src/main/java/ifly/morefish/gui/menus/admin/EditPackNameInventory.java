@@ -1,4 +1,4 @@
-package ifly.morefish.gui.menus;
+package ifly.morefish.gui.menus.admin;
 
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.Menu;
@@ -11,11 +11,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class EditPackNameInventory extends Menu {
+    Pack pack;
+
     public EditPackNameInventory(PlayerMenuUtil playerMenuUtil) {
         super(playerMenuUtil);
     }
 
-    Pack pack;
     @Override
     public String getMenuName() {
         return null;
@@ -33,12 +34,12 @@ public class EditPackNameInventory extends Menu {
 
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
-       if (e.getSlotType() == InventoryType.SlotType.RESULT){
+        if (e.getSlotType() == InventoryType.SlotType.RESULT) {
 
-           ItemStack itemStack = e.getView().getItem(2);
-           if (itemStack == null) return;
-           ItemMeta meta = itemStack.getItemMeta();
-       }
+            ItemStack itemStack = e.getView().getItem(2);
+            if (itemStack == null) return;
+            ItemMeta meta = itemStack.getItemMeta();
+        }
 
 
     }

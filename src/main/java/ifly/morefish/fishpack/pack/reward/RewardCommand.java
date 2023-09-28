@@ -11,8 +11,7 @@ public class RewardCommand extends RewardAbstract {
 
     String command;
 
-    public RewardCommand(String cmd)
-    {
+    public RewardCommand(String cmd) {
         command = cmd;
         this.item = ItemCreator.create(Material.PAPER, cmd);
         setChance(100);
@@ -33,18 +32,18 @@ public class RewardCommand extends RewardAbstract {
         int num = confSize(section);
         num++;
 
-        section.set(num+".type", "command");
-        section.set(num+".command", command);
-        section.set(num+".chance", chance);
+        section.set(num + ".type", "command");
+        section.set(num + ".command", command);
+        section.set(num + ".chance", chance);
+    }
+
+    public String getCommand() {
+        return command;
     }
 
     public void setCommand(String command) {
         this.item = ItemCreator.create(Material.PAPER, command);
         this.command = command;
 
-    }
-
-    public String getCommand() {
-        return command;
     }
 }

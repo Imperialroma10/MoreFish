@@ -8,9 +8,9 @@ import org.bukkit.inventory.InventoryHolder;
 public class MenuListener implements Listener {
 
     @EventHandler
-    public void playerClickEvent(InventoryClickEvent e){
+    public void playerClickEvent(InventoryClickEvent e) {
         InventoryHolder holder = e.getInventory().getHolder();
-        if (holder instanceof Menu){
+        if (holder instanceof Menu) {
             Menu menu = (Menu) holder;
             menu.handleInventoryClick(e);
         }

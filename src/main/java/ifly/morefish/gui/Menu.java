@@ -8,14 +8,14 @@ import org.bukkit.inventory.InventoryHolder;
 public abstract class Menu implements InventoryHolder {
 
 
-
     protected Inventory inventory;
 
     PlayerMenuUtil playerMenuUtil;
 
-    public Menu(PlayerMenuUtil playerMenuUtil){
+    public Menu(PlayerMenuUtil playerMenuUtil) {
         this.playerMenuUtil = playerMenuUtil;
     }
+
     public abstract String getMenuName();
 
     public abstract int getSlots();
@@ -25,14 +25,14 @@ public abstract class Menu implements InventoryHolder {
     public abstract void setMenuItems();
 
 
-    public void open(){
+    public void open() {
         if (playerMenuUtil.getOwner().hasPermission("fishrewarads.admin")) {
-            this.inventory = Bukkit.createInventory(this, getSlots()*9, "§4"+getMenuName());
+            this.inventory = Bukkit.createInventory(this, getSlots() * 9, "§4" + getMenuName());
 
             setMenuItems();
 
             playerMenuUtil.getOwner().openInventory(inventory);
-        }else{
+        } else {
             playerMenuUtil.getOwner().sendMessage("No permission");
 
         }

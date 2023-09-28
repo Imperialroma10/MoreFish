@@ -5,8 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
-public class EditItemMenuMsg
-{
+public class EditItemMenuMsg {
     public final String title;
     public final ItemStack back_item;
     public final ItemStack addtopack_item;
@@ -16,8 +15,7 @@ public class EditItemMenuMsg
     public final String dropchance;
     public final String[] dropchancelist;
 
-    public EditItemMenuMsg(ConfigurationSection section)
-    {
+    public EditItemMenuMsg(ConfigurationSection section) {
         title = section.getString("title");
         String title1 = section.getString("back-item.title");
         String[] list1 = section.getStringList("back-item.description").toArray(new String[0]);

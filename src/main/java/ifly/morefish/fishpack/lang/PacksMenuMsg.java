@@ -9,11 +9,10 @@ public class PacksMenuMsg {
 
     public final String title;
     public final ItemStack back;
-    private final String[] lore;
     public final ItemStack create_new;
+    private final String[] lore;
 
-    public PacksMenuMsg(ConfigurationSection section)
-    {
+    public PacksMenuMsg(ConfigurationSection section) {
         title = section.getString("title", "");
         lore = section.getStringList("list-template-items.list").toArray(new String[0]);
 
@@ -27,18 +26,14 @@ public class PacksMenuMsg {
         create_new = ItemCreator.create(Material.COMMAND_BLOCK, title2, list2);
     }
 
-    public ItemStack item(String name, int dropchance, String filename)
-    {
+    public ItemStack item(String name, int dropchance, String filename) {
         String[] lore1 = lore.clone();
-        for(int i = 0; i < lore1.length; i++)
-        {
-            if(lore1[i].contains("{chance}"))
-            {
+        for (int i = 0; i < lore1.length; i++) {
+            if (lore1[i].contains("{chance}")) {
                 lore1[i] = lore1[i].replace("{chance}", String.valueOf(dropchance));
             }
 
-            if(lore1[i].contains("{filename}"))
-            {
+            if (lore1[i].contains("{filename}")) {
                 lore1[i] = lore1[i].replace("{filename}", String.valueOf(filename));
             }
         }

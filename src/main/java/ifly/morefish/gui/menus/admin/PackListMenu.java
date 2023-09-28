@@ -1,4 +1,4 @@
-package ifly.morefish.gui.menus;
+package ifly.morefish.gui.menus.admin;
 
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.MenuMsgs;
@@ -13,13 +13,14 @@ import java.util.List;
 
 public class PackListMenu extends Menu {
     private final PacksMenuMsg menumsg;
+    List<Pack> packList = FishController.packList;
+    int page = 0;
 
     public PackListMenu(PlayerMenuUtil playerMenuUtil) {
         super(playerMenuUtil);
         menumsg = MenuMsgs.get().PacksMenuMsg;
     }
 
-    List<Pack> packList = FishController.packList;
     @Override
     public String getMenuName() {
         return menumsg.title;
@@ -32,35 +33,35 @@ public class PackListMenu extends Menu {
 
     @Override
     public void handleInventoryClick(InventoryClickEvent e) {
-        if ( 0 <= e.getSlot() && e.getSlot() <= getSlots()*9-9){ // Block chests
-            if (e.getSlot() < packList.size()){
+        if (0 <= e.getSlot() && e.getSlot() <= getSlots() * 9 - 9) { // Block chests
+            if (e.getSlot() < packList.size()) {
                 int slot = e.getSlot();
-                if (slot < packList.size()){
+                if (slot < packList.size()) {
                     EditMenu menu = new EditMenu(getPlayerMenuUtil(), false, packList.get(slot));
                     menu.open();
                 }
             }
         }
-        if (e.getSlot() == 49){
+        if (e.getSlot() == 49) {
             Pack pack = new Pack("Pack_name", "New pack", 0);
             new EditMenu(getPlayerMenuUtil(), true, pack).open();
         }
-        if (e.getSlot() == getSlots()*9-9){
+        if (e.getSlot() == getSlots() * 9 - 9) {
             new MainMenu(getPlayerMenuUtil()).open();
         }
         e.setCancelled(true);
     }
-    int page = 0;
+
     @Override
     public void setMenuItems() {
         int count = packList.size();
-        int maxPacks = getSlots()*9 -9;
+        int maxPacks = getSlots() * 9 - 9;
         int pages = count / maxPacks;
         int start = page * maxPacks;
         int end = start + maxPacks;
 
-        for (int i = start; i < end; i++){
-            if (i < count){
+        for (int i = start; i < end; i++) {
+            if (i < count) {
                 Pack pack = packList.get(i);
                 ItemStack item = menumsg.item(pack.getDisplayname(), pack.getDropChance(), pack.getName());
                 inventory.setItem(i, item);
@@ -68,13 +69,15 @@ public class PackListMenu extends Menu {
         }
 
         getInventory().setItem(49, menumsg.create_new);
-        getInventory().setItem(getSlots()*9-9, menumsg.back);
+        getInventory().setItem(getSlots() * 9 - 9, menumsg.back);
     }
-    public void nextPage(){
+
+    public void nextPage() {
         page++;
         this.open();
     }
-    public void previousPage(){
+
+    public void previousPage() {
         page--;
         this.open();
     }

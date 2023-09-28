@@ -7,11 +7,11 @@ public class StorageCreator {
         storage = new FileStorage();
     }
 
-    public IStorage getStorage() {
+    public static IStorage getStorageIns() {
         return storage;
     }
 
-    public static IStorage getStorageIns(){
+    public IStorage getStorage() {
         return storage;
     }
 }

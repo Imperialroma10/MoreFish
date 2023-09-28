@@ -5,8 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
-public class EditEntityMenuMsg
-{
+public class EditEntityMenuMsg {
     public final String title;
     public final ItemStack back_item;
     public final String amount_item;
@@ -14,8 +13,7 @@ public class EditEntityMenuMsg
     public final String spawnchance_item;
     public final String[] spawnchance_desc;
 
-    public EditEntityMenuMsg(ConfigurationSection section)
-    {
+    public EditEntityMenuMsg(ConfigurationSection section) {
         title = section.getString("title");
         String title1 = section.getString("back-item.title");
         String[] list1 = section.getStringList("back-item.description").toArray(new String[0]);

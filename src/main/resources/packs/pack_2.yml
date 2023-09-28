@@ -43,9 +43,9 @@ Pack: # Default pack example 12 5215 125
       entitytype: ZOMBIE # Mob type
       amount: 2
       chance: 40
-      equipment:  # Mob equipment list
+      equipment: # Mob equipment list
         DIAMOND_HELMET:
-          enchants:  # Equipment enchantments
+          enchants: # Equipment enchantments
             blast_protection:
               level: 2
             aqua_affinity:

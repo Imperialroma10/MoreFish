@@ -5,14 +5,12 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
-public class MainMenuMsg
-{
+public class MainMenuMsg {
     public final String title;
     public final ItemStack packs_item;
     public final ItemStack packs_reload;
 
-    public MainMenuMsg(ConfigurationSection section)
-    {
+    public MainMenuMsg(ConfigurationSection section) {
         title = section.getString("title", "");
         String title = section.getString("packs-item.title");
         String[] list = section.getStringList("packs-item.description").toArray(new String[0]);
