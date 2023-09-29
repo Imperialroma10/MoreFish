@@ -72,6 +72,7 @@ public class FishController {
                     continue;
                 }
             }
+
             if (back <= x && x <= pack.getDropChance() + back) {
                 new FishTask(p, pack, location);
                 return;

@@ -56,7 +56,7 @@ public class FishTask {
             FireworkMeta meta = firework.getFireworkMeta();
             FireworkEffect effect = FireworkEffect.builder()
                     .withColor(Color.BLUE, Color.YELLOW)
-                    .with(FireworkEffect.Type.BALL_LARGE)
+                    .with(FireworkEffect.Type.BALL)
                     .build();
             meta.addEffect(effect);
             firework.setFireworkMeta(meta);
@@ -65,7 +65,7 @@ public class FishTask {
             Location loc1 = fireworkLocation.clone();
 
             Location loc2 = player.getLocation().clone();
-            loc2.setY(loc2.getY() + 1.5);
+            loc2.setY(loc2.getY() + 1.1);
 
             Vector direction = loc2.toVector().subtract(loc1.toVector()).normalize();
 
@@ -73,7 +73,7 @@ public class FishTask {
 
             for (double distancepased = 0; distancepased <= distance; distancepased += 0.05f) {
                 Location particleLocation = loc1.clone().add(direction.clone().multiply(distancepased));
-                particleLocation.getWorld().spawnParticle(Particle.SCRAPE, particleLocation, 1, 0, 0, 0);
+                particleLocation.getWorld().spawnParticle(Particle.COMPOSTER, particleLocation, 1, 0, 0, 0);
             }
             player.sendMessage(Config.getMessage(Config.getConfig().caughtfish.replace("[pack]", pack.getDisplayname())));
             player.getInventory().addItem(pack.getChest());

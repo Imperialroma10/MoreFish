@@ -134,7 +134,7 @@ public class    EditMenu extends Menu {
         getInventory().setItem(8, menu.getpack_item);
         getInventory().setItem(12 + 9, menu.sub_chance);
         getInventory().setItem(14, menu.rewards_item);
-        getInventory().setItem(16, pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "Enable permission", "§aYou need a permit to get one : §b"+pack.getPermissionsToOpen()) :
+        getInventory().setItem(16, pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "Enable permission", "§aYou need a permit to get one: §b"+pack.getPermissionsToOpen()) :
                                                                   ItemCreator.create(Material.RED_WOOL, "Disable permission", "§aAny player can get one.")
                 );
         getInventory().setItem(10, menu.change_pack_name);

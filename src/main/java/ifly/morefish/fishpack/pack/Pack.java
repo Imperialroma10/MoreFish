@@ -107,7 +107,7 @@ public class Pack {
     public void giveReward(Player player) {
         if (isEnablepermission()){
             if (!(player.hasPermission("*") || player.hasPermission(getPermissionsToOpen()))){
-                player.sendMessage(Config.getMessage("You need permission: "+ getPermissionsToOpen() +" to open pack"));
+                player.sendMessage(Config.getMessage("You don't have permission to open"));
                 return;
             }
         }
