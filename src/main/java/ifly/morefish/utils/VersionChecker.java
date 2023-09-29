@@ -48,6 +48,7 @@ public class VersionChecker implements Listener {
     }
 
     public boolean isUpgrade() {
+        //System.out.println(main.mainPlugin.getDescription().getVersion() + " | " + this.reqversion);
         return !reqversion.equalsIgnoreCase(main.mainPlugin.getDescription().getVersion());
     }
 

@@ -4,6 +4,7 @@ package ifly.morefish.fishpack.pack;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
+import ifly.morefish.fishpack.pack.reward.fun.SpawnEnvil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -21,8 +22,6 @@ public class Pack {
     List<RewardAbstract> rewards;
     int dropChance;
     int customModelData;
-
-
 
     boolean enablepermission;
     ItemStack chest = new ItemStack(Material.CHEST);

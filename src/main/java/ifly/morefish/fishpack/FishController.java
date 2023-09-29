@@ -21,6 +21,7 @@ public class FishController {
     public FishController(StorageCreator storageCreator) {
         this.storage = storageCreator;
         List<Pack> packs = storage.getStorage().getPacks();
+
         setPackList(packs);
         Bukkit.getLogger().info("[" + main.mainPlugin.getDescription().getName() + "] loaded " + packs.size() + " packs");
     }
@@ -93,4 +94,9 @@ public class FishController {
         FishController.packList = packList;
     }
 
+    public void saveALlPacks(){
+        for (Pack pack : packList){
+            getStorage().Save(pack);
+        }
+    }
 }

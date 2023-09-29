@@ -10,6 +10,7 @@ import ifly.morefish.gui.MenuListener;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.utils.VersionChecker;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -38,11 +39,13 @@ public final class main extends JavaPlugin {
     @Override
     public void onEnable() {
         mainPlugin = this;
-        new Metrics(this, 19862);
+        Metrics metrics = new Metrics(this, 19862);
         VersionChecker checker = new VersionChecker(this, 111966);
 
         if (checker.isUpgrade()) {
+
             Bukkit.getLogger().info("[" + this.getDescription().getName() + "] A new plugin update is available. Download link: https://www.spigotmc.org/resources/111966/");
+
         }
 
         Config.getConfig();
@@ -56,10 +59,15 @@ public final class main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MenuListener(), this);
         getServer().getPluginManager().registerEvents(fishEvents, this);
         getCommand("fishrewards").setExecutor(fishEvents);
+
+        metrics.addCustomChart(new SimplePie("packs_count", () -> {
+            return String.valueOf(controller.getPackList().size());
+        }));
+
     }
 
     @Override
     public void onDisable() {
-
+        controller.saveALlPacks();
     }
 }

@@ -4,12 +4,10 @@ import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.lang.RewardsMenuMsg;
 import ifly.morefish.fishpack.pack.Pack;
-import ifly.morefish.fishpack.pack.reward.RewardAbstract;
-import ifly.morefish.fishpack.pack.reward.RewardCommand;
-import ifly.morefish.fishpack.pack.reward.RewardEntity;
-import ifly.morefish.fishpack.pack.reward.RewardItem;
+import ifly.morefish.fishpack.pack.reward.*;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
+import ifly.morefish.gui.helper.ItemCreator;
 import ifly.morefish.gui.menus.admin.editrewards.EditEntity;
 import ifly.morefish.gui.menus.admin.editrewards.EditItem;
 import ifly.morefish.gui.menus.admin.rewardcreator.EntityReward;
@@ -84,6 +82,10 @@ public class PackRewardsMenu extends Menu {
 
                     //AnvilController.createAnvil((Player) e.getWhoClicked(), new EditCommand((Player) e.getWhoClicked(), pack, (RewardCommand) rewardAbstract));
                 }
+                if (rewardAbstract instanceof RewardFun){
+
+                    e.setCancelled(true);
+                }
                 if (e.isShiftClick() && e.isLeftClick()) {
                     pack.getRewards().remove(rewardAbstract);
                     this.open();
@@ -127,7 +129,9 @@ public class PackRewardsMenu extends Menu {
 
                 //AnvilController.createAnvil(getPlayerMenuUtil().getOwner(),new CreateNewComandReward(getPlayerMenuUtil().getOwner(), pack));
             }
-
+//            if (e.getSlot() == 34){
+//                new SelectFunRewards(getPlayerMenuUtil(), pack).open();
+//            }
             e.setCancelled(true);
         }
     }
@@ -147,7 +151,7 @@ public class PackRewardsMenu extends Menu {
         getInventory().setItem(29, menu.additem);
         getInventory().setItem(31, menu.addentity);
         getInventory().setItem(33, menu.addcommand);
-
+        //getInventory().setItem(34, ItemCreator.create(Material.PLAYER_HEAD, "Fun rewards :)"));
         getInventory().setItem(getSlots() * 9 - 1, menu.save_item);
         getInventory().setItem(getSlots() * 9 - 9, menu.back_item);
     }
