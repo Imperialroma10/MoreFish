@@ -54,7 +54,7 @@ public class VersionChecker implements Listener {
 
     @EventHandler
     public void joinAdmin(PlayerJoinEvent e) {
-        if (e.getPlayer().hasPermission("*")) {
+        if (e.getPlayer().hasPermission("*") && isUpgrade()) {
             e.getPlayer().sendMessage(Config.getMessage("A new plugin update is available. Download link: https://www.spigotmc.org/resources/" + getPluginid() + "/"));
         }
     }
