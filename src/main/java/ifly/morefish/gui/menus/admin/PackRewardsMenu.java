@@ -95,7 +95,7 @@ public class PackRewardsMenu extends Menu {
         if (e.getSlot() >= getSlots() * 9 - 9 && e.getSlot() <= getSlots() * 9) {
 
             if (e.getSlot() == getSlots() * 9 - 9) {
-                new EditMenu(getPlayerMenuUtil(), false, pack).open();
+                new EditMenu(getPlayerMenuUtil(), pack).open();
             }
             if (e.getSlot() == getSlots() * 9 - 1) {
                 StorageCreator.getStorageIns().Save(pack);

@@ -1,5 +1,6 @@
 package ifly.morefish.gui.menus.admin;
 
+import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.lang.PacksMenuMsg;
@@ -37,14 +38,16 @@ public class PackListMenu extends Menu {
             if (e.getSlot() < packList.size()) {
                 int slot = e.getSlot();
                 if (slot < packList.size()) {
-                    EditMenu menu = new EditMenu(getPlayerMenuUtil(), false, packList.get(slot));
+                    EditMenu menu = new EditMenu(getPlayerMenuUtil(), packList.get(slot));
                     menu.open();
                 }
             }
         }
         if (e.getSlot() == 49) {
             Pack pack = new Pack("Pack_name", "New pack", 0);
-            new EditMenu(getPlayerMenuUtil(), true, pack).open();
+            StorageCreator.getStorageIns().Save(pack, true);
+            FishController.packList.add(pack);
+            new EditMenu(getPlayerMenuUtil(), pack).open();
         }
         if (e.getSlot() == getSlots() * 9 - 9) {
             new MainMenu(getPlayerMenuUtil()).open();
