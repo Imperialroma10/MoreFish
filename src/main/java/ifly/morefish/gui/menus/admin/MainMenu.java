@@ -7,6 +7,8 @@ import ifly.morefish.fishpack.lang.MainMenuMsg;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
+import ifly.morefish.gui.helper.ItemCreator;
+import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class MainMenu extends Menu {
@@ -48,5 +50,8 @@ public class MainMenu extends Menu {
 
         getInventory().setItem(11, menu.packs_item);
         getInventory().setItem(13, menu.packs_reload);
+        getInventory().setItem(15, ItemCreator.create(Material.END_CRYSTAL, "Caught packs", "§aSince the server was turned on, players :","§ahave caught §b{count} §apacks"
+                .replace("{count}", FishController.playerStatistic.getCaughtPacks()+""),
+                "§b{count} §apacks have been opened".replace("{count}", FishController.playerStatistic.getOpenPacks()+"")));
     }
 }

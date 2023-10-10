@@ -47,6 +47,7 @@ public class FishEvent implements Listener, CommandExecutor {
                         e.getPlayer().sendMessage(Config.getMessage(Config.getConfig().notenoughspace));
                         return;
                     }
+                    fishMain.getPlayerStatistic().addOpenPacks();
                     pack.giveReward(e.getPlayer());
                 }
             }

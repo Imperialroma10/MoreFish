@@ -63,6 +63,9 @@ public final class main extends JavaPlugin {
         metrics.addCustomChart(new SimplePie("packs_count", () -> {
             return String.valueOf(controller.getPackList().size());
         }));
+        metrics.addCustomChart(new SimplePie("caughtpacks", () -> {
+            return String.valueOf(controller.getPlayerStatistic().getCaughtPacks());
+        }));
 
     }
 

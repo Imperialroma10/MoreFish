@@ -4,6 +4,7 @@ import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.main;
+import ifly.morefish.stats.PlayerStatistic;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -17,8 +18,10 @@ public class FishController {
     static public List<Pack> packList;
 
     StorageCreator storage;
+    static public PlayerStatistic playerStatistic;
 
     public FishController(StorageCreator storageCreator) {
+        playerStatistic = new PlayerStatistic(this);
         this.storage = storageCreator;
         List<Pack> packs = storage.getStorage().getPacks();
 
@@ -76,6 +79,7 @@ public class FishController {
 
             if (back <= x && x <= pack.getDropChance() + back) {
                 new FishTask(p, pack, location);
+                playerStatistic.addCaughtPacks();
                 return;
             }
             back += pack.getDropChance();
@@ -98,5 +102,9 @@ public class FishController {
         for (Pack pack : packList){
             getStorage().update(pack);
         }
+    }
+
+    public PlayerStatistic getPlayerStatistic() {
+        return playerStatistic;
     }
 }
