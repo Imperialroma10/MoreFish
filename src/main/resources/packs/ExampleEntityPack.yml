@@ -1,0 +1,17 @@
+Pack:
+  name: ExampleEntityPack
+  displayname: EntityPack
+  custommodeldata: 0
+  chance: 20
+  permissions: false
+  rewards:
+    '1':
+      type: mob
+      entitytype: ZOMBIE
+      amount: 1
+      chance: 10
+    '2':
+      type: mob
+      entitytype: CREEPER
+      amount: 1
+      chance: 30

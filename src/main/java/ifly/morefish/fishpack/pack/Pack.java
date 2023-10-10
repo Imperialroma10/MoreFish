@@ -31,7 +31,6 @@ public class Pack {
         this.customModelData = customModelData;
         Name = name;
         rewards = new ArrayList<>();
-        setMetaChest();
     }
 
     public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds) {

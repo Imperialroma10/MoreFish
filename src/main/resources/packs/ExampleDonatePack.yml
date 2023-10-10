@@ -1,0 +1,19 @@
+Pack:
+  name: ExampleDonatePack
+  displayname: DonatePack
+  custommodeldata: 0
+  chance: 10
+  permissions: false
+  rewards:
+    '1':
+      type: command
+      command: lp user {player} parent add vip
+      chance: 100
+    '2':
+      type: command
+      command: lp user {player} parent add premium
+      chance: 100
+    '3':
+      type: command
+      command: lp user {player} parent add deluxe
+      chance: 100

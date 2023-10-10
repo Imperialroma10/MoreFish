@@ -33,8 +33,9 @@ public class FileStorage implements IStorage {
         //main.mainPlugin.saveResource("Menus.yml", false);
         if (!f_packs.exists()) {
             f_packs.mkdirs();
-            main.mainPlugin.saveResource("packs/pack.yml", false);
-            main.mainPlugin.saveResource("packs/pack_2.yml", false);
+            main.mainPlugin.saveResource("packs/ExampleDonatePack.yml", false);
+            main.mainPlugin.saveResource("packs/ExampleEntityPack.yml", false);
+            main.mainPlugin.saveResource("packs/ExampleItemsPack.yml", false);
         }
     }
 
@@ -175,7 +176,31 @@ public class FileStorage implements IStorage {
             Save(pack);
         }
     }
+    public void update(Pack pack){
+        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
+        if (!f.exists()) {
+           return;
+        }
+        YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
+        conf.set("Pack.name", pack.Name);
+        conf.set("Pack.displayname", pack.getDisplayname().replace('§', '&'));
+        conf.set("Pack.custommodeldata", pack.getCustomModelData());
+        conf.set("Pack.chance", pack.getDropChance());
+        conf.set("Pack.rewards", null);
+        conf.set("Pack.permissions", pack.isEnablepermission());
+        if (pack.getRewards().size() > 0) {
+            ConfigurationSection section = conf.createSection("Pack.rewards");
+            for (RewardAbstract reward : pack.getRewards()) {
+                reward.Save(section);
+            }
+        }
 
+        try {
+            conf.save(f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void Save(Pack pack) {
         File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
         if (!f.exists()) {

@@ -77,6 +77,7 @@ public class EditMenu extends Menu {
                     onClick((slot, stateSnapshot) -> {
                         if (slot == AnvilGUI.Slot.OUTPUT) {
                             pack.setDisplayname(stateSnapshot.getText());
+                            pack.setMetaChest();
                             stateSnapshot.getPlayer().closeInventory();
                         }
                         return Collections.emptyList();

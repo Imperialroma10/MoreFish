@@ -96,7 +96,7 @@ public class FishController {
 
     public void saveALlPacks(){
         for (Pack pack : packList){
-            getStorage().Save(pack);
+            getStorage().update(pack);
         }
     }
 }

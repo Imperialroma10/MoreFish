@@ -68,6 +68,12 @@ public class FishEvent implements Listener, CommandExecutor {
                             sender.sendMessage(reloaded ? "§2Successful reloaded" : "§cFile not found");
                         }
                     }
+                    if (args[0].equalsIgnoreCase("examplepack")){
+                        main.mainPlugin.saveResource("packs/ExampleDonatePack.yml", false);
+                        main.mainPlugin.saveResource("packs/ExampleEntityPack.yml", false);
+                        main.mainPlugin.saveResource("packs/ExampleItemsPack.yml", false);
+                        sender.sendMessage(Config.getMessage("You have successfully created standard packages."));
+                    }
                 }
 
             }

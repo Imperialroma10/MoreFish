@@ -1,0 +1,42 @@
+Pack:
+  name: ExampleItemsPack
+  displayname: itemsPack
+  custommodeldata: 0
+  chance: 5
+  permissions: false
+  rewards:
+    '1':
+      type: item
+      material: LEATHER_HELMET
+      amount: 1
+      chance: 10
+    '2':
+      type: item
+      material: LEATHER_CHESTPLATE
+      amount: 1
+      chance: 10
+    '3':
+      type: item
+      material: LEATHER_LEGGINGS
+      amount: 1
+      chance: 10
+    '4':
+      type: item
+      material: LEATHER_BOOTS
+      amount: 1
+      chance: 10
+    '5':
+      type: item
+      material: STONE_SWORD
+      amount: 1
+      chance: 10
+    '6':
+      type: item
+      material: APPLE
+      amount: 3
+      chance: 50
+    '7':
+      type: item
+      material: COOKED_MUTTON
+      amount: 16
+      chance: 25
