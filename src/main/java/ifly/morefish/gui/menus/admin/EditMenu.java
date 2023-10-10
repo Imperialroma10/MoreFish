@@ -17,15 +17,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collections;
 
-public class    EditMenu extends Menu {
+public class EditMenu extends Menu {
     private final EditMenuMsg menu;
     Pack pack;
-    boolean isnewpack;
 
-    public EditMenu(PlayerMenuUtil playerMenuUtil, boolean editnewpack, Pack pack) {
+    public EditMenu(PlayerMenuUtil playerMenuUtil, Pack pack) {
         super(playerMenuUtil);
         this.pack = pack;
-        isnewpack = editnewpack;
         menu = MenuMsgs.get().EditMenu;
     }
 
@@ -62,11 +60,7 @@ public class    EditMenu extends Menu {
             packRewardsMenu.open();
         }
         if (e.getSlot() == 3 * 9 - 1) {
-            if (isnewpack) {
-                FishController.packList.add(pack);
-            }
-            StorageCreator.getStorageIns().Save(pack, isnewpack);
-            isnewpack = false;
+            StorageCreator.getStorageIns().Save(pack);
         }
         if (e.getSlot() == 3 * 9 - 9) {
             new PackListMenu(getPlayerMenuUtil()).open();

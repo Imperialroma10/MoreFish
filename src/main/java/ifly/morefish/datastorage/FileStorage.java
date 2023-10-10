@@ -131,6 +131,17 @@ public class FileStorage implements IStorage {
         return list;
     }
 
+    boolean isNum(String str)
+    {
+        for(int i = 0; i < str.length(); i++) {
+            if(!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
     int getLastFileNum(File[] files) {
         int mx = 0;
         for (int i = 0; i < files.length; i++) {
@@ -138,9 +149,9 @@ public class FileStorage implements IStorage {
                 String name = files[i].getName().replace(".yml", "");
                 name = name.substring(name.lastIndexOf('_') + 1);
 
-//				if (!Integer.isDigits(name)) {
-//					continue;
-//				}
+                if (!isNum(name)) {
+                    continue;
+                }
                 int n = Integer.parseInt(name);
                 if (n > mx) {
                     mx = n;
