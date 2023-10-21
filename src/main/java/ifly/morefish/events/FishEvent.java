@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -32,7 +33,14 @@ public class FishEvent implements Listener, CommandExecutor {
             this.fishMain.init(e.getPlayer(), e.getHook().getLocation());
         }
     }
-
+    @EventHandler
+    public void placeChest(BlockPlaceEvent e){
+        if (e.getBlockPlaced().getType() == Material.CHEST){
+            if (fishMain.getPack(e.getItemInHand()) != null){
+                e.setCancelled(true);
+            }
+        }
+    }
     @EventHandler
     public void interact(PlayerInteractEvent e) {
         if (e.getHand() != EquipmentSlot.HAND) {
@@ -62,10 +70,11 @@ public class FishEvent implements Listener, CommandExecutor {
                 return true;
             }
             if(args.length == 0) {
-                sender.sendMessage("Available commands:");
-                sender.sendMessage("/fishrewards admin - open admin panel");
-                sender.sendMessage("/fishrewards reload-pack - reload packs");
-                sender.sendMessage("/fishrewards examplepack - creates example packs in packs folder");
+                sender.sendMessage("§e-----------------Available commands-------------------");
+                sender.sendMessage("§e/fishrewards admin §b- open admin panel");
+                sender.sendMessage("§e/fishrewards reload-pack §b- reload packs");
+                sender.sendMessage("§e/fishrewards examplepack §b- creates example packs in packs folder");
+                sender.sendMessage("§e----------------------------------------------------");
                 return true;
             }
             if (sender.hasPermission("fishrewarads.admin")) {
