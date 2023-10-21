@@ -57,26 +57,34 @@ public class FishEvent implements Listener, CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("fishrewards")) {
-            if (args.length > 0) {
-                if (sender.hasPermission("fishrewarads.admin")) {
-                    if (args[0].equalsIgnoreCase("admin")) {
-                        Player p = (Player) sender;
-                        new MainMenu(main.getPlayerUtils(p)).open();
-                    }
-                    if (args[0].equalsIgnoreCase("reload-pack")) {
-                        if (args.length == 2) {
-                            boolean reloaded = fishMain.Reload(args[1]);
-                            sender.sendMessage(reloaded ? "§2Successful reloaded" : "§cFile not found");
-                        }
-                    }
-                    if (args[0].equalsIgnoreCase("examplepack")){
-                        main.mainPlugin.saveResource("packs/ExampleDonatePack.yml", false);
-                        main.mainPlugin.saveResource("packs/ExampleEntityPack.yml", false);
-                        main.mainPlugin.saveResource("packs/ExampleItemsPack.yml", false);
-                        sender.sendMessage(Config.getMessage("You have successfully created standard packages."));
+            if(!sender.hasPermission("fishrewarads.admin")) {
+                sender.sendMessage("You have no permissions");
+                return true;
+            }
+            if(args.length == 0) {
+                sender.sendMessage("Available commands:");
+                sender.sendMessage("/fishrewards admin - open admin panel");
+                sender.sendMessage("/fishrewards reload-pack - reload packs");
+                sender.sendMessage("/fishrewards examplepack - creates example packs in packs folder");
+                return true;
+            }
+            if (sender.hasPermission("fishrewarads.admin")) {
+                if (args[0].equalsIgnoreCase("admin")) {
+                    Player p = (Player) sender;
+                    new MainMenu(main.getPlayerUtils(p)).open();
+                }
+                if (args[0].equalsIgnoreCase("reload-pack")) {
+                    if (args.length == 2) {
+                        boolean reloaded = fishMain.Reload(args[1]);
+                        sender.sendMessage(reloaded ? "§2Successful reloaded" : "§cFile not found");
                     }
                 }
-
+                if (args[0].equalsIgnoreCase("examplepack")){
+                    main.mainPlugin.saveResource("packs/ExampleDonatePack.yml", false);
+                    main.mainPlugin.saveResource("packs/ExampleEntityPack.yml", false);
+                    main.mainPlugin.saveResource("packs/ExampleItemsPack.yml", false);
+                    sender.sendMessage(Config.getMessage("You have successfully created standard packages."));
+                }
             }
         }
 
