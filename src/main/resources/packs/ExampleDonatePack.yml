@@ -2,8 +2,8 @@ Pack:
   name: ExampleDonatePack
   displayname: DonatePack
   custommodeldata: 0
-  chance: 10
-  permissions: false
+  chance: 5
+  permissions: true
   rewards:
     '1':
       type: command

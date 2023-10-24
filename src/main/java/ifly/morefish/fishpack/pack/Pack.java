@@ -29,7 +29,7 @@ public class Pack {
     public Pack(String name, String displayname, int customModelData) {
         this.Displayname = displayname;
         this.customModelData = customModelData;
-        Name = name;
+        Name = name.replace(".yml","");
         rewards = new ArrayList<>();
         setMetaChest();
     }

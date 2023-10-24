@@ -51,7 +51,7 @@ public class FileStorage implements IStorage {
             Pack pack;
             YamlConfiguration conf = YamlConfiguration.loadConfiguration(file);
             String pack_displayname = conf.getString("Pack.displayname", "").replace('&', '§');
-            String pack_name = conf.getString("Pack.name", "");
+            //String pack_name = conf.getString("Pack.name", "");
             int pack_custommodeldata = conf.getInt("Pack.custommodeldata");
             int dropchance = conf.getInt("Pack.chance");
             boolean permissions = conf.getBoolean("Pack.permissions");
@@ -121,9 +121,9 @@ public class FileStorage implements IStorage {
                         rewards.add(rewardCommand);
                     }
                 }
-                pack = new Pack(pack_name, pack_displayname, pack_custommodeldata, rewards);
+                pack = new Pack(file.getName(), pack_displayname, pack_custommodeldata, rewards);
             } else {
-                pack = new Pack(pack_name, pack_displayname, pack_custommodeldata);
+                pack = new Pack(file.getName(), pack_displayname, pack_custommodeldata);
             }
             pack.setEnablepermission(permissions);
             pack.setDropChance(dropchance);
@@ -182,7 +182,7 @@ public class FileStorage implements IStorage {
            return;
         }
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
-        conf.set("Pack.name", pack.Name);
+        //conf.set("Pack.name", pack.Name);
         conf.set("Pack.displayname", pack.getDisplayname().replace('§', '&'));
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
@@ -212,7 +212,7 @@ public class FileStorage implements IStorage {
         }
 
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
-        conf.set("Pack.name", pack.Name);
+        //conf.set("Pack.name", pack.Name);
         conf.set("Pack.displayname", pack.getDisplayname().replace('§', '&'));
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
@@ -243,7 +243,7 @@ public class FileStorage implements IStorage {
         }
 
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
-        conf.set("Pack.name", pack.Name);
+        //conf.set("Pack.name", pack.Name);
         conf.set("Pack.displayname", pack.getDisplayname().replace('§', '&'));
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
@@ -280,7 +280,7 @@ public class FileStorage implements IStorage {
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
 
         String pack_displayname = conf.getString("Pack.displayname", "").replace('&', '§');
-        String pack_name = conf.getString("Pack.name", "");
+        //String pack_name = conf.getString("Pack.name", "");
         int pack_custommodeldata = conf.getInt("Pack.custommodeldata");
         int dropchance = conf.getInt("Pack.chance");
         boolean permissions = conf.getBoolean("Pack.permissions");
@@ -340,9 +340,9 @@ public class FileStorage implements IStorage {
                     rewards.add(rewardCommand);
                 }
             }
-            pack = new Pack(pack_name, pack_displayname, pack_custommodeldata, rewards);
+            pack = new Pack(f.getName(), pack_displayname, pack_custommodeldata, rewards);
         } else {
-            pack = new Pack(pack_name, pack_displayname, pack_custommodeldata);
+            pack = new Pack(f.getName(), pack_displayname, pack_custommodeldata);
         }
         pack.setDropChance(dropchance);
         pack.setEnablepermission(permissions);
