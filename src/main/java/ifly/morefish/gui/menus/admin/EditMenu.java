@@ -15,6 +15,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.awt.font.TextHitInfo;
 import java.util.Collections;
 
 public class EditMenu extends Menu {
@@ -77,8 +78,8 @@ public class EditMenu extends Menu {
                     onClick((slot, stateSnapshot) -> {
                         if (slot == AnvilGUI.Slot.OUTPUT) {
                             pack.setDisplayname(stateSnapshot.getText());
-                            pack.setMetaChest();
-                            stateSnapshot.getPlayer().closeInventory();
+                            pack. setMetaChest();
+                            this.open();
                         }
                         return Collections.emptyList();
                     }).

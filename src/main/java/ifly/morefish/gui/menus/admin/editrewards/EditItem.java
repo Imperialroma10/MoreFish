@@ -48,7 +48,7 @@ public class EditItem extends Menu {
                     onClick((slot, stateSnapshot) -> {
                         if (slot == AnvilGUI.Slot.OUTPUT) {
                             ItemCreator.replace(this.item.getItem(), stateSnapshot.getText());
-                            stateSnapshot.getPlayer().closeInventory();
+                            this.open();
                         }
                         return Collections.emptyList();
                     }).

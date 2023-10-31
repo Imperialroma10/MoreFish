@@ -71,9 +71,8 @@ public class PackRewardsMenu extends Menu {
                             plugin(main.mainPlugin).
                             onClick((slot, stateSnapshot) -> {
                                 if (slot == AnvilGUI.Slot.OUTPUT) {
-                                    stateSnapshot.getPlayer().sendMessage(stateSnapshot.getText());
                                     ((RewardCommand) rewardAbstract).setCommand(stateSnapshot.getText());
-                                    stateSnapshot.getPlayer().closeInventory();
+                                    this.open();
                                 }
                                 return Collections.emptyList();
                             }).
@@ -120,7 +119,7 @@ public class PackRewardsMenu extends Menu {
                         onClick((slot, stateSnapshot) -> {
                             if (slot == AnvilGUI.Slot.OUTPUT) {
                                 pack.getRewards().add(new RewardCommand(stateSnapshot.getText()));
-                                stateSnapshot.getPlayer().closeInventory();
+                                this.open();
                             }
                             return Collections.emptyList();
                         }).

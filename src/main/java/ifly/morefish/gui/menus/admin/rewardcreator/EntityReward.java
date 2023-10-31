@@ -8,11 +8,14 @@ import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.helper.ItemCreator;
 import ifly.morefish.gui.menus.admin.PackRewardsMenu;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.SizedFireball;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EntityReward extends Menu {
@@ -54,12 +57,21 @@ public class EntityReward extends Menu {
     @Override
     public void setMenuItems() {
         int i = 0;
-        entityTypeList.add(EntityType.ZOMBIE);
-        entityTypeList.add(EntityType.CREEPER);
+        List<EntityType> entityTypes = Arrays.stream(EntityType.values()).toList();
+
+        for (EntityType entityType: entityTypes){
+            if (Material.getMaterial(entityType.name()+"_SPAWN_EGG") != null){
+                entityTypeList.add(entityType);
+            }
+        }
+
         for (EntityType entity : entityTypeList) {
-            getInventory().setItem(i, ItemCreator.create(Material.getMaterial(entity.name() + "_SPAWN_EGG"), entity.getName(),
-                    menu.desc));
-            i++;
+            if (i <= 45){
+                getInventory().setItem(i, ItemCreator.create(Material.getMaterial(entity.name() + "_SPAWN_EGG"), entity.getName(),
+                        menu.desc));
+                i++;
+            }
+
         }
         getInventory().setItem(getSlots() * 9 - 9, menu.back_item);
     }
