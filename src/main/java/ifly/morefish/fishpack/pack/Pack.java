@@ -126,6 +126,7 @@ public class Pack {
         itemStack.setAmount(itemStack.getAmount() - 1);
     }
 
+
     public List<RewardAbstract> getRewards() {
         return rewards;
     }

@@ -38,6 +38,14 @@ public class FishController {
         }
         return null;
     }
+    public Pack getPack(String packname){
+        for (Pack pack : packList) {
+            if (pack.getName().equalsIgnoreCase(packname)) {
+                return pack;
+            }
+        }
+        return null;
+    }
 
     public boolean Reload(String packname) {
         for (int i = 0; i < packList.size(); i++) {
@@ -107,4 +115,7 @@ public class FishController {
     public PlayerStatistic getPlayerStatistic() {
         return playerStatistic;
     }
+
+
+
 }

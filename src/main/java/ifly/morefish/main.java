@@ -1,5 +1,8 @@
 package ifly.morefish;
 
+
+import ifly.imperial.Liba;
+import ifly.imperial.version.VersionChecker;
 import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.events.FishEvent;
@@ -8,10 +11,8 @@ import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.gui.MenuListener;
 import ifly.morefish.gui.PlayerMenuUtil;
-import ifly.morefish.utils.VersionChecker;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,16 +40,16 @@ public final class main extends JavaPlugin {
     @Override
     public void onEnable() {
         mainPlugin = this;
-        Metrics metrics = new Metrics(this, 19862);
-        VersionChecker checker = new VersionChecker(this, 111966);
+        Config.getConfig();
 
-        if (checker.isUpgrade()) {
-
-            Bukkit.getLogger().info("[" + this.getDescription().getName() + "] A new plugin update is available. Download link: https://www.spigotmc.org/resources/111966/");
-
+        Liba liba = new Liba(mainPlugin, 111966);
+        if (liba.getChecker() != null){
+            liba.getChecker().setMessage(Config.getMessage(liba.getChecker().getMessage()));
         }
 
-        Config.getConfig();
+        Metrics metrics = new Metrics(this, 19862);
+
+
         storage = new StorageCreator();
         FileStorage storageStorage = (FileStorage) storage.getStorage();
         storageStorage.copy();
@@ -58,6 +59,7 @@ public final class main extends JavaPlugin {
         FishEvent fishEvents = new FishEvent(controller);
         getServer().getPluginManager().registerEvents(new MenuListener(), this);
         getServer().getPluginManager().registerEvents(fishEvents, this);
+
         getCommand("fishrewards").setExecutor(fishEvents);
 
         metrics.addCustomChart(new SimplePie("packs_count", () -> {
@@ -71,6 +73,9 @@ public final class main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        controller.saveALlPacks();
+        if (controller != null){
+            controller.saveALlPacks();
+        }
+
     }
 }

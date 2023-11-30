@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,15 +17,24 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-public class FishEvent implements Listener, CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class FishEvent implements Listener, CommandExecutor, TabCompleter {
 
     FishController fishMain;
 
     public FishEvent(FishController fishMain) {
         this.fishMain = fishMain;
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent e){
+
     }
 
     @EventHandler
@@ -65,9 +75,17 @@ public class FishEvent implements Listener, CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("fishrewards")) {
+
             if(!sender.hasPermission("fishrewarads.admin")) {
                 sender.sendMessage("You have no permissions");
                 return true;
+            }
+            if (args[0].equalsIgnoreCase("event")){
+
+                if (args[1].equalsIgnoreCase("start")){
+
+
+                }
             }
             if(args.length == 0) {
                 sender.sendMessage("§e-----------------Available commands-------------------");
@@ -94,9 +112,35 @@ public class FishEvent implements Listener, CommandExecutor {
                     main.mainPlugin.saveResource("packs/ExampleItemsPack.yml", false);
                     sender.sendMessage(Config.getMessage("You have successfully created standard packages."));
                 }
+
             }
         }
 
         return true;
+    }
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String s, String[] args) {
+        List<String> completions = new ArrayList<>();
+
+
+        if (cmd.getName().equalsIgnoreCase("fishrewards")) {
+            if (args.length == 1) {
+                completions.add("admin");
+              //  completions.add("event");
+            }
+//            if (args.length == 2 && args[0].equalsIgnoreCase("event")) {
+//                completions.add("start");
+//                completions.add("stop");
+//            }
+//            if (args.length == 3 && args[1].equalsIgnoreCase("start")){
+//                for (Pack pack : fishMain.getPackList()){
+//                    completions.add(pack.getName());
+//                }
+//            }
+//            if (args.length == 4 && fishMain.getPackList().contains(fishMain.getPack(args[1]))){
+//                completions.add("seconds");
+//            }
+        }
+        return completions;
     }
 }
