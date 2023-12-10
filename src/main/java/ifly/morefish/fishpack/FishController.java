@@ -7,8 +7,11 @@ import ifly.morefish.main;
 import ifly.morefish.stats.PlayerStatistic;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.List;
 import java.util.Random;
@@ -20,6 +23,8 @@ public class FishController {
     StorageCreator storage;
     static public PlayerStatistic playerStatistic;
 
+
+
     public FishController(StorageCreator storageCreator) {
         playerStatistic = new PlayerStatistic(this);
         this.storage = storageCreator;
@@ -30,9 +35,16 @@ public class FishController {
     }
 
     public Pack getPack(ItemStack itemStack) {
+        if (itemStack.getItemMeta() == null){
+            return null;
+        }
+        ItemMeta meta = itemStack.getItemMeta();
         for (Pack p : packList) {
-            ItemStack item = p.getChest();
-            if (item.isSimilar(itemStack)) {
+            String data = meta.getPersistentDataContainer().get(p.getKey(), PersistentDataType.STRING);
+            if (data == null) {
+                return null;
+            }
+            if (data.equalsIgnoreCase(p.getName())){
                 return p;
             }
         }

@@ -7,8 +7,11 @@ import ifly.morefish.fishpack.lang.PacksMenuMsg;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.Menu;
 import ifly.morefish.gui.PlayerMenuUtil;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
@@ -67,6 +70,7 @@ public class PackListMenu extends Menu {
             if (i < count) {
                 Pack pack = packList.get(i);
                 ItemStack item = menumsg.item(pack.getDisplayname(), pack);
+
                 inventory.setItem(i, item);
             }
         }

@@ -2,7 +2,6 @@ package ifly.morefish;
 
 
 import ifly.imperial.Liba;
-import ifly.imperial.version.VersionChecker;
 import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.events.FishEvent;
@@ -42,32 +41,37 @@ public final class main extends JavaPlugin {
         mainPlugin = this;
         Config.getConfig();
 
-        Liba liba = new Liba(mainPlugin, 111966);
-        if (liba.getChecker() != null){
-            liba.getChecker().setMessage(Config.getMessage(liba.getChecker().getMessage()));
-        }
-
-        Metrics metrics = new Metrics(this, 19862);
-
-
         storage = new StorageCreator();
         FileStorage storageStorage = (FileStorage) storage.getStorage();
         storageStorage.copy();
         MenuMsgs.get();
 
         controller = new FishController(storage);
+
+        Liba liba = new Liba(mainPlugin, 111966, 19862);
+        if (liba.getChecker() != null){
+            liba.getChecker().setMessage(Config.getMessage(liba.getChecker().getMessage()));
+        }
+
+        Metrics metrics = liba.getMetrics();
+        if (metrics != null){
+            metrics.addCustomChart(new SimplePie("packs_count", () -> {
+                return String.valueOf(controller.getPackList().size());
+            }));
+            metrics.addCustomChart(new SimplePie("caughtpacks", () -> {
+                return String.valueOf(controller.getPlayerStatistic().getCaughtPacks());
+            }));
+        }
+
+
+
         FishEvent fishEvents = new FishEvent(controller);
         getServer().getPluginManager().registerEvents(new MenuListener(), this);
         getServer().getPluginManager().registerEvents(fishEvents, this);
 
         getCommand("fishrewards").setExecutor(fishEvents);
 
-        metrics.addCustomChart(new SimplePie("packs_count", () -> {
-            return String.valueOf(controller.getPackList().size());
-        }));
-        metrics.addCustomChart(new SimplePie("caughtpacks", () -> {
-            return String.valueOf(controller.getPlayerStatistic().getCaughtPacks());
-        }));
+
 
     }
 

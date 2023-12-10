@@ -4,16 +4,20 @@ package ifly.morefish.fishpack.pack;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
-import ifly.morefish.fishpack.pack.reward.fun.SpawnEnvil;
+import ifly.morefish.gui.helper.ItemCreator;
+import ifly.morefish.main;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 
 public class Pack {
 
@@ -24,14 +28,25 @@ public class Pack {
     int customModelData;
 
     boolean enablepermission;
-    ItemStack chest = new ItemStack(Material.CHEST);
+    ItemStack chest;
+
+    NamespacedKey key;
 
     public Pack(String name, String displayname, int customModelData) {
         this.Displayname = displayname;
         this.customModelData = customModelData;
         Name = name.replace(".yml","");
         rewards = new ArrayList<>();
-        setMetaChest();
+        chest = setItemNBT(ItemCreator.create(Material.CHEST, getDisplayname()));
+
+    }
+    public ItemStack setItemNBT(ItemStack itemStack){
+        if (itemStack.getItemMeta() != null){
+            ItemMeta meta = itemStack.getItemMeta();
+            meta.getPersistentDataContainer().set(getKey(), PersistentDataType.STRING, getName());
+            itemStack.setItemMeta(meta);
+        }
+      return itemStack;
     }
 
     public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds) {
@@ -40,11 +55,11 @@ public class Pack {
 
     }
 
-    public void setMetaChest() {
-        ItemMeta meta = chest.getItemMeta();
-        meta.setCustomModelData(getCustomModelData());
-        meta.setDisplayName(getDisplayname());
-        chest.setItemMeta(meta);
+    public NamespacedKey getKey() {
+        if (this.key == null){
+            this.key = new NamespacedKey(main.mainPlugin, getName());
+        }
+        return key;
     }
 
     int freeCountOfItem(PlayerInventory inv, ItemStack is) {
