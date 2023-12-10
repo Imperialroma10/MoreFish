@@ -80,13 +80,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 sender.sendMessage("You have no permissions");
                 return true;
             }
-            if (args[0].equalsIgnoreCase("event")){
 
-                if (args[1].equalsIgnoreCase("start")){
-
-
-                }
-            }
             if(args.length == 0) {
                 sender.sendMessage("§e-----------------Available commands-------------------");
                 sender.sendMessage("§e/fishrewards admin §b- open admin panel");
