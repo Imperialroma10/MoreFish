@@ -42,7 +42,7 @@ public class FishController {
         for (Pack p : packList) {
             String data = meta.getPersistentDataContainer().get(p.getKey(), PersistentDataType.STRING);
             if (data == null) {
-                return null;
+                continue;
             }
             if (data.equalsIgnoreCase(p.getName())){
                 return p;
