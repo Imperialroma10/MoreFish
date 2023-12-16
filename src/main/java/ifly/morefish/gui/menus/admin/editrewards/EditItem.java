@@ -12,6 +12,7 @@ import ifly.morefish.main;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Collections;
 
@@ -47,7 +48,8 @@ public class EditItem extends Menu {
                     plugin(main.mainPlugin).
                     onClick((slot, stateSnapshot) -> {
                         if (slot == AnvilGUI.Slot.OUTPUT) {
-                            ItemCreator.replace(this.item.getItem(), stateSnapshot.getText());
+                            ItemStack itemStack = item.getItem().clone();
+                            ItemCreator.replace(itemStack, stateSnapshot.getText());
                             this.open();
                         }
                         return Collections.emptyList();

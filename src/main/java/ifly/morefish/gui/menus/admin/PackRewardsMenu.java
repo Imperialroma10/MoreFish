@@ -1,6 +1,7 @@
 package ifly.morefish.gui.menus.admin;
 
 import ifly.morefish.datastorage.StorageCreator;
+import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.lang.RewardsMenuMsg;
 import ifly.morefish.fishpack.pack.Pack;
@@ -19,7 +20,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class PackRewardsMenu extends Menu {
     private final RewardsMenuMsg menu;
@@ -140,8 +143,10 @@ public class PackRewardsMenu extends Menu {
         int i = 0;
         for (RewardAbstract rewardAbstract : pack.getRewards()) {
             if (i < getSlots() * 9 - 9) {
-                menu.makeLore(rewardAbstract.getItem(), rewardAbstract.getChance());
-                getInventory().setItem(i, rewardAbstract.getItem());
+
+                getInventory().setItem(i, ItemCreator.setLore(rewardAbstract.getItem().clone(),
+                        "§eChance {chance}%".replace("{chance}", rewardAbstract.getChance()+""),
+                         "§eLeft Click to edit", "§eLeft Click + shift to remove."));
             }
 
             i++;

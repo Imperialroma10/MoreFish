@@ -19,7 +19,7 @@ public class RewardsMenuMsg {
     public final ItemStack addentity;
     public final ItemStack addcommand;
     public final String[] lore;
-    private final List<String> components;
+
 
     public RewardsMenuMsg(ConfigurationSection section) {
         title = section.getString("title");
@@ -39,8 +39,7 @@ public class RewardsMenuMsg {
         String[] list5 = section.getStringList("addcommand-item.description").toArray(new String[0]);
 
         lore = section.getStringList("list-template-items").toArray(new String[0]);
-        components = new ArrayList<>(3);
-        Collections.addAll(components, lore);
+
 
         save_item = ItemCreator.create(Material.COMMAND_BLOCK, title1, list1);
         back_item = ItemCreator.create(Material.BARRIER, title2, list2);
@@ -48,15 +47,7 @@ public class RewardsMenuMsg {
         additem = ItemCreator.create(Material.ITEM_FRAME, title3, list3);
         addentity = ItemCreator.create(Material.ZOMBIE_HEAD, title4, list4);
         addcommand = ItemCreator.create(Material.PAPER, title5, list5);
+
     }
 
-    public void makeLore(ItemStack is, int chance) {
-        List<String> list = new ArrayList<>(components);
-        ItemMeta meta = is.getItemMeta();
-        for (int i = 0; i < list.size(); i++) {
-            list.set(i, list.get(i).replace("{1}", String.valueOf(chance)));
-        }
-        meta.setLore(list);
-        is.setItemMeta(meta);
-    }
 }

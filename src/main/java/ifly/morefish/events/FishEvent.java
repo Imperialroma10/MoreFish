@@ -3,6 +3,7 @@ package ifly.morefish.events;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
+import ifly.morefish.gui.NewMenu;
 import ifly.morefish.gui.menus.admin.MainMenu;
 import ifly.morefish.main;
 import org.bukkit.Material;
@@ -93,6 +94,10 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 if (args[0].equalsIgnoreCase("admin")) {
                     Player p = (Player) sender;
                     new MainMenu(main.getPlayerUtils(p)).open();
+                }
+                if (args[0].equalsIgnoreCase("admin2")){
+                    NewMenu menu = new NewMenu("Menu", 3);
+                    menu.open((Player) sender);
                 }
                 if (args[0].equalsIgnoreCase("reload-pack")) {
                     if (args.length == 2) {
