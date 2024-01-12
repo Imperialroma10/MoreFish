@@ -14,9 +14,10 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 public class SpawnEnvil extends RewardFun {
 
-    public SpawnEnvil(){
+    public SpawnEnvil() {
         setChance(100);
     }
+
     @Override
     public ItemStack getItem() {
         return ItemCreator.create(Material.ANVIL, "SpawnEnvil");
@@ -28,22 +29,22 @@ public class SpawnEnvil extends RewardFun {
     }
 
 
-    class SpawnEnvilTask{
+    class SpawnEnvilTask {
         FallingBlock block;
         BukkitScheduler scheduler = Bukkit.getScheduler();
         int taskid;
 
-        public SpawnEnvilTask(Location loc){
-            taskid = scheduler.scheduleSyncRepeatingTask(main.mainPlugin, this::checkEnvil, 0,10);
-            Location location  = loc.clone();
-            location.setY(location.getY()+25);
+        public SpawnEnvilTask(Location loc) {
+            taskid = scheduler.scheduleSyncRepeatingTask(main.mainPlugin, this::checkEnvil, 0, 10);
+            Location location = loc.clone();
+            location.setY(location.getY() + 25);
             block = location.getWorld().spawnFallingBlock(location, Bukkit.createBlockData(Material.ANVIL));
             block.setDropItem(false);
             block.setDamagePerBlock(0.5f);
         }
 
-        public void checkEnvil(){
-            if (block.isOnGround()){
+        public void checkEnvil() {
+            if (block.isOnGround()) {
                 block.getLocation().getBlock().setType(Material.AIR);
                 block.remove();
                 scheduler.cancelTask(taskid);

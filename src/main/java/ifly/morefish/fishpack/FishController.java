@@ -3,11 +3,11 @@ package ifly.morefish.fishpack;
 import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
+import ifly.morefish.gui.menus.admin.GuiController;
 import ifly.morefish.main;
 import ifly.morefish.stats.PlayerStatistic;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -19,11 +19,9 @@ import java.util.Random;
 public class FishController {
 
     static public List<Pack> packList;
-
-    StorageCreator storage;
     static public PlayerStatistic playerStatistic;
-
-
+    StorageCreator storage;
+    GuiController controller = new GuiController();
 
     public FishController(StorageCreator storageCreator) {
         playerStatistic = new PlayerStatistic(this);
@@ -35,7 +33,7 @@ public class FishController {
     }
 
     public Pack getPack(ItemStack itemStack) {
-        if (itemStack.getItemMeta() == null){
+        if (itemStack.getItemMeta() == null) {
             return null;
         }
         ItemMeta meta = itemStack.getItemMeta();
@@ -44,13 +42,14 @@ public class FishController {
             if (data == null) {
                 continue;
             }
-            if (data.equalsIgnoreCase(p.getName())){
+            if (data.equalsIgnoreCase(p.getName())) {
                 return p;
             }
         }
         return null;
     }
-    public Pack getPack(String packname){
+
+    public Pack getPack(String packname) {
         for (Pack pack : packList) {
             if (pack.getName().equalsIgnoreCase(packname)) {
                 return pack;
@@ -91,8 +90,8 @@ public class FishController {
         int x = random.nextInt(chance);
         int back = 0;
         for (Pack pack : packList) {
-            if (pack.isEnablepermission()){
-                if (!(p.hasPermission("*") || p.hasPermission(pack.getPermissionsToOpen()))){
+            if (pack.isEnablepermission()) {
+                if (!(p.hasPermission("*") || p.hasPermission(pack.getPermissionsToOpen()))) {
                     continue;
                 }
             }
@@ -118,8 +117,8 @@ public class FishController {
         FishController.packList = packList;
     }
 
-    public void saveALlPacks(){
-        for (Pack pack : packList){
+    public void saveALlPacks() {
+        for (Pack pack : packList) {
             getStorage().update(pack);
         }
     }
@@ -128,6 +127,7 @@ public class FishController {
         return playerStatistic;
     }
 
-
-
+    public GuiController getGuiController() {
+        return controller;
+    }
 }

@@ -20,7 +20,8 @@ public class ItemCreator {
         itemStack.setItemMeta(meta);
         return itemStack;
     }
-    public static ItemStack create(Material material, String title,List<String> lore) {
+
+    public static ItemStack create(Material material, String title, List<String> lore) {
 
         ItemStack itemStack = new ItemStack(material);
         ItemMeta meta = itemStack.getItemMeta();
@@ -31,7 +32,6 @@ public class ItemCreator {
         itemStack.setItemMeta(meta);
         return itemStack;
     }
-
     public static ItemStack replace(ItemStack itemStack, String title, String... lore) {
         List<String> lorelist = new ArrayList<>();
 

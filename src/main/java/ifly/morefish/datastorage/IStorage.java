@@ -17,5 +17,6 @@ public interface IStorage {
     Pack laodFromFile(Pack pack);
 
     boolean removePack(Pack pack);
+
     void update(Pack pack);
 }

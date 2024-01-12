@@ -1,57 +1,52 @@
 package ifly.morefish.gui.menus.admin;
 
+import ifly.imperial.gui.Gui;
+import ifly.imperial.gui.MenuSlot;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.MainMenuMsg;
 import ifly.morefish.fishpack.lang.MenuMsgs;
-import ifly.morefish.gui.Menu;
-import ifly.morefish.gui.PlayerMenuUtil;
+import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.helper.ItemCreator;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.entity.Player;
 
-public class MainMenu extends Menu {
+public class MainMenu extends Gui {
 
     private final MainMenuMsg menu;
-    PackListMenu packListMenu = new PackListMenu(getPlayerMenuUtil());
+    PackList packList = new PackList(FishController.packList,this);
 
-    public MainMenu(PlayerMenuUtil playerMenuUtil) {
-        super(playerMenuUtil);
+    public MainMenu() {
+        super(MenuMsgs.get().MainMenu.title, 3);
         menu = MenuMsgs.get().MainMenu;
     }
 
-    @Override
-    public String getMenuName() {
-        return menu.title;
-    }
 
     @Override
-    public int getSlots() {
-        return 3;
-    }
-
-    @Override
-    public void handleInventoryClick(InventoryClickEvent e) {
-        e.setCancelled(true);
-        if (e.getSlot() == 11) {
-            packListMenu.open();
-        }
-        if (e.getSlot() == 13) {
+    public void setInventoryItems() {
+        addSlot(11, new MenuSlot(menu.packs_item, e -> {
+            packList.open((Player) e.getWhoClicked());
+            e.setCancelled(true);
+        }));
+        addSlot(13, new MenuSlot(menu.packs_reload, e -> {
             FishController.packList.clear();
             FishController.packList.addAll(StorageCreator.getStorageIns().getPacks());
             e.getWhoClicked().sendMessage(Config.getMessage("Pack reloaded"));
+            e.setCancelled(true);
+        }));
+        addSlot(15, new MenuSlot(ItemCreator.create(Material.END_CRYSTAL, "Caught packs", "§aSince the server was turned on, players :", "§ahave caught §b{count} §apacks"
+                        .replace("{count}", FishController.playerStatistic.getCaughtPacks() + ""),
+                "§b{count} §apacks have been opened".replace("{count}", FishController.playerStatistic.getOpenPacks() + "")), e -> {
 
-        }
+            e.setCancelled(true);
+        }));
     }
 
-    @Override
-    public void setMenuItems() {
+    public PackList getPackList() {
 
-        getInventory().setItem(11, menu.packs_item);
-        getInventory().setItem(13, menu.packs_reload);
-        getInventory().setItem(15, ItemCreator.create(Material.END_CRYSTAL, "Caught packs", "§aSince the server was turned on, players :","§ahave caught §b{count} §apacks"
-                .replace("{count}", FishController.playerStatistic.getCaughtPacks()+""),
-                "§b{count} §apacks have been opened".replace("{count}", FishController.playerStatistic.getOpenPacks()+"")));
+        return packList;
     }
+
+
 }

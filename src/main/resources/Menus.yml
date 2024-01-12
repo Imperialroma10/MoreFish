@@ -1,4 +1,4 @@
-ver: 1.1
+ver: 1.2
 update: true
 #It automationally make backup
 
@@ -12,6 +12,8 @@ menus:
       #  - "line2"
     reload-pack-item:
       title: "§bReload packs"
+      description:
+        - "§aif there were changes by changing the configuration file"
   packs-menu:
     title: "§3Packs"
     list-template-items:

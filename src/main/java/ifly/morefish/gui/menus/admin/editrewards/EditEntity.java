@@ -1,85 +1,69 @@
 package ifly.morefish.gui.menus.admin.editrewards;
 
-import ifly.morefish.fishpack.lang.EditEntityMenuMsg;
-import ifly.morefish.fishpack.lang.MenuMsgs;
-import ifly.morefish.fishpack.pack.Pack;
+import ifly.imperial.gui.Gui;
+import ifly.imperial.gui.MenuSlot;
+import ifly.imperial.gui.buttons.BackButton;
+import ifly.imperial.utils.Debug;
+import ifly.imperial.utils.ItemUtil;
 import ifly.morefish.fishpack.pack.reward.RewardEntity;
-import ifly.morefish.gui.Menu;
-import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.helper.ItemCreator;
-import ifly.morefish.gui.menus.admin.PackRewardsMenu;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
-public class EditEntity extends Menu {
-    RewardEntity entity;
-    Pack pack;
+public class EditEntity extends Gui {
+    RewardEntity rewardEntity;
 
-    EditEntityMenuMsg menu;
-
-    public EditEntity(PlayerMenuUtil playerMenuUtil, RewardEntity entity, Pack pack) {
-        super(playerMenuUtil);
-        this.entity = entity;
-        this.pack = pack;
-        menu = MenuMsgs.get().EditEntityMenu;
-    }
-
-
-    @Override
-    public String getMenuName() {
-        return menu.title.replace("{1}", entity.getEntityType().name());
+    public EditEntity(Gui backGui) {
+        super("Edit entity reward", 1, backGui);
     }
 
     @Override
-    public int getSlots() {
-        return 3;
+    public void setInventoryItems() {
+
+        String message = "§aNumber of entities§f: §b{count}";
+        addSlot(2, new MenuSlot(ItemCreator.create(rewardEntity.getItem().getType(), message.replace("{count}", rewardEntity.getAmount()+""),
+                "§6Left click to add §b§l1 §6unit",
+                "§6Right-click to remove §b§l1 §6unit"), e->{
+            if (e.isLeftClick()){
+                if (rewardEntity.getAmount() +1 <= 64){
+                    rewardEntity.setAmount(rewardEntity.getAmount() +1);
+                }
+            }
+            if (e.isRightClick()){
+                if (rewardEntity.getAmount() -1 >= 1){
+                    rewardEntity.setAmount(rewardEntity.getAmount() -1);
+                }
+            }
+            setInventoryItems();
+            e.setCancelled(true);
+        }));
+
+        String itemessage  = "§aChance of entity spawning §b{chance} %";
+
+        addSlot(4, new MenuSlot(ItemCreator.create(Material.REDSTONE_BLOCK, itemessage.replace("{chance}", rewardEntity.getChance()+""),
+                "§6Left click to add §b§l5§b%",
+                      "§6Right click to remove §b§l5§b%"), e->{
+
+            if (e.isLeftClick()){
+                if (rewardEntity.getChance() +5 <= 100){
+                    rewardEntity.setChance(rewardEntity.getChance() +5);
+                }
+            }
+            if (e.isRightClick()){
+                if (rewardEntity.getChance() -5 >= 0){
+                    rewardEntity.setChance(rewardEntity.getChance() -5);
+                }
+            }
+
+            setInventoryItems();
+            e.setCancelled(true);
+        }));
+
+
+        addSlot(getSlots()-9, new BackButton(ItemCreator.create(Material.BARRIER, "Back"), getBackGui()));
     }
 
-    @Override
-    public void handleInventoryClick(InventoryClickEvent e) {
-        if (e.getSlot() == 11) {
-            if (e.isLeftClick()) {
-                if (entity.getAmount() + 1 <= 64) {
-                    entity.setAmount(entity.getAmount() + 1);
-                }
-            }
-            if (e.isRightClick()) {
-                if (entity.getAmount() - 1 >= 0) {
-                    entity.setAmount(entity.getAmount() - 1);
-                }
-            }
-            setMenuItems();
-        }
-        if (e.getSlot() == 15) {
-            if (e.isLeftClick()) {
-                if (entity.getChance() + 5 <= 100) {
-                    entity.setChance(entity.getChance() + 5);
-                } else {
-                    entity.setChance(100);
-                }
-            }
-            if (e.isRightClick()) {
-                if (entity.getChance() - 5 >= 0) {
-                    entity.setChance(entity.getChance() - 5);
-                } else {
-                    entity.setChance(0);
-                }
-            }
-            setMenuItems();
-        }
-        if (e.getSlot() == getSlots() * 9 - 9) {
-            new PackRewardsMenu(getPlayerMenuUtil(), pack).open();
-        }
-        e.setCancelled(true);
-    }
-
-    @Override
-    public void setMenuItems() {
-
-        String title = menu.amount_item.replace("{1}", String.valueOf(entity.getAmount()));
-        getInventory().setItem(11, ItemCreator.replace(entity.getItem(), title, entity.getAmount(),
-                menu.desc));
-        getInventory().setItem(15, ItemCreator.create(Material.COMPASS, menu.spawnchance_item.replace("{1}", String.valueOf(entity.getChance())), menu.spawnchance_desc));
-        getInventory().setItem(getSlots() * 9 - 9, menu.back_item);
+    public void setRewardEntity(RewardEntity rewardEntity) {
+        this.rewardEntity = rewardEntity;
     }
 }

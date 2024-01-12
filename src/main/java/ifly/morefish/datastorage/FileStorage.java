@@ -132,10 +132,9 @@ public class FileStorage implements IStorage {
         return list;
     }
 
-    boolean isNum(String str)
-    {
-        for(int i = 0; i < str.length(); i++) {
-            if(!Character.isDigit(str.charAt(i))) {
+    boolean isNum(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }
             return true;
@@ -176,10 +175,11 @@ public class FileStorage implements IStorage {
             Save(pack);
         }
     }
-    public void update(Pack pack){
+
+    public void update(Pack pack) {
         File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
         if (!f.exists()) {
-           return;
+            return;
         }
         YamlConfiguration conf = YamlConfiguration.loadConfiguration(f);
         //conf.set("Pack.name", pack.Name);
@@ -201,6 +201,7 @@ public class FileStorage implements IStorage {
             e.printStackTrace();
         }
     }
+
     public void Save(Pack pack) {
         File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
         if (!f.exists()) {

@@ -3,8 +3,7 @@ package ifly.morefish.events;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
-import ifly.morefish.gui.NewMenu;
-import ifly.morefish.gui.menus.admin.MainMenu;
+import ifly.morefish.gui.menus.admin.GuiController;
 import ifly.morefish.main;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -34,7 +33,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e){
+    public void onJoin(PlayerJoinEvent e) {
 
     }
 
@@ -44,14 +43,16 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
             this.fishMain.init(e.getPlayer(), e.getHook().getLocation());
         }
     }
+
     @EventHandler
-    public void placeChest(BlockPlaceEvent e){
-        if (e.getBlockPlaced().getType() == Material.CHEST){
-            if (fishMain.getPack(e.getItemInHand()) != null){
+    public void placeChest(BlockPlaceEvent e) {
+        if (e.getBlockPlaced().getType() == Material.CHEST) {
+            if (fishMain.getPack(e.getItemInHand()) != null) {
                 e.setCancelled(true);
             }
         }
     }
+
     @EventHandler
     public void interact(PlayerInteractEvent e) {
         if (e.getHand() != EquipmentSlot.HAND) {
@@ -77,12 +78,12 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("fishrewards")) {
 
-            if(!sender.hasPermission("fishrewarads.admin")) {
-                sender.sendMessage("You have no permissions");
+            if (!sender.hasPermission("fishrewarads.admin")) {
+                sender.sendMessage(Config.getMessage("You have no permissions"));
                 return true;
             }
 
-            if(args.length == 0) {
+            if (args.length == 0) {
                 sender.sendMessage("§e-----------------Available commands-------------------");
                 sender.sendMessage("§e/fishrewards admin §b- open admin panel");
                 sender.sendMessage("§e/fishrewards reload-pack §b- reload packs");
@@ -93,11 +94,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
             if (sender.hasPermission("fishrewarads.admin")) {
                 if (args[0].equalsIgnoreCase("admin")) {
                     Player p = (Player) sender;
-                    new MainMenu(main.getPlayerUtils(p)).open();
-                }
-                if (args[0].equalsIgnoreCase("admin2")){
-                    NewMenu menu = new NewMenu("Menu", 3);
-                    menu.open((Player) sender);
+                    GuiController.getMainMenu(p).open(p);
                 }
                 if (args[0].equalsIgnoreCase("reload-pack")) {
                     if (args.length == 2) {
@@ -105,7 +102,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                         sender.sendMessage(reloaded ? "§2Successful reloaded" : "§cFile not found");
                     }
                 }
-                if (args[0].equalsIgnoreCase("examplepack")){
+                if (args[0].equalsIgnoreCase("examplepack")) {
                     main.mainPlugin.saveResource("packs/ExampleDonatePack.yml", false);
                     main.mainPlugin.saveResource("packs/ExampleEntityPack.yml", false);
                     main.mainPlugin.saveResource("packs/ExampleItemsPack.yml", false);
@@ -117,6 +114,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
 
         return true;
     }
+
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String s, String[] args) {
         List<String> completions = new ArrayList<>();
@@ -125,7 +123,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
         if (cmd.getName().equalsIgnoreCase("fishrewards")) {
             if (args.length == 1) {
                 completions.add("admin");
-              //  completions.add("event");
+                //  completions.add("event");
             }
 //            if (args.length == 2 && args[0].equalsIgnoreCase("event")) {
 //                completions.add("start");

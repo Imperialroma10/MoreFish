@@ -1,142 +1,123 @@
 package ifly.morefish.gui.menus.admin;
 
+import ifly.imperial.gui.Gui;
+import ifly.imperial.gui.MenuSlot;
+import ifly.imperial.gui.buttons.BackButton;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.EditMenuMsg;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
-import ifly.morefish.gui.Menu;
-import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.helper.ItemCreator;
-import ifly.morefish.main;
-import net.wesjd.anvilgui.AnvilGUI;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.awt.font.TextHitInfo;
-import java.util.Collections;
-
-public class EditMenu extends Menu {
+public class EditMenu extends Gui {
     private final EditMenuMsg menu;
     Pack pack;
 
-    public EditMenu(PlayerMenuUtil playerMenuUtil, Pack pack) {
-        super(playerMenuUtil);
+    PackRewards packRewards;
+
+    public EditMenu(String title, int rows, Gui gui) {
+        super(title, rows, gui);
+        menu = MenuMsgs.get().EditMenu;
+        packRewards = new PackRewards(this);
+    }
+    public EditMenu(String title, int rows,Pack pack, Gui gui) {
+        this(title, rows, gui);
+
         this.pack = pack;
-        menu = MenuMsgs.get().EditMenu;
     }
-
-    public EditMenu(PlayerMenuUtil playerMenuUtil) {
-        super(playerMenuUtil);
-        menu = MenuMsgs.get().EditMenu;
-    }
-
     @Override
-    public String getMenuName() {
-        return menu.title.replace("{packname}", pack.getDisplayname());
-    }
+    public void setInventoryItems() {
+        addSlot(10, new MenuSlot(ItemCreator.create(Material.PAPER, "Edit pack name",
+                "§6To edit the name you need to open the pack configuration file",
+                "§6and change the '§bdisplayname§6' parameter",
+                "§6File to edit §b" + pack.getName()), e -> {
 
-    @Override
-    public int getSlots() {
-        return 3;
-    }
 
-    @Override
-    public void handleInventoryClick(InventoryClickEvent e) {
+            e.setCancelled(true);
+        }));
 
-        if (e.getSlot() == 12 - 9) {
-            pack.setDropChance(pack.getDropChance() + 5);
-            getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
-            getPlayerMenuUtil().getOwner().sendMessage("§bPack chance set to: §a" + pack.getDropChance() + "%");
-        }
-        if (e.getSlot() == 12 + 9) {
-            pack.setDropChance(pack.getDropChance() - 5);
-            getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
-            getPlayerMenuUtil().getOwner().sendMessage("§bPack chance set to: §a" + pack.getDropChance() + "%");
-        }
-        if (e.getSlot() == 14) {
-            PackRewardsMenu packRewardsMenu = new PackRewardsMenu(getPlayerMenuUtil(), pack);
-            packRewardsMenu.open();
-        }
-        if (e.getSlot() == 3 * 9 - 1) {
-            StorageCreator.getStorageIns().Save(pack);
-        }
-        if (e.getSlot() == 3 * 9 - 9) {
-            new PackListMenu(getPlayerMenuUtil()).open();
-        }
-        if (e.getSlot() == 10) {
-            AnvilGUI.Builder builder = new AnvilGUI.Builder();
-            ItemStack paper = new ItemStack(Material.PAPER);
-            ItemMeta meta = paper.getItemMeta();
-            meta.setDisplayName(pack.getDisplayname());
-            paper.setItemMeta(meta);
-            builder.itemLeft(paper);
-            builder.
-                    plugin(main.mainPlugin).
-                    onClick((slot, stateSnapshot) -> {
-                        if (slot == AnvilGUI.Slot.OUTPUT) {
-                            pack.setDisplayname(stateSnapshot.getText());
-
-                            this.open();
-                        }
-                        return Collections.emptyList();
-                    }).
-                    open(getPlayerMenuUtil().getOwner());
-
-            //AnvilController.createAnvil((Player) e.getWhoClicked(), new EditPackDisplayName((Player) e.getWhoClicked(), pack, isnewpack));
-        }
-        if (e.getSlot() == 16){
-            pack.setEnablepermission(!getPack().isEnablepermission());
-            setMenuItems();
-        }
-        if (e.getSlot() == 3 * 9 - 2) {
-            Pack newPack = StorageCreator.getStorageIns().laodFromFile(pack);
-            if (newPack != null) {
-                FishController.packList.remove(pack);
-                FishController.packList.add(newPack);
-                this.pack = newPack;
-                open();
+        addSlot(12, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, menu.chance_status.replace("{chance}", pack.getDropChance() + "%"),
+                "§6Left click to add §b5%",
+                "§6Right click to remove §b5%"), e -> {
+            int percent = pack.getDropChance();
+            if (e.isLeftClick()) {
+                if (percent + 5 <= 100) {
+                    pack.setDropChance(percent + 5);
+                }
+            }
+            if (e.isRightClick()) {
+                if (percent - 5 >= 0) {
+                    pack.setDropChance(percent - 5);
+                }
             }
 
-        }
-        if (e.getSlot() == 3 * 9 - 3) {
+            getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
+            e.getWhoClicked().sendMessage("§bPack chance set to: §a" + pack.getDropChance() + "%");
+            e.setCancelled(true);
+        }));
+
+        addSlot(14, new MenuSlot(ItemCreator.create(Material.CHEST, "Pack rewards"), e -> {
+
+            packRewards.open(getOwner(), pack);
+            e.setCancelled(true);
+        }));
+
+        addSlot(26, new MenuSlot(ItemCreator.create(Material.COMMAND_BLOCK, "Save pack"), e -> {
+            StorageCreator.getStorageIns().Save(pack);
+
+            e.setCancelled(true);
+        }));
+        addSlot(8, new MenuSlot(menu.getpack_item, e -> {
+            e.getWhoClicked().getInventory().addItem(pack.getChest());
+            e.setCancelled(true);
+        }));
+
+        addSlot(25, new MenuSlot(menu.remove_pack, e -> {
             FishController.packList.remove(pack);
-            new PackListMenu(getPlayerMenuUtil()).open();
+
             StorageCreator.getStorageIns().removePack(pack);
-        }
+            GuiController.getMainMenu(getOwner()).getPackList().open((Player) e.getWhoClicked());
+            e.setCancelled(true);
+        }));
 
-        if (e.getSlot() == 8) {
-            getPlayerMenuUtil().getOwner().getInventory().addItem(pack.getChest());
-        }
-        e.setCancelled(true);
+//        addSlot(24, new MenuSlot(menu.reload_pack, e -> {
+//            Pack newPack = StorageCreator.getStorageIns().laodFromFile(pack);
+//            if (newPack != null) {
+//                FishController.packList.set(FishController.packList.indexOf(pack), newPack);
+//
+//                this.pack = newPack;
+//                setTitle("Edit " + pack.getDisplayname());
+//                open(getOwner());
+//            }
+//        }));
+
+        addSlot(18, new BackButton(new ItemStack(Material.BARRIER), getBackGui()));
+
+
+
+        addSlot(16, new MenuSlot(getItemFromPerm(), e->{
+            pack.setEnablepermission(!pack.isEnablepermission());
+            getMenuSlot(16).setGuiItem(getItemFromPerm());
+            updateSlot(16);
+            e.setCancelled(true);
+        }));
+
+    }
+    public ItemStack getItemFromPerm(){
+        return pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "Enable permission", "§aYou need a permit to get one: §b" + pack.getPermissionsToOpen()) :
+                ItemCreator.create(Material.RED_WOOL, "Disable permission", "§aAny player can get one.");
+    }
+    public void setPack(Pack pack) {
+        this.pack = pack;
     }
 
-
-    public Pack getPack() {
-        return pack;
+    public PackRewards getPackRewards() {
+        return packRewards;
     }
 
-    @Override
-    public void setMenuItems() {
-        getInventory().setItem(12 - 9, menu.add_chance);
-        ItemStack itemchance = menu.chance_status_item.clone();
-        ItemMeta meta = itemchance.getItemMeta();
-        meta.setDisplayName(menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance())));
-        itemchance.setItemMeta(meta);
-
-        getInventory().setItem(12, itemchance);
-        getInventory().setItem(8, menu.getpack_item);
-        getInventory().setItem(12 + 9, menu.sub_chance);
-        getInventory().setItem(14, menu.rewards_item);
-        getInventory().setItem(16, pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "Enable permission", "§aYou need a permit to get one: §b"+pack.getPermissionsToOpen()) :
-                                                                  ItemCreator.create(Material.RED_WOOL, "Disable permission", "§aAny player can get one.")
-                );
-        getInventory().setItem(10, menu.change_pack_name);
-        getInventory().setItem(3 * 9 - 1, menu.save_item);
-        getInventory().setItem(3 * 9 - 3, menu.remove_pack);
-        getInventory().setItem(3 * 9 - 2, menu.reload_pack);
-        getInventory().setItem(3 * 9 - 9, menu.back_item);
-    }
 }

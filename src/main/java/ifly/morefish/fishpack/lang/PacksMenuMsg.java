@@ -38,14 +38,14 @@ public class PacksMenuMsg {
                 continue;
             }
             if (list[i].contains("{filename}")) {
-               lore.add(list[i].replace("{filename}", String.valueOf(pack.getName())));
-               continue;
+                lore.add(list[i].replace("{filename}", String.valueOf(pack.getName())));
+                continue;
             }
             lore.add(list[i]);
         }
-        if (pack.isEnablepermission()){
-            lore.add("§aYou need a permit to get one : §b"+pack.getPermissionsToOpen());
-        }else{
+        if (pack.isEnablepermission()) {
+            lore.add("§aYou need a permit to get one : §b" + pack.getPermissionsToOpen());
+        } else {
             lore.add("§aAny player can get one.");
         }
         return ItemCreator.create(Material.CHEST, name, lore);

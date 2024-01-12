@@ -8,15 +8,16 @@ public class PlayerStatistic {
 
     FishController controller;
 
-    public PlayerStatistic(FishController controller){
+    public PlayerStatistic(FishController controller) {
         this.controller = controller;
     }
 
-    public void addOpenPacks(){
+    public void addOpenPacks() {
         this.openPacks += 1;
     }
-    public void addCaughtPacks(){
-        this.caughtPacks +=1;
+
+    public void addCaughtPacks() {
+        this.caughtPacks += 1;
     }
 
     public int getOpenPacks() {

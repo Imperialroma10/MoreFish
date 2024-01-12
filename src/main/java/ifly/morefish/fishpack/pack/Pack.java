@@ -35,18 +35,10 @@ public class Pack {
     public Pack(String name, String displayname, int customModelData) {
         this.Displayname = displayname;
         this.customModelData = customModelData;
-        Name = name.replace(".yml","");
+        Name = name.replace(".yml", "");
         rewards = new ArrayList<>();
         chest = setItemNBT(ItemCreator.create(Material.CHEST, getDisplayname()));
 
-    }
-    public ItemStack setItemNBT(ItemStack itemStack){
-        if (itemStack.getItemMeta() != null){
-            ItemMeta meta = itemStack.getItemMeta();
-            meta.getPersistentDataContainer().set(getKey(), PersistentDataType.STRING, getName());
-            itemStack.setItemMeta(meta);
-        }
-      return itemStack;
     }
 
     public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds) {
@@ -55,8 +47,17 @@ public class Pack {
 
     }
 
+    public ItemStack setItemNBT(ItemStack itemStack) {
+        if (itemStack.getItemMeta() != null) {
+            ItemMeta meta = itemStack.getItemMeta();
+            meta.getPersistentDataContainer().set(getKey(), PersistentDataType.STRING, getName());
+            itemStack.setItemMeta(meta);
+        }
+        return itemStack;
+    }
+
     public NamespacedKey getKey() {
-        if (this.key == null){
+        if (this.key == null) {
             this.key = new NamespacedKey(main.mainPlugin, getName());
         }
         return key;
@@ -119,8 +120,8 @@ public class Pack {
     }
 
     public void giveReward(Player player) {
-        if (isEnablepermission()){
-            if (!(player.hasPermission("*") || player.hasPermission(getPermissionsToOpen()))){
+        if (isEnablepermission()) {
+            if (!(player.hasPermission("*") || player.hasPermission(getPermissionsToOpen()))) {
                 player.sendMessage(Config.getMessage("You don't have permission to open"));
                 return;
             }
@@ -153,6 +154,7 @@ public class Pack {
     public String getName() {
         return Name;
     }
+
     public boolean isEnablepermission() {
         return enablepermission;
     }
@@ -161,8 +163,8 @@ public class Pack {
         this.enablepermission = enablepermission;
     }
 
-    public String getPermissionsToOpen(){
-        String permission = "skydrop.pack."+this.getName();
-        return permission.replace("_",".");
+    public String getPermissionsToOpen() {
+        String permission = "fish.pack." + this.getName();
+        return permission.replace("_", "");
     }
 }

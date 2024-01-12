@@ -1,78 +1,49 @@
 package ifly.morefish.gui.menus.admin.rewardcreator;
 
-import ifly.morefish.fishpack.lang.EntityMenuMsg;
-import ifly.morefish.fishpack.lang.MenuMsgs;
+import ifly.imperial.gui.Gui;
+import ifly.imperial.gui.ListedGui;
+import ifly.imperial.gui.MenuSlot;
+import ifly.imperial.gui.buttons.BackButton;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardEntity;
-import ifly.morefish.gui.Menu;
-import ifly.morefish.gui.PlayerMenuUtil;
 import ifly.morefish.gui.helper.ItemCreator;
-import ifly.morefish.gui.menus.admin.PackRewardsMenu;
-import org.bukkit.Bukkit;
+import ifly.morefish.gui.menus.admin.GuiController;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.SizedFireball;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class EntityReward extends Menu {
-    private final EntityMenuMsg menu;
-    List<EntityType> entityTypeList = new ArrayList<>();
+public class EntityReward extends ListedGui {
     Pack pack;
 
-    public EntityReward(PlayerMenuUtil playerMenuUtil, Pack pack) {
-        super(playerMenuUtil);
+    public <T> EntityReward(List<T> data, Gui gui) {
+        super("§6Select entity for reward", 5, data, 4, gui);
+
+    }
+
+    @Override
+    public void setInventoryItems() {
+
+        for (int i = 0; i < getDataBlockSize(); i++) {
+            int id = getDataBlockSize() * getPage() + i;
+            if (id < getData().size()) {
+                Material material = Material.getMaterial(getData().get(id) + "_SPAWN_EGG");
+                addSlot(i, new MenuSlot(ItemCreator.create(material, material.name()), e->{
+                    pack.addReward(new RewardEntity((EntityType) getData().get(id), 1,50));
+                    openBack();
+                    e.setCancelled(true);
+                }));
+            }
+        }
+
+        addSlot(getSlots()-9, new BackButton(ItemCreator.create(Material.BARRIER, "Back"), getBackGui()));
+
+        super.setInventoryItems();
+    }
+
+    public void setPack(Pack pack) {
         this.pack = pack;
-        menu = MenuMsgs.get().EntityMenu;
-    }
-
-    @Override
-    public String getMenuName() {
-        return menu.title;
-    }
-
-    @Override
-    public int getSlots() {
-        return 6;
-    }
-
-    @Override
-    public void handleInventoryClick(InventoryClickEvent e) {
-        int slot = e.getSlot();
-        if (slot < entityTypeList.size()) {
-            EntityType entity = entityTypeList.get(slot);
-            RewardEntity rewardEntity = new RewardEntity(entity, 1, 100);
-            pack.getRewards().add(rewardEntity);
-            new PackRewardsMenu(getPlayerMenuUtil(), pack).open();
-        }
-        if (e.getSlot() == getSlots() * 9 - 9) {
-            new PackRewardsMenu(getPlayerMenuUtil(), pack).open();
-        }
-        e.setCancelled(true);
-    }
-
-    @Override
-    public void setMenuItems() {
-        int i = 0;
-        List<EntityType> entityTypes = Arrays.stream(EntityType.values()).toList();
-
-        for (EntityType entityType: entityTypes){
-            if (Material.getMaterial(entityType.name()+"_SPAWN_EGG") != null){
-                entityTypeList.add(entityType);
-            }
-        }
-
-        for (EntityType entity : entityTypeList) {
-            if (i <= 45){
-                getInventory().setItem(i, ItemCreator.create(Material.getMaterial(entity.name() + "_SPAWN_EGG"), entity.getName(),
-                        menu.desc));
-                i++;
-            }
-
-        }
-        getInventory().setItem(getSlots() * 9 - 9, menu.back_item);
     }
 }

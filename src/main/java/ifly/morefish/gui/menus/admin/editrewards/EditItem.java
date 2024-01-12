@@ -1,110 +1,96 @@
 package ifly.morefish.gui.menus.admin.editrewards;
 
+import ifly.imperial.gui.Gui;
+import ifly.imperial.gui.MenuSlot;
+import ifly.imperial.gui.buttons.BackButton;
+import ifly.imperial.utils.ItemUtil;
 import ifly.morefish.fishpack.lang.EditItemMenuMsg;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
-import ifly.morefish.fishpack.pack.reward.RewardItem;
-import ifly.morefish.gui.Menu;
-import ifly.morefish.gui.PlayerMenuUtil;
+import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.gui.helper.ItemCreator;
-import ifly.morefish.gui.menus.admin.PackRewardsMenu;
-import ifly.morefish.main;
-import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collections;
 
-public class EditItem extends Menu {
-    RewardItem item;
+public class EditItem extends Gui {
+
+
+    private final EditItemMenuMsg menu;
+    private RewardAbstract item;
+
     Pack pack;
 
-    EditItemMenuMsg menu;
-
-    public EditItem(PlayerMenuUtil playerMenuUtil, RewardItem item, Pack pack) {
-        super(playerMenuUtil);
-        this.item = item;
-        this.pack = pack;
+    public EditItem(Gui gui) {
+        super("Edit item config", 1, gui);
         menu = MenuMsgs.get().EditItemMenu;
+
     }
 
     @Override
-    public String getMenuName() {
-        return menu.title;
-    }
+    public void setInventoryItems() {
 
-    @Override
-    public int getSlots() {
-        return 3;
-    }
+        String title = "§aItem preview";
+        String dropChance = "§aChance of receiving an item: §b§l{chance}%";
 
-    @Override
-    public void handleInventoryClick(InventoryClickEvent e) {
-        if (e.getSlot() == 10) {
-            AnvilGUI.Builder builder = new AnvilGUI.Builder();
-            builder.itemLeft(item.getItem());
-            builder.
-                    plugin(main.mainPlugin).
-                    onClick((slot, stateSnapshot) -> {
-                        if (slot == AnvilGUI.Slot.OUTPUT) {
-                            ItemStack itemStack = item.getItem().clone();
-                            ItemCreator.replace(itemStack, stateSnapshot.getText());
-                            this.open();
-                        }
-                        return Collections.emptyList();
-                    }).
-                    open(getPlayerMenuUtil().getOwner());
-            // AnvilController.createAnvil((Player) e.getWhoClicked(), new EditItemName((Player) e.getWhoClicked(), item, pack));
-        }
-        if (e.getSlot() == getSlots() * 9 - 9) {
-            new PackRewardsMenu(getPlayerMenuUtil(), pack).open();
-        }
+        addSlot(2, new MenuSlot(ItemCreator.create(Material.PAPER, "§aInstructions for changing the name of an item",
+                "§6You need to open the pack '" +pack.getName()+".yml'",
+                "§6Find the right item",
+                "§6And change the '§bdisplayname§6' parameter"), e->{
 
-        if (e.getSlot() == 13 - 9) {
-            if (item.getItem().getAmount() + 1 <= 64) {
-                item.getItem().setAmount(item.getItem().getAmount() + 1);
-                setMenuItems();
-            }
-
-        }
-        if (e.getSlot() == 13 + 9) {
-            if (item.getItem().getAmount() - 1 > 0) {
-                item.getItem().setAmount(item.getItem().getAmount() - 1);
-                setMenuItems();
-            }
-        }
-        if (e.getSlot() == 16) {
-            if (e.isLeftClick()) {
-                if (item.getChance() + 5 <= 100) {
-                    item.setChance(item.getChance() + 5);
-                } else {
-                    item.setChance(100);
+            e.setCancelled(true);
+        }));
+        addSlot(6, new MenuSlot(ItemUtil.create(menu.addamount_item, "§aItems count","§6Left click to add §b§l1 §6unit",
+                "§6Right-click to remove §b§l1 §6unit"), e->{
+            ItemStack itemStack = item.getItem();
+            if (e.isLeftClick()){
+                if (itemStack.getAmount() +1 <= 64){
+                    item.getItem().setAmount(itemStack.getAmount() +1);
                 }
+            }
+            if (e.isRightClick()){
+                if (itemStack.getAmount() -1 >= 1){
+                    item.getItem().setAmount(itemStack.getAmount()-1);
+                }
+            }
 
+            setInventoryItems();
+            e.setCancelled(true);
+        }));
+
+        addSlot(8, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, dropChance.replace("{chance}", item.getChance()+""),
+                "§6Left click to add §b§l5§b%",
+                "§6Right click to remove §b§l5§b%"), e -> {
+            int percent = item.getChance();
+            if (e.isLeftClick()) {
+                if (percent + 5 <= 100) {
+                    item.setChance(percent + 5);
+                }
             }
             if (e.isRightClick()) {
-                if (item.getChance() - 5 >= 0) {
-                    item.setChance(item.getChance() - 5);
-                } else {
-                    item.setChance(0);
+                if (percent - 5 >= 0) {
+                    item.setChance(percent - 5);
                 }
-
             }
-            setMenuItems();
-        }
-        e.setCancelled(true);
+            setInventoryItems();
+            e.setCancelled(true);
+    }));
+
+        addSlot(4, new MenuSlot(ItemUtil.create(item.getItem().clone(), title, dropChance.replace("{chance}", item.getChance()+"")), e->{
+
+            e.setCancelled(true);
+        }));
+        addSlot(getSlots()-9, new BackButton(ItemCreator.create(Material.BARRIER, "Back"),getBackGui()));
+
+
+}
+    public void setItem(RewardAbstract item) {
+        this.item = item;
     }
 
-    @Override
-    public void setMenuItems() {
-        getInventory().setItem(10, menu.editname_item);
-        getInventory().setItem(13 - 9, menu.addamount_item);
-        getInventory().setItem(13, item.getItem());
-        String title = menu.dropchance.replace("{1}", String.valueOf(item.getChance()));
-        getInventory().setItem(16, ItemCreator.create(Material.COMPASS, title,
-                menu.dropchancelist));
-        getInventory().setItem(13 + 9, menu.subtructamount_item);
-        getInventory().setItem(getSlots() * 9 - 9, menu.back_item);
+    public void open(Player player, Pack pack) {
+        this.pack = pack;
+        super.open(player);
     }
 }

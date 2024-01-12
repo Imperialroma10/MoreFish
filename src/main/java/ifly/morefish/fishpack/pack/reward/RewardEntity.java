@@ -31,7 +31,7 @@ public class RewardEntity extends RewardAbstract {
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(Material.getMaterial(entityType.name() + "_SPAWN_EGG"), 1);
+        return new ItemStack(Material.getMaterial(entityType.name() + "_SPAWN_EGG"), getAmount());
     }
 
     @Override

@@ -1,11 +1,8 @@
 package ifly.morefish.fishpack.pack.reward;
 
-import ifly.morefish.gui.helper.ItemCreator;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public abstract class RewardFun extends RewardAbstract {
 
@@ -20,5 +17,5 @@ public abstract class RewardFun extends RewardAbstract {
 
     }
 
-   public abstract void action(Player player);
+    public abstract void action(Player player);
 }
