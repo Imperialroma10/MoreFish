@@ -40,7 +40,7 @@ public final class main extends JavaPlugin {
 
         controller = new FishController(storage);
 
-        Liba liba = new Liba(mainPlugin, 111966, 20665);
+        Liba liba = new Liba(mainPlugin, 111966, 19862);
 
         if (liba.getChecker() != null) {
             liba.getChecker().setMessage(Config.getMessage(liba.getChecker().getMessage()));

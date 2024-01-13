@@ -31,7 +31,17 @@ public class RewardItem extends RewardAbstract {
     }
 
     public void addEnchantments(Enchantment enchantment, int level) {
+
         this.item.addUnsafeEnchantment(enchantment, level);
+    }
+    public void addBookEnchantments(Enchantment enchantment, int level) {
+        EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+
+        if (meta != null) {
+            meta.addStoredEnchant(enchantment, level,true);
+        }
+        item.setItemMeta(meta);
+        //this.item.getItemMeta().addEnchant(enchantment, level, true);
     }
 
 

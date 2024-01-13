@@ -13,6 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
@@ -81,13 +82,18 @@ public class FileStorage implements IStorage {
                         RewardItem rewardItem = new RewardItem(is, chance);
 
                         ConfigurationSection enchantSection = sec_rewards.getConfigurationSection(key_reward + ".enchants");
+
                         if (enchantSection != null) {
                             for (String enchant : enchantSection.getKeys(false)) {
-                                rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
+                                if (m == Material.ENCHANTED_BOOK){
+                                    rewardItem.addBookEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
+                                }else{
+                                    rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
+                                }
+
                             }
                         }
                         rewards.add(rewardItem);
-
 
                     }
                     if (type.equals("mob")) {
