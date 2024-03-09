@@ -60,7 +60,7 @@ public class FishController {
 
     public boolean Reload(String packname) {
         for (int i = 0; i < packList.size(); i++) {
-            if (packList.get(i).Name.equals(packname)) {
+            if (packList.get(i).getName().equals(packname)) {
                 IStorage fs = storage.getStorage();
                 Pack pack = fs.laodFromFile(packList.get(i));
 

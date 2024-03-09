@@ -1,6 +1,7 @@
 package ifly.morefish.fishpack.pack.reward;
 
-import ifly.imperial.utils.Debug;
+
+import com.liba.utils.Debug;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -34,11 +35,12 @@ public class RewardItem extends RewardAbstract {
 
         this.item.addUnsafeEnchantment(enchantment, level);
     }
+
     public void addBookEnchantments(Enchantment enchantment, int level) {
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
 
         if (meta != null) {
-            meta.addStoredEnchant(enchantment, level,true);
+            meta.addStoredEnchant(enchantment, level, true);
         }
         item.setItemMeta(meta);
         //this.item.getItemMeta().addEnchant(enchantment, level, true);
@@ -69,13 +71,13 @@ public class RewardItem extends RewardAbstract {
         }
         section.set(num + ".chance", chance);
         Map<Enchantment, Integer> enchs;
-        if (item.getType() == Material.ENCHANTED_BOOK){
-            enchs = EnchantmentStorageMeta.class.cast(item.getItemMeta()).getStoredEnchants();
-        }else{
+        if (item.getType() == Material.ENCHANTED_BOOK) {
+            enchs = ((EnchantmentStorageMeta) item.getItemMeta()).getStoredEnchants();
+        } else {
             enchs = item.getEnchantments();
         }
 
-        Debug.LogChat(enchs.size()+"");
+        Debug.LogChat(enchs.size() + "");
         for (Map.Entry<Enchantment, Integer> ench : enchs.entrySet()) {
 
             section.set(num + ".enchants." + ench.getKey().getKey().getKey() + ".level", ench.getValue());

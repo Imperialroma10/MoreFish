@@ -1,27 +1,40 @@
 package ifly.morefish.fishpack.pack;
 
 
+
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.liba.utils.Debug;
+import com.liba.utils.HeadCreator;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
-import ifly.morefish.gui.helper.ItemCreator;
+
 import ifly.morefish.main;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.profile.PlayerProfile;
+import org.bukkit.profile.PlayerTextures;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.lang.reflect.Field;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.util.*;
 
 
 public class Pack {
 
-    public String Name;
+    String Name;
     String Displayname;
     List<RewardAbstract> rewards;
     int dropChance;
@@ -29,7 +42,6 @@ public class Pack {
 
     boolean enablepermission;
     ItemStack chest;
-
     NamespacedKey key;
 
     public Pack(String name, String displayname, int customModelData) {
@@ -37,24 +49,25 @@ public class Pack {
         this.customModelData = customModelData;
         Name = name.replace(".yml", "");
         rewards = new ArrayList<>();
-        chest = setItemNBT(ItemCreator.create(Material.CHEST, getDisplayname()));
-
     }
-
-    public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds) {
-        this(name, displayname, customModelData);
-        rewards = rwds;
-
-    }
-
-    public ItemStack setItemNBT(ItemStack itemStack) {
+    public void setNbt(ItemStack itemStack, String skullString){
         if (itemStack.getItemMeta() != null) {
+            if (itemStack.getItemMeta() instanceof SkullMeta){
+                HeadCreator.setHeadTexture(itemStack, skullString);
+            }
             ItemMeta meta = itemStack.getItemMeta();
+            meta.setDisplayName(getDisplayname());
             meta.getPersistentDataContainer().set(getKey(), PersistentDataType.STRING, getName());
             itemStack.setItemMeta(meta);
         }
-        return itemStack;
+        //.LogChat(chest.toString());
+        this.chest = itemStack;
     }
+    public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds) {
+        this(name, displayname, customModelData);
+        rewards = rwds;
+    }
+
 
     public NamespacedKey getKey() {
         if (this.key == null) {
@@ -80,8 +93,7 @@ public class Pack {
 
     public boolean enoughSpace(Player p) {
         for (RewardAbstract reward : rewards) {
-            if (reward instanceof RewardItem) {
-                RewardItem rewardItem = (RewardItem) reward;
+            if (reward instanceof RewardItem rewardItem) {
                 int amount = freeCountOfItem(p.getInventory(), rewardItem.getItem());
                 if (amount < rewardItem.getItem().getAmount()) {
                     return false;
@@ -166,5 +178,13 @@ public class Pack {
     public String getPermissionsToOpen() {
         String permission = "fish.pack." + this.getName();
         return permission.replace("_", "");
+    }
+
+    public void setChest(ItemStack chest) {
+        this.chest = chest;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 }

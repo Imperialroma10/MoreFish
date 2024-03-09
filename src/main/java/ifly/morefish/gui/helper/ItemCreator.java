@@ -32,6 +32,7 @@ public class ItemCreator {
         itemStack.setItemMeta(meta);
         return itemStack;
     }
+
     public static ItemStack replace(ItemStack itemStack, String title, String... lore) {
         List<String> lorelist = new ArrayList<>();
 

@@ -1,18 +1,16 @@
 package ifly.morefish.gui.menus.admin.rewardcreator;
 
-import ifly.imperial.gui.Gui;
-import ifly.imperial.gui.ListedGui;
-import ifly.imperial.gui.MenuSlot;
-import ifly.imperial.gui.buttons.BackButton;
+import com.liba.gui.Gui;
+import com.liba.gui.ListedGui;
+import com.liba.gui.MenuSlot;
+import com.liba.gui.buttons.BackButton;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardEntity;
 import ifly.morefish.gui.helper.ItemCreator;
-import ifly.morefish.gui.menus.admin.GuiController;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class EntityReward extends ListedGui {
@@ -30,15 +28,15 @@ public class EntityReward extends ListedGui {
             int id = getDataBlockSize() * getPage() + i;
             if (id < getData().size()) {
                 Material material = Material.getMaterial(getData().get(id) + "_SPAWN_EGG");
-                addSlot(i, new MenuSlot(ItemCreator.create(material, material.name()), e->{
-                    pack.addReward(new RewardEntity((EntityType) getData().get(id), 1,50));
+                addSlot(i, new MenuSlot(ItemCreator.create(material, material.name()), e -> {
+                    pack.addReward(new RewardEntity((EntityType) getData().get(id), 1, 50));
                     openBack();
                     e.setCancelled(true);
                 }));
             }
         }
 
-        addSlot(getSlots()-9, new BackButton(ItemCreator.create(Material.BARRIER, "Back"), getBackGui()));
+        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
 
         super.setInventoryItems();
     }

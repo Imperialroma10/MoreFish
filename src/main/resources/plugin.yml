@@ -1,6 +1,6 @@
 name: FishRewards
 version: '${project.version}'
-author: 'Imperialroma10, miph_'
+author: "Imperialroma10 (Roman43435)"
 main: ifly.morefish.main
 api-version: 1.13
 description: "The FishRewards plugin is a modification that alters the fishing system. You can earn custom rewards while using it."

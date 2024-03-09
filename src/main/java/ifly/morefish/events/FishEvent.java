@@ -1,5 +1,6 @@
 package ifly.morefish.events;
 
+import com.liba.utils.Debug;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
@@ -68,6 +69,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                         return;
                     }
                     fishMain.getPlayerStatistic().addOpenPacks();
+
                     pack.giveReward(e.getPlayer());
                 }
             }

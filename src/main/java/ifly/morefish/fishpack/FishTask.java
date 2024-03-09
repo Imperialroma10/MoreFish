@@ -33,7 +33,8 @@ public class FishTask {
         endlocation = location.clone();
         endlocation.setY(location.getY() + 4);
         stand = (ArmorStand) fishLocation.getWorld().spawnEntity(fishLocation, EntityType.ARMOR_STAND);
-        stand.getEquipment().setHelmet(new ItemStack(Material.CHEST));
+        stand.getEquipment().setHelmet(pack.getChest());
+
         stand.setInvisible(true);
         stand.setGravity(false);
         stand.setCustomNameVisible(true);

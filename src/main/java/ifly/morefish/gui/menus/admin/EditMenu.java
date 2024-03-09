@@ -1,15 +1,15 @@
 package ifly.morefish.gui.menus.admin;
 
-import ifly.imperial.gui.Gui;
-import ifly.imperial.gui.MenuSlot;
-import ifly.imperial.gui.buttons.BackButton;
+
+import com.liba.gui.Gui;
+import com.liba.gui.MenuSlot;
+import com.liba.gui.buttons.BackButton;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.EditMenuMsg;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.helper.ItemCreator;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,11 +25,13 @@ public class EditMenu extends Gui {
         menu = MenuMsgs.get().EditMenu;
         packRewards = new PackRewards(this);
     }
-    public EditMenu(String title, int rows,Pack pack, Gui gui) {
+
+    public EditMenu(String title, int rows, Pack pack, Gui gui) {
         this(title, rows, gui);
 
         this.pack = pack;
     }
+
     @Override
     public void setInventoryItems() {
         addSlot(10, new MenuSlot(ItemCreator.create(Material.PAPER, "Edit pack name",
@@ -96,11 +98,10 @@ public class EditMenu extends Gui {
 //            }
 //        }));
 
-        addSlot(18, new BackButton(new ItemStack(Material.BARRIER), getBackGui()));
+        addSlot(18, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
 
 
-
-        addSlot(16, new MenuSlot(getItemFromPerm(), e->{
+        addSlot(16, new MenuSlot(getItemFromPerm(), e -> {
             pack.setEnablepermission(!pack.isEnablepermission());
             getMenuSlot(16).setGuiItem(getItemFromPerm());
             updateSlot(16);
@@ -108,10 +109,12 @@ public class EditMenu extends Gui {
         }));
 
     }
-    public ItemStack getItemFromPerm(){
+
+    public ItemStack getItemFromPerm() {
         return pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "Enable permission", "§aYou need a permit to get one: §b" + pack.getPermissionsToOpen()) :
                 ItemCreator.create(Material.RED_WOOL, "Disable permission", "§aAny player can get one.");
     }
+
     public void setPack(Pack pack) {
         this.pack = pack;
     }

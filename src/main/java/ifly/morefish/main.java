@@ -1,22 +1,21 @@
 package ifly.morefish;
 
 
-import ifly.imperial.Liba;
-import ifly.imperial.utils.Debug;
+import com.liba.Liba;
+import com.liba.utils.Debug;
 import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.events.FishEvent;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.MenuMsgs;
-import libs.bstats.bukkit.Metrics;
-import libs.bstats.charts.SimplePie;
+
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
 import java.util.logging.Level;
 
 public final class main extends JavaPlugin {
@@ -29,7 +28,7 @@ public final class main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Debug.setDebug(false);
+        Debug.setDebug(true);
         mainPlugin = this;
         Config.getConfig();
 
@@ -40,7 +39,7 @@ public final class main extends JavaPlugin {
 
         controller = new FishController(storage);
 
-        Liba liba = new Liba(mainPlugin, 111966, 19862);
+        Liba liba = new Liba(mainPlugin, 111966, new Metrics(this,19862));
 
         if (liba.getChecker() != null) {
             liba.getChecker().setMessage(Config.getMessage(liba.getChecker().getMessage()));

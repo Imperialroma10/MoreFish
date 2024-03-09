@@ -1,9 +1,10 @@
 package ifly.morefish.gui.menus.admin.editrewards;
 
-import ifly.imperial.gui.Gui;
-import ifly.imperial.gui.MenuSlot;
-import ifly.imperial.gui.buttons.BackButton;
-import ifly.imperial.utils.ItemUtil;
+
+import com.liba.gui.Gui;
+import com.liba.gui.MenuSlot;
+import com.liba.gui.buttons.BackButton;
+import com.liba.utils.ItemUtil;
 import ifly.morefish.fishpack.lang.EditItemMenuMsg;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
@@ -18,9 +19,8 @@ public class EditItem extends Gui {
 
 
     private final EditItemMenuMsg menu;
-    private RewardAbstract item;
-
     Pack pack;
+    private RewardAbstract item;
 
     public EditItem(Gui gui) {
         super("Edit item config", 1, gui);
@@ -35,23 +35,23 @@ public class EditItem extends Gui {
         String dropChance = "§aChance of receiving an item: §b§l{chance}%";
 
         addSlot(2, new MenuSlot(ItemCreator.create(Material.PAPER, "§aInstructions for changing the name of an item",
-                "§6You need to open the pack '" +pack.getName()+".yml'",
+                "§6You need to open the pack '" + pack.getName() + ".yml'",
                 "§6Find the right item",
-                "§6And change the '§bdisplayname§6' parameter"), e->{
+                "§6And change the '§bdisplayname§6' parameter"), e -> {
 
             e.setCancelled(true);
         }));
-        addSlot(6, new MenuSlot(ItemUtil.create(menu.addamount_item, "§aItems count","§6Left click to add §b§l1 §6unit",
-                "§6Right-click to remove §b§l1 §6unit"), e->{
+        addSlot(6, new MenuSlot(ItemUtil.create(menu.addamount_item, "§aItems count", "§6Left click to add §b§l1 §6unit",
+                "§6Right-click to remove §b§l1 §6unit"), e -> {
             ItemStack itemStack = item.getItem();
-            if (e.isLeftClick()){
-                if (itemStack.getAmount() +1 <= 64){
-                    item.getItem().setAmount(itemStack.getAmount() +1);
+            if (e.isLeftClick()) {
+                if (itemStack.getAmount() + 1 <= 64) {
+                    item.getItem().setAmount(itemStack.getAmount() + 1);
                 }
             }
-            if (e.isRightClick()){
-                if (itemStack.getAmount() -1 >= 1){
-                    item.getItem().setAmount(itemStack.getAmount()-1);
+            if (e.isRightClick()) {
+                if (itemStack.getAmount() - 1 >= 1) {
+                    item.getItem().setAmount(itemStack.getAmount() - 1);
                 }
             }
 
@@ -59,7 +59,7 @@ public class EditItem extends Gui {
             e.setCancelled(true);
         }));
 
-        addSlot(8, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, dropChance.replace("{chance}", item.getChance()+""),
+        addSlot(8, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, dropChance.replace("{chance}", item.getChance() + ""),
                 "§6Left click to add §b§l5§b%",
                 "§6Right click to remove §b§l5§b%"), e -> {
             int percent = item.getChance();
@@ -75,16 +75,17 @@ public class EditItem extends Gui {
             }
             setInventoryItems();
             e.setCancelled(true);
-    }));
+        }));
 
-        addSlot(4, new MenuSlot(ItemUtil.create(item.getItem().clone(), title, dropChance.replace("{chance}", item.getChance()+"")), e->{
+        addSlot(4, new MenuSlot(ItemUtil.create(item.getItem().clone(), title, dropChance.replace("{chance}", item.getChance() + "")), e -> {
 
             e.setCancelled(true);
         }));
-        addSlot(getSlots()-9, new BackButton(ItemCreator.create(Material.BARRIER, "Back"),getBackGui()));
+        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
 
 
-}
+    }
+
     public void setItem(RewardAbstract item) {
         this.item = item;
     }

@@ -1,5 +1,6 @@
 package ifly.morefish.datastorage;
 
+import com.liba.utils.Debug;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardCommand;
@@ -13,7 +14,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
@@ -56,6 +56,14 @@ public class FileStorage implements IStorage {
             int pack_custommodeldata = conf.getInt("Pack.custommodeldata");
             int dropchance = conf.getInt("Pack.chance");
             boolean permissions = conf.getBoolean("Pack.permissions");
+            String skullString = null;
+            Material materialitem = null;
+            if (conf.getString("Pack.skull") != null){
+                skullString = conf.getString("Pack.skull");
+            }
+            if (conf.getString("Pack.material") != null){
+                materialitem = Material.getMaterial(conf.getString("Pack.material"));
+            }
             ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
             if (sec_rewards != null) {
                 Set<String> keys_rewards = sec_rewards.getKeys(false);
@@ -85,9 +93,9 @@ public class FileStorage implements IStorage {
 
                         if (enchantSection != null) {
                             for (String enchant : enchantSection.getKeys(false)) {
-                                if (m == Material.ENCHANTED_BOOK){
+                                if (m == Material.ENCHANTED_BOOK) {
                                     rewardItem.addBookEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
-                                }else{
+                                } else {
                                     rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
                                 }
 
@@ -133,6 +141,8 @@ public class FileStorage implements IStorage {
             }
             pack.setEnablepermission(permissions);
             pack.setDropChance(dropchance);
+            pack.setNbt(new ItemStack(materialitem != null ? materialitem : Material.CHEST), skullString);
+
             list.add(pack);
         }
         return list;
@@ -140,10 +150,7 @@ public class FileStorage implements IStorage {
 
     boolean isNum(String str) {
         for (int i = 0; i < str.length(); i++) {
-            if (!Character.isDigit(str.charAt(i))) {
-                return false;
-            }
-            return true;
+            return Character.isDigit(str.charAt(i));
         }
         return false;
     }
@@ -183,7 +190,7 @@ public class FileStorage implements IStorage {
     }
 
     public void update(Pack pack) {
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
+        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
         if (!f.exists()) {
             return;
         }
@@ -209,7 +216,7 @@ public class FileStorage implements IStorage {
     }
 
     public void Save(Pack pack) {
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
+        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
         if (!f.exists()) {
             try {
                 f.createNewFile();
@@ -240,8 +247,8 @@ public class FileStorage implements IStorage {
     }
 
     public void addNewPack(Pack pack) {
-        pack.Name = generateName();
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
+        pack.setName(generateName());
+        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
 
         try {
             f.createNewFile();
@@ -270,7 +277,7 @@ public class FileStorage implements IStorage {
     }
 
     public boolean removePack(Pack pack) {
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
+        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
         return f.delete();
     }
 
@@ -280,7 +287,7 @@ public class FileStorage implements IStorage {
     }
 
     public Pack laodFromFile(Pack pack) {
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.Name + ".yml");
+        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
         if (!f.exists()) {
             return null;
         }
