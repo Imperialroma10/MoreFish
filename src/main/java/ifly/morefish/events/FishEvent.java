@@ -7,6 +7,7 @@ import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.menus.admin.GuiController;
 import ifly.morefish.main;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,6 +22,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +50,15 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
 
     @EventHandler
     public void placeChest(BlockPlaceEvent e) {
-        if (e.getBlockPlaced().getType() == Material.CHEST) {
-            if (fishMain.getPack(e.getItemInHand()) != null) {
-                e.setCancelled(true);
-            }
+        ItemStack itemStack = e.getItemInHand();
+        if (itemStack.getItemMeta() != null){
+            ItemMeta meta = itemStack.getItemMeta();
+            Pack pack = fishMain.getPack(itemStack);
+           if (meta.getPersistentDataContainer().get(pack.getKey(), PersistentDataType.STRING) != null){
+               e.setCancelled(true);
+           }
         }
+
     }
 
     @EventHandler
