@@ -5,9 +5,8 @@ import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.menus.admin.GuiController;
+import ifly.morefish.gui.menus.player.PlayerPackRewards;
 import ifly.morefish.main;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -78,6 +77,17 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                     fishMain.getPlayerStatistic().addOpenPacks();
 
                     pack.giveReward(e.getPlayer());
+                }else{
+                    Debug.LogChat("No pack");
+                }
+            }
+        }
+        if (e.getAction().equals(Action.LEFT_CLICK_AIR) || e.getAction().equals(Action.LEFT_CLICK_BLOCK)){
+            ItemStack itemStack = e.getItem();
+            if (itemStack != null){
+                Pack pack = fishMain.getPack(itemStack);
+                if (pack != null){
+                    new PlayerPackRewards(pack).open(e.getPlayer());
                 }
             }
         }
@@ -112,9 +122,9 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                     }
                 }
                 if (args[0].equalsIgnoreCase("examplepack")) {
-                    main.mainPlugin.saveResource("packs/ExampleDonatePack.yml", false);
-                    main.mainPlugin.saveResource("packs/ExampleEntityPack.yml", false);
-                    main.mainPlugin.saveResource("packs/ExampleItemsPack.yml", false);
+                    main.mainPlugin.saveResource("packs/commandpack.yml", false);
+                    main.mainPlugin.saveResource("packs/entitypack.yml", false);
+                    main.mainPlugin.saveResource("packs/itempack.yml", false);
                     sender.sendMessage(Config.getMessage("You have successfully created standard packages."));
                 }
 

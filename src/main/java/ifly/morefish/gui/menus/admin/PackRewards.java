@@ -14,11 +14,13 @@ import ifly.morefish.gui.menus.admin.editrewards.EditEntity;
 import ifly.morefish.gui.menus.admin.editrewards.EditItem;
 import ifly.morefish.gui.menus.admin.rewardcreator.EntityReward;
 import ifly.morefish.gui.menus.admin.rewardcreator.ItemReward;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,10 +55,11 @@ public class PackRewards extends Gui {
         for (int i = 0; i < pack.getRewards().size() && i < getSlots() - 9; i++) {
             RewardAbstract rewardAbstract = pack.getRewards().get(i);
             int rewardid = pack.getRewards().indexOf(rewardAbstract);
-            addSlot(i, new MenuSlot(ItemUtil.addLore(rewardAbstract.getItem().clone(), "§eDrop chance §b" + rewardAbstract.getChance() + "%",
-                    "Shift+Left click to remove reward from pack"), e -> {
+            addSlot(i, new MenuSlot(ItemUtil.addLore(rewardAbstract.getItem().clone(), "§bDrop chance §a" + rewardAbstract.getChance() + "%",
+                    "§bShift+Left click to remove reward from pack"), e -> {
                 if (e.isShiftClick()) {
                     pack.getRewards().remove(rewardid);
+                    removeSlot(rewardid);
                     open(getOwner().getPlayer(), pack);
                 } else {
                     if (e.isLeftClick()) {

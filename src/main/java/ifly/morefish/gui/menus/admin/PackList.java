@@ -5,7 +5,9 @@ import com.liba.gui.Gui;
 import com.liba.gui.ListedGui;
 import com.liba.gui.MenuSlot;
 import com.liba.gui.buttons.BackButton;
+import com.liba.utils.Debug;
 import com.liba.utils.ItemUtil;
+import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.MenuMsgs;
@@ -39,8 +41,10 @@ public class PackList extends ListedGui {
             int id = getDataBlockSize() * getPage() + i;
             if (id < getData().size()) {
                 Pack pack = (Pack) getData().get(id);
-                addSlot(i, new MenuSlot(ItemUtil.create(new ItemStack(Material.CHEST), pack.getDisplayname(), "§6Pack drop chance: §b" + pack.getDropChance() + "%",
-                        "§6pack contains §b" + pack.getRewards().size() + " §6awards"), e -> {
+                addSlot(i, new MenuSlot(ItemUtil.create(new ItemStack(pack.getChest()), pack.getDisplayname(), "§bPack drop chance: §a" + pack.getDropChance() + "%",
+                        "§bPack contains §a" + pack.getRewards().size() + " §bawards",
+                        pack.isEnablepermission() ? "§bNeed permission §a"+ pack.getPermissionsToOpen() : ""
+                        ), e -> {
                     editMenu = new EditMenu("Edit " + pack.getDisplayname() + " pack", 3, pack, this);
                     editMenu.open((Player) e.getWhoClicked());
                     e.setCancelled(true);
@@ -50,13 +54,13 @@ public class PackList extends ListedGui {
 
         addSlot(44, new MenuSlot(menumsg.create_new, e -> {
 
-            Pack pack = new Pack("Pack_Name", "New pack", 0);
+            Pack pack = new Pack("Pack_Name", "New pack", 0, new ItemStack(Material.CHEST), null);
             editMenu = new EditMenu("Edit " + pack.getDisplayname() + " pack", 3, pack, this);
-            FishController.packList.add(pack);
             StorageCreator.getStorageIns().Save(pack, true);
+            FishController.packList.add(pack);
             editMenu.setPack(pack);
             editMenu.open((Player) e.getWhoClicked());
-
+            Debug.LogChat(pack.getName());
             e.setCancelled(true);
         }));
 

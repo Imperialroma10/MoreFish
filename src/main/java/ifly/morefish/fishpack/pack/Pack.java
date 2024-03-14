@@ -44,35 +44,29 @@ public class Pack {
     ItemStack chest;
     NamespacedKey key;
 
-    public Pack(String name, String displayname, int customModelData) {
+    public Pack(String name, String displayname, int customModelData, ItemStack itemStack, String skullString) {
         this.Displayname = displayname;
         this.customModelData = customModelData;
-        Name = name.replace(".yml", "");
-        rewards = new ArrayList<>();
-    }
-    public void setNbt(ItemStack itemStack, String skullString){
-        if (itemStack.getItemMeta() != null) {
-            if (itemStack.getItemMeta() instanceof SkullMeta){
-                HeadCreator.setHeadTexture(itemStack, skullString);
-            }
-            ItemMeta meta = itemStack.getItemMeta();
-            meta.setDisplayName(getDisplayname());
-            meta.getPersistentDataContainer().set(getKey(), PersistentDataType.STRING, getName());
-            itemStack.setItemMeta(meta);
-        }
-        //.LogChat(chest.toString());
+        this.Name = name.replace(".yml", "");
+        this.rewards = new ArrayList<>();
         this.chest = itemStack;
-    }
-    public Pack(String name, String displayname, int customModelData, List<RewardAbstract> rwds) {
-        this(name, displayname, customModelData);
-        rewards = rwds;
+        this.key = new NamespacedKey(main.mainPlugin, getName());
+
+
+        setDataContainer();
+        if (chest.getItemMeta() instanceof SkullMeta){
+            HeadCreator.setHeadTexture(chest, skullString);
+        }
     }
 
+    public void setDataContainer(){
+        ItemMeta meta = chest.getItemMeta();
+        meta.setDisplayName(getDisplayname());
+        meta.getPersistentDataContainer().set(getKey(), PersistentDataType.STRING, getName());
+        chest.setItemMeta(meta);
+    }
 
     public NamespacedKey getKey() {
-        if (this.key == null) {
-            this.key = new NamespacedKey(main.mainPlugin, getName());
-        }
         return key;
     }
 
@@ -176,7 +170,7 @@ public class Pack {
     }
 
     public String getPermissionsToOpen() {
-        String permission = "fish.pack." + this.getName();
+        String permission = "fishrewards." + this.getName().toLowerCase();
         return permission.replace("_", "");
     }
 
@@ -186,6 +180,7 @@ public class Pack {
 
     public void setName(String name) {
         Name = name;
+        setDataContainer();
     }
 
 }

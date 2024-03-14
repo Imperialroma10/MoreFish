@@ -1,5 +1,6 @@
 package ifly.morefish.fishpack;
 
+import com.liba.utils.Debug;
 import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
@@ -8,6 +9,7 @@ import ifly.morefish.main;
 import ifly.morefish.stats.PlayerStatistic;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -98,6 +100,7 @@ public class FishController {
 
             if (back <= x && x <= pack.getDropChance() + back) {
                 new FishTask(p, pack, location);
+                p.getWorld().playSound(p.getLocation(), Sound.ITEM_SHIELD_BLOCK,1,1);
                 playerStatistic.addCaughtPacks();
                 return;
             }

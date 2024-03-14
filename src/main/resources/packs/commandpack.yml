@@ -9,6 +9,7 @@ Pack:
       type: command
       command: lp user {player} parent add vip
       chance: 100
+
     '2':
       type: command
       command: lp user {player} parent add premium
