@@ -53,7 +53,8 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
         if (itemStack.getItemMeta() != null){
             ItemMeta meta = itemStack.getItemMeta();
             Pack pack = fishMain.getPack(itemStack);
-           if (meta.getPersistentDataContainer().get(pack.getKey(), PersistentDataType.STRING) != null){
+
+           if (pack != null && meta.getPersistentDataContainer().get(pack.getKey(), PersistentDataType.STRING) != null){
                e.setCancelled(true);
            }
         }

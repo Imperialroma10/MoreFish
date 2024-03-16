@@ -54,7 +54,7 @@ public final class main extends JavaPlugin {
             metrics.addCustomChart(new SimplePie("caughtpacks", () -> {
                 return String.valueOf(controller.getPlayerStatistic().getCaughtPacks());
             }));
-            Bukkit.getLogger().log(Level.INFO, "Work");
+
         }
 
 
