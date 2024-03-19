@@ -21,7 +21,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
@@ -66,6 +68,19 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
         if (e.getHand() != EquipmentSlot.HAND) {
             return;
         }
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR && Debug.isDebug()){
+            ItemStack itemStack = e.getItem();
+            if (itemStack != null){
+                ItemMeta meta = itemStack.getItemMeta();
+
+                if (meta instanceof EnchantmentStorageMeta ench){
+                    Debug.LogChat(ench.toString());
+                }
+                if (meta instanceof PotionMeta potionMeta){
+                    Debug.LogChat(potionMeta.toString());
+                }
+            }
+        }
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             ItemStack item = e.getItem();
             if (item != null) {
@@ -78,8 +93,6 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                     fishMain.getPlayerStatistic().addOpenPacks();
 
                     pack.giveReward(e.getPlayer());
-                }else{
-                    Debug.LogChat("No pack");
                 }
             }
         }

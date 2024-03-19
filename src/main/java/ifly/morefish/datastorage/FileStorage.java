@@ -1,5 +1,6 @@
 package ifly.morefish.datastorage;
 
+import com.liba.utils.Debug;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardCommand;
@@ -14,6 +15,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionType;
 
 import java.io.File;
 import java.io.IOException;
@@ -90,17 +93,24 @@ public class FileStorage implements IStorage {
                         RewardItem rewardItem = new RewardItem(is, chance);
 
                         ConfigurationSection enchantSection = sec_rewards.getConfigurationSection(key_reward + ".enchants");
+                        ConfigurationSection benchantSection = sec_rewards.getConfigurationSection(key_reward + ".benchants");
 
                         if (enchantSection != null) {
                             for (String enchant : enchantSection.getKeys(false)) {
-                                if (m == Material.ENCHANTED_BOOK) {
-                                    rewardItem.addBookEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
-                                } else {
-                                    rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
-                                }
-
+                                rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
                             }
                         }
+                        if (benchantSection != null){
+                            for (String enchant : benchantSection.getKeys(false)){
+                                rewardItem.addBookEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
+                            }
+                        }
+
+                            if (meta instanceof PotionMeta potionMeta){
+                                potionMeta.setBasePotionType(PotionType.valueOf(sec_rewards.getString(key_reward+".potion")));
+                                is.setItemMeta(potionMeta);
+                            }
+
                         rewards.add(rewardItem);
 
                     }
@@ -131,7 +141,7 @@ public class FileStorage implements IStorage {
                     }
                     if (type.equals("command")) {
                         String command = sec_rewards.getString(key_reward + ".command");
-                        RewardCommand rewardCommand = new RewardCommand(command);
+                        RewardCommand rewardCommand = new RewardCommand(command, dropchance);
                         rewards.add(rewardCommand);
                     }
                 }
@@ -362,7 +372,7 @@ public class FileStorage implements IStorage {
                 }
                 if (type.equals("command")) {
                     String command = sec_rewards.getString(key_reward + ".command");
-                    RewardCommand rewardCommand = new RewardCommand(command);
+                    RewardCommand rewardCommand = new RewardCommand(command, dropchance);
                     rewards.add(rewardCommand);
                 }
             }

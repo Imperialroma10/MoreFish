@@ -37,7 +37,7 @@ public class EditMenu extends Gui {
         addSlot(10, new MenuSlot(ItemCreator.create(Material.PAPER, "Edit pack name",
                 "§6To edit the name you need to open the pack configuration file",
                 "§6and change the '§bdisplayname§6' parameter",
-                "§6File to edit §b" + pack.getName()), e -> {
+                "§6File to edit §b" + pack.getName() + ".yml"), e -> {
 
 
             e.setCancelled(true);
@@ -63,13 +63,13 @@ public class EditMenu extends Gui {
             e.setCancelled(true);
         }));
 
-        addSlot(14, new MenuSlot(ItemCreator.create(Material.CHEST, "Pack rewards"), e -> {
+        addSlot(14, new MenuSlot(ItemCreator.create(Material.CHEST, "§6Pack rewards"), e -> {
 
             packRewards.open(getOwner(), pack);
             e.setCancelled(true);
         }));
 
-        addSlot(26, new MenuSlot(ItemCreator.create(Material.COMMAND_BLOCK, "Save pack"), e -> {
+        addSlot(26, new MenuSlot(ItemCreator.create(Material.COMMAND_BLOCK, "§6Save pack"), e -> {
             StorageCreator.getStorageIns().Save(pack);
 
             e.setCancelled(true);

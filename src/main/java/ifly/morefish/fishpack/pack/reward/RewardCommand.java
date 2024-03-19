@@ -11,10 +11,10 @@ public class RewardCommand extends RewardAbstract {
 
     String command;
 
-    public RewardCommand(String cmd) {
+    public RewardCommand(String cmd, int chance) {
         command = cmd;
         this.item = ItemCreator.create(Material.PAPER, cmd);
-        setChance(100);
+        this.chance = chance;
     }
 
     @Override
