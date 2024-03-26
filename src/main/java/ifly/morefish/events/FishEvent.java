@@ -74,10 +74,10 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 ItemMeta meta = itemStack.getItemMeta();
 
                 if (meta instanceof EnchantmentStorageMeta ench){
-                    Debug.LogChat(ench.toString());
+                    //Debug.LogChat(ench.toString());
                 }
                 if (meta instanceof PotionMeta potionMeta){
-                    Debug.LogChat(potionMeta.toString());
+                    //Debug.LogChat(potionMeta.toString());
                 }
             }
         }

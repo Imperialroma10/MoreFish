@@ -133,18 +133,21 @@ public class Pack {
             }
         }
         Random a = new Random();
+        int chance = a.nextInt(getAllRewardsChance());
+        int backchance = 0;
+
         for (RewardAbstract reward : rewards) {
-            int random = a.nextInt(100);
-            if (reward.getChance() == 100) {
+
+            if (backchance <= chance && chance <= backchance + reward.getChance()){
                 reward.giveReward(player);
-            } else {
-                if (reward.checkChance(random)) {
-                    reward.giveReward(player);
-                    break;
-                }
+                break;
             }
+            backchance += reward.getChance();
+
+
+
         }
-        player.sendMessage(Config.getMessage(Config.getConfig().openpackmessage.replace("[pack]", this.Displayname)));
+        player.sendMessage(Config.getMessage(Config.getConfig().openpackmessage.replace("[pack]", getDisplayname())));
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         itemStack.setAmount(itemStack.getAmount() - 1);
     }
@@ -184,4 +187,11 @@ public class Pack {
         setDataContainer();
     }
 
+    public int getAllRewardsChance(){
+        int chance = 0;
+        for (RewardAbstract rewardAbstract : getRewards()){
+            chance += rewardAbstract.getChance();
+        }
+        return chance;
+    }
 }

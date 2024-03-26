@@ -1,5 +1,6 @@
 package ifly.morefish.fishpack.pack.reward;
 
+import com.liba.utils.Debug;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -22,14 +23,6 @@ abstract public class RewardAbstract {
 
     abstract public void giveReward(Player player);
 
-    public boolean checkChance(int chance) {
-        if (chance == 100) {
-            return true;
-        } else {
-            return this.chance >= chance;
-        }
-
-    }
 
     public abstract ItemStack getItem();
 

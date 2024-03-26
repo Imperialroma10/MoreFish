@@ -25,7 +25,7 @@ public class PlayerPackRewards extends ListedGui {
             if (id < getData().size()) {
                 RewardAbstract rewardAbstract = pack.getRewards().get(id);
                 addSlot(i, new MenuSlot(ItemUtil.create(new ItemStack(rewardAbstract.getItem()), rewardAbstract.getItem().getItemMeta().getDisplayName(),
-                        "Item drop chance " + rewardAbstract.getChance()
+                        "§bItem drop chance §a" + rewardAbstract.getChance() +"%"
                 ), e -> {
 
                     e.setCancelled(true);

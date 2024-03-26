@@ -43,6 +43,7 @@ public class PackList extends ListedGui {
                 Pack pack = (Pack) getData().get(id);
                 addSlot(i, new MenuSlot(ItemUtil.create(new ItemStack(pack.getChest()), pack.getDisplayname(), "§bPack drop chance: §a" + pack.getDropChance() + "%",
                         "§bPack contains §a" + pack.getRewards().size() + " §bawards",
+                        "§bTotal chance of all rewards §a" + pack.getAllRewardsChance() +"%",
                         pack.isEnablepermission() ? "§bNeed permission §a"+ pack.getEnablepermission() : ""
                         ), e -> {
                     editMenu = new EditMenu("Edit " + pack.getDisplayname() + " pack", 3, pack, this);
@@ -60,7 +61,7 @@ public class PackList extends ListedGui {
             FishController.packList.add(pack);
             editMenu.setPack(pack);
             editMenu.open((Player) e.getWhoClicked());
-            Debug.LogChat(pack.getName());
+
             e.setCancelled(true);
         }));
 
