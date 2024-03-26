@@ -3,7 +3,7 @@ Pack:
   displayname: EntityPack
   custommodeldata: 0
   chance: 20
-  permissions: false
+  #permissions: "fishrewrads.use" # permissions to open pack
   rewards:
     '1':
       type: mob

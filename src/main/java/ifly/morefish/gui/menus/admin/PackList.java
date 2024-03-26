@@ -43,7 +43,7 @@ public class PackList extends ListedGui {
                 Pack pack = (Pack) getData().get(id);
                 addSlot(i, new MenuSlot(ItemUtil.create(new ItemStack(pack.getChest()), pack.getDisplayname(), "§bPack drop chance: §a" + pack.getDropChance() + "%",
                         "§bPack contains §a" + pack.getRewards().size() + " §bawards",
-                        pack.isEnablepermission() ? "§bNeed permission §a"+ pack.getPermissionsToOpen() : ""
+                        pack.isEnablepermission() ? "§bNeed permission §a"+ pack.getEnablepermission() : ""
                         ), e -> {
                     editMenu = new EditMenu("Edit " + pack.getDisplayname() + " pack", 3, pack, this);
                     editMenu.open((Player) e.getWhoClicked());

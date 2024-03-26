@@ -102,7 +102,11 @@ public class EditMenu extends Gui {
 
 
         addSlot(16, new MenuSlot(getItemFromPerm(), e -> {
-            pack.setEnablepermission(!pack.isEnablepermission());
+            if (pack.isEnablepermission()){
+                pack.setEnablepermission(null);
+            }else{
+                pack.setEnablepermission("fishrewards.user");
+            }
             getMenuSlot(16).setGuiItem(getItemFromPerm());
             updateSlot(16);
             e.setCancelled(true);
@@ -111,7 +115,7 @@ public class EditMenu extends Gui {
     }
 
     public ItemStack getItemFromPerm() {
-        return pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "Enable permission", "§aYou need a permit to get one: §b" + pack.getPermissionsToOpen()) :
+        return pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "Enable permission", "§aYou need a permit to get one: §b" + pack.getEnablepermission(), "§aYou can change the rights in the pack file") :
                 ItemCreator.create(Material.RED_WOOL, "Disable permission", "§aAny player can get one.");
     }
 

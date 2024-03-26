@@ -40,7 +40,7 @@ public class Pack {
     int dropChance;
     int customModelData;
 
-    boolean enablepermission;
+    String enablepermission;
     ItemStack chest;
     NamespacedKey key;
 
@@ -127,7 +127,7 @@ public class Pack {
 
     public void giveReward(Player player) {
         if (isEnablepermission()) {
-            if (!(player.hasPermission("*") || player.hasPermission(getPermissionsToOpen()))) {
+            if (!(player.hasPermission("*") || player.hasPermission(getEnablepermission()))) {
                 player.sendMessage(Config.getMessage("You don't have permission to open"));
                 return;
             }
@@ -140,6 +140,7 @@ public class Pack {
             } else {
                 if (reward.checkChance(random)) {
                     reward.giveReward(player);
+                    break;
                 }
             }
         }
@@ -162,17 +163,17 @@ public class Pack {
     }
 
     public boolean isEnablepermission() {
+        return enablepermission != null && !enablepermission.isEmpty();
+    }
+
+    public String getEnablepermission() {
         return enablepermission;
     }
 
-    public void setEnablepermission(boolean enablepermission) {
+    public void setEnablepermission(String enablepermission) {
         this.enablepermission = enablepermission;
     }
 
-    public String getPermissionsToOpen() {
-        String permission = "fishrewards." + this.getName().toLowerCase();
-        return permission.replace("_", "");
-    }
 
     public void setChest(ItemStack chest) {
         this.chest = chest;

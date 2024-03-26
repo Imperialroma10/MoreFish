@@ -57,7 +57,7 @@ public class FileStorage implements IStorage {
             //String pack_name = conf.getString("Pack.name", "");
             int pack_custommodeldata = conf.getInt("Pack.custommodeldata");
             int dropchance = conf.getInt("Pack.chance");
-            boolean permissions = conf.getBoolean("Pack.permissions");
+            String permissions = conf.getString("Pack.permissions");
             String skullString = null;
             Material materialitem = null;
             if (conf.getString("Pack.skull") != null){
@@ -211,7 +211,7 @@ public class FileStorage implements IStorage {
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
         conf.set("Pack.rewards", null);
-        conf.set("Pack.permissions", pack.isEnablepermission());
+       // conf.set("Pack.permissions", pack.isEnablepermission());
 
         if (pack.getRewards().size() > 0) {
             ConfigurationSection section = conf.createSection("Pack.rewards");
@@ -243,7 +243,7 @@ public class FileStorage implements IStorage {
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
         conf.set("Pack.rewards", null);
-        conf.set("Pack.permissions", pack.isEnablepermission());
+        conf.set("Pack.permissions", pack.getEnablepermission());
         if (pack.getRewards().size() > 0) {
             ConfigurationSection section = conf.createSection("Pack.rewards");
             for (RewardAbstract reward : pack.getRewards()) {
@@ -275,6 +275,7 @@ public class FileStorage implements IStorage {
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
         conf.set("Pack.rewards", null);
+        
         if (pack.getRewards().size() > 0) {
             ConfigurationSection section = conf.createSection("Pack.rewards");
             for (RewardAbstract reward : pack.getRewards()) {
@@ -310,7 +311,7 @@ public class FileStorage implements IStorage {
         //String pack_name = conf.getString("Pack.name", "");
         int pack_custommodeldata = conf.getInt("Pack.custommodeldata");
         int dropchance = conf.getInt("Pack.chance");
-        boolean permissions = conf.getBoolean("Pack.permissions");
+        String permissions = conf.getString("Pack.permissions");
         ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
         String skullString = null;
         Material materialitem = null;

@@ -1,6 +1,7 @@
 package ifly.morefish.gui.menus.admin;
 
 import com.liba.gui.Gui;
+import com.liba.gui.ListedGui;
 import com.liba.gui.MenuSlot;
 import com.liba.gui.buttons.BackButton;
 import com.liba.utils.ItemUtil;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PackRewards extends Gui {
+public class PackRewards extends ListedGui {
     Pack pack;
     EntityReward entityReward;
 
@@ -35,7 +36,7 @@ public class PackRewards extends Gui {
     EditEntity editEntity = new EditEntity(this);
 
     public PackRewards(Gui gui) {
-        super("Pack rewards", 4, gui);
+        super("Pack rewards", 5, new ArrayList<>(), 3, gui);
 
         List<EntityType> entityTypes = Arrays.stream(EntityType.values()).toList();
         List<EntityType> entityTypeList = new ArrayList<>();
@@ -52,12 +53,15 @@ public class PackRewards extends Gui {
     @Override
     public void setInventoryItems() {
 
-        for (int i = 0; i < pack.getRewards().size() && i < getSlots() - 9; i++) {
-            RewardAbstract rewardAbstract = pack.getRewards().get(i);
-            int rewardid = pack.getRewards().indexOf(rewardAbstract);
-            addSlot(i, new MenuSlot(ItemUtil.addLore(rewardAbstract.getItem().clone(), "§bDrop chance §a" + rewardAbstract.getChance() + "%",
+
+        for (int i = 0; i < getDataBlockSize(); i++) {
+            int id = getDataBlockSize() * getPage() + i;
+            if (id < getData().size()) {
+                RewardAbstract rewardAbstract = pack.getRewards().get(id);
+                int rewardid = pack.getRewards().indexOf(rewardAbstract);
+                addSlot(i, new MenuSlot(ItemUtil.addLore(rewardAbstract.getItem().clone(), "§bDrop chance §a" + rewardAbstract.getChance() + "%",
                     "§bShift+Left click to remove reward from pack"), e -> {
-                if (e.isShiftClick()) {
+                    if (e.isShiftClick()) {
                     pack.getRewards().remove(rewardid);
                     removeSlot(rewardid);
                     open(getOwner().getPlayer(), pack);
@@ -77,31 +81,62 @@ public class PackRewards extends Gui {
                     }
                 }
                 e.setCancelled(true);
-            }));
+                    e.setCancelled(true);
+                }));
+            }
         }
+//        for (int i = 0; i < pack.getRewards().size() && i < getSlots() - 9; i++) {
+//            RewardAbstract rewardAbstract = pack.getRewards().get(i);
+//            int rewardid = pack.getRewards().indexOf(rewardAbstract);
+//            addSlot(i, new MenuSlot(ItemUtil.addLore(rewardAbstract.getItem().clone(), "§bDrop chance §a" + rewardAbstract.getChance() + "%",
+//                    "§bShift+Left click to remove reward from pack"), e -> {
+//                if (e.isShiftClick()) {
+//                    pack.getRewards().remove(rewardid);
+//                    removeSlot(rewardid);
+//                    open(getOwner().getPlayer(), pack);
+//                } else {
+//                    if (e.isLeftClick()) {
+//                        if (rewardAbstract instanceof RewardItem) {
+//                            editItem.setItem(rewardAbstract);
+//                            editItem.open(getOwner(), pack);
+//                        }
+//                        if (rewardAbstract instanceof RewardEntity) {
+//                            editEntity.setRewardEntity((RewardEntity) rewardAbstract);
+//                            editEntity.open(getOwner());
+//                        }
+//                        if (rewardAbstract instanceof RewardCommand) {
+//
+//                        }
+//                    }
+//                }
+//                e.setCancelled(true);
+//            }));
+//        }
 
-        addSlot(29, new MenuSlot(ItemCreator.create(Material.CRAFTING_TABLE, "§6Add items reward"), e -> {
+        addSlot(38, new MenuSlot(ItemCreator.create(Material.CRAFTING_TABLE, "§6Add items reward"), e -> {
             itemReward.setPack(pack);
             itemReward.open(getOwner());
             e.setCancelled(true);
         }));
 
-        addSlot(31, new MenuSlot(ItemCreator.create(Material.PAPER, "§6Add command reward", "§7Coming soon", "You can use the standard pack to create an award command."), e -> {
+        addSlot(40, new MenuSlot(ItemCreator.create(Material.PAPER, "§6Add command reward", "§7Coming soon", "You can use the standard pack to create an award command."), e -> {
 
             e.setCancelled(true);
         }));
-        addSlot(33, new MenuSlot(ItemCreator.create(Material.ZOMBIE_HEAD, "§6Add entity reward"), e -> {
+        addSlot(42, new MenuSlot(ItemCreator.create(Material.ZOMBIE_HEAD, "§6Add entity reward"), e -> {
             entityReward.setPack(pack);
             entityReward.open(getOwner());
             e.setCancelled(true);
         }));
-        addSlot(27, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
+        addSlot(36, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
 
+        super.setInventoryItems();
     }
 
 
     public void open(Player player, Pack pack) {
         this.pack = pack;
+        setData(pack.getRewards());
         super.open(player);
     }
 }

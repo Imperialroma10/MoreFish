@@ -41,6 +41,7 @@ public class EditItem extends Gui {
 
             e.setCancelled(true);
         }));
+
         addSlot(6, new MenuSlot(ItemUtil.create(menu.addamount_item, "§aItems count", "§6Left click to add §b§l1 §6unit",
                 "§6Right-click to remove §b§l1 §6unit"), e -> {
             ItemStack itemStack = item.getItem();
@@ -54,8 +55,7 @@ public class EditItem extends Gui {
                     item.getItem().setAmount(itemStack.getAmount() - 1);
                 }
             }
-
-            setInventoryItems();
+            render();
             e.setCancelled(true);
         }));
 
@@ -73,7 +73,7 @@ public class EditItem extends Gui {
                     item.setChance(percent - 5);
                 }
             }
-            setInventoryItems();
+            render();
             e.setCancelled(true);
         }));
 

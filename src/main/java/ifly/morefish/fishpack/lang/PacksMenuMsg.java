@@ -44,7 +44,7 @@ public class PacksMenuMsg {
             lore.add(list[i]);
         }
         if (pack.isEnablepermission()) {
-            lore.add("§aYou need a permit to get one : §b" + pack.getPermissionsToOpen());
+            lore.add("§aYou need a permit to get one : §b" + pack.getEnablepermission());
         } else {
             lore.add("§aAny player can get one.");
         }
