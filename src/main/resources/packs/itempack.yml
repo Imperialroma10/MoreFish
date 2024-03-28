@@ -6,7 +6,7 @@ Pack:
   #If the 'PLAYER_HEAD' material is specified above, then in the skull parameter you specify the hash of the head you want to use
   #skull: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjQyZWJjNTA1ZGFjMGYxYjA5NjViNmYzZTQ2MGQ0MTkwZjM3NGVkZDY2NjNiMWE0ZDUwYWJjNDQ4MGI2OTE4OCJ9fX0=
   chance: 100 # Pack drop chance
-  #permissions: "fishrewards.user" #if true then it can be caught by players with certain rights, you can view them in the 'fishrewards admin' menu
+  #permissions: "fishrewards.user" #If this field exists, it means that in order for the user to open it, he must have the right that you entered in this field.
   rewards:
     '1':
       type: item # award type, available (item, mob, command) you can combine several types in one file

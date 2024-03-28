@@ -3,6 +3,7 @@ package ifly.morefish;
 
 import com.liba.Liba;
 import com.liba.utils.Debug;
+import com.liba.version.VersionChecker;
 import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.events.FishEvent;
@@ -28,7 +29,7 @@ public final class main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Debug.setDebug(false);
+        Debug.setDebug(true);
         mainPlugin = this;
         Config.getConfig();
 
@@ -39,23 +40,18 @@ public final class main extends JavaPlugin {
 
         controller = new FishController(storage);
 
-        Liba liba = new Liba(mainPlugin, 111966, new Metrics(this,19862));
+        Liba liba = new Liba(mainPlugin);
+        Metrics metrics = liba.registerMetrica(19862);
 
-        if (liba.getChecker() != null) {
-            liba.getChecker().setMessage(Config.getMessage(liba.getChecker().getMessage()));
-        }
+        VersionChecker versionChecker = liba.registerVersionChecker(111966);
+        versionChecker.setMessage(Config.getMessage(versionChecker.getMessage()));
 
-        Metrics metrics = liba.getMetrics();
-
-        if (metrics != null) {
-            metrics.addCustomChart(new SimplePie("packs_count", () -> {
-                return String.valueOf(controller.getPackList().size());
-            }));
-            metrics.addCustomChart(new SimplePie("caughtpacks", () -> {
-                return String.valueOf(controller.getPlayerStatistic().getCaughtPacks());
-            }));
-
-        }
+        metrics.addCustomChart(new SimplePie("packs_count", () -> {
+            return String.valueOf(controller.getPackList().size());
+        }));
+        metrics.addCustomChart(new SimplePie("caughtpacks", () -> {
+            return String.valueOf(controller.getPlayerStatistic().getCaughtPacks());
+        }));
 
 
         FishEvent fishEvents = new FishEvent(controller);

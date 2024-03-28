@@ -132,18 +132,20 @@ public class Pack {
                 return;
             }
         }
-        Random a = new Random();
-        int chance = a.nextInt(getAllRewardsChance());
-        int backchance = 0;
 
+        Random a = new Random();
+
+        for (int i = 0 ; i < 1; i++){
+            int chance = a.nextInt(Math.max(getAllRewardsChance(), 100));
+            int backchance = 0;
         for (RewardAbstract reward : rewards) {
 
-            if (backchance <= chance && chance <= backchance + reward.getChance()){
+            if (backchance <= chance && chance <= backchance + reward.getChance()) {
                 reward.giveReward(player);
                 break;
             }
             backchance += reward.getChance();
-
+        }
 
 
         }

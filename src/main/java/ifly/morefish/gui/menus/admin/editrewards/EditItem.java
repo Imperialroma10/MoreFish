@@ -5,10 +5,13 @@ import com.liba.gui.Gui;
 import com.liba.gui.MenuSlot;
 import com.liba.gui.buttons.BackButton;
 import com.liba.utils.ItemUtil;
+import com.liba.utils.chat.ChatAwait;
+import ifly.morefish.chatAction.ChangeItemName;
 import ifly.morefish.fishpack.lang.EditItemMenuMsg;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
+import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.gui.helper.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -34,11 +37,11 @@ public class EditItem extends Gui {
         String title = "§aItem preview";
         String dropChance = "§aChance of receiving an item: §b§l{chance}%";
 
-        addSlot(2, new MenuSlot(ItemCreator.create(Material.PAPER, "§aInstructions for changing the name of an item",
-                "§6You need to open the pack '" + pack.getName() + ".yml'",
-                "§6Find the right item",
-                "§6And change the '§bdisplayname§6' parameter"), e -> {
-
+        addSlot(2, new MenuSlot(ItemCreator.create(Material.PAPER, "§aEdit item name",
+                "§b Left click to edit item name"), e -> {
+            e.getWhoClicked().sendMessage( "§eEnter a new item name");
+            e.getWhoClicked().closeInventory();
+            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangeItemName((RewardItem) item));
             e.setCancelled(true);
         }));
 

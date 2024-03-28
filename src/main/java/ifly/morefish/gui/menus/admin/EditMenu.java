@@ -4,6 +4,8 @@ package ifly.morefish.gui.menus.admin;
 import com.liba.gui.Gui;
 import com.liba.gui.MenuSlot;
 import com.liba.gui.buttons.BackButton;
+import com.liba.utils.chat.ChatAwait;
+import ifly.morefish.chatAction.ChangePackName;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.EditMenuMsg;
@@ -34,16 +36,17 @@ public class EditMenu extends Gui {
 
     @Override
     public void setInventoryItems() {
-        addSlot(10, new MenuSlot(ItemCreator.create(Material.PAPER, "Edit pack name",
-                "§6To edit the name you need to open the pack configuration file",
-                "§6and change the '§bdisplayname§6' parameter",
-                "§6File to edit §b" + pack.getName() + ".yml"), e -> {
+        addSlot(10, new MenuSlot(ItemCreator.create(Material.PAPER, "§eEdit pack name",
+                "§6Left click to set new pack displayname "), e -> {
+            e.getWhoClicked().closeInventory();
+            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangePackName(pack));
 
-
+            e.getWhoClicked().sendMessage("§eOld name of the pack: " + pack.getName());
+            e.getWhoClicked().sendMessage("§eEnter the new pack name into the chat");
             e.setCancelled(true);
         }));
 
-        addSlot(12, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, menu.chance_status.replace("{chance}", pack.getDropChance() + "%"),
+        addSlot(12, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, "§e"+menu.chance_status.replace("{chance}", pack.getDropChance()+""),
                 "§6Left click to add §b5%",
                 "§6Right click to remove §b5%"), e -> {
             int percent = pack.getDropChance();
@@ -58,18 +61,18 @@ public class EditMenu extends Gui {
                 }
             }
 
-            getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
+            getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), "§e"+menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
             e.getWhoClicked().sendMessage("§bPack chance set to: §a" + pack.getDropChance() + "%");
             e.setCancelled(true);
         }));
 
-        addSlot(14, new MenuSlot(ItemCreator.create(Material.CHEST, "§6Pack rewards"), e -> {
+        addSlot(14, new MenuSlot(ItemCreator.create(Material.CHEST, "§ePack rewards"), e -> {
 
             packRewards.open(getOwner(), pack);
             e.setCancelled(true);
         }));
 
-        addSlot(26, new MenuSlot(ItemCreator.create(Material.COMMAND_BLOCK, "§6Save pack"), e -> {
+        addSlot(26, new MenuSlot(ItemCreator.create(Material.COMMAND_BLOCK, "§eSave pack"), e -> {
             StorageCreator.getStorageIns().Save(pack);
 
             e.setCancelled(true);
@@ -115,8 +118,8 @@ public class EditMenu extends Gui {
     }
 
     public ItemStack getItemFromPerm() {
-        return pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "Enable permission", "§aYou need a permit to get one: §b" + pack.getEnablepermission(), "§aYou can change the rights in the pack file") :
-                ItemCreator.create(Material.RED_WOOL, "Disable permission", "§aAny player can get one.");
+        return pack.isEnablepermission() ? ItemCreator.create(Material.GREEN_WOOL, "§aEnable permission", "§aYou need a permit to get one: §b" + pack.getEnablepermission(), "§aYou can change the rights in the pack file") :
+                ItemCreator.create(Material.RED_WOOL, "§4Disable permission", "§aAny player can get one.");
     }
 
     public void setPack(Pack pack) {
