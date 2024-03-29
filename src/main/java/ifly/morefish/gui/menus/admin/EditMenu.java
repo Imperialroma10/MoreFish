@@ -39,7 +39,7 @@ public class EditMenu extends Gui {
         addSlot(10, new MenuSlot(ItemCreator.create(Material.PAPER, "§eEdit pack name",
                 "§6Left click to set new pack displayname "), e -> {
             e.getWhoClicked().closeInventory();
-            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangePackName(pack));
+            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangePackName(pack, this));
 
             e.getWhoClicked().sendMessage("§eOld name of the pack: " + pack.getName());
             e.getWhoClicked().sendMessage("§eEnter the new pack name into the chat");

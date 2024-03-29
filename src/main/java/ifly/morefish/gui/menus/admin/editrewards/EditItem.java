@@ -41,7 +41,7 @@ public class EditItem extends Gui {
                 "§b Left click to edit item name"), e -> {
             e.getWhoClicked().sendMessage( "§eEnter a new item name");
             e.getWhoClicked().closeInventory();
-            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangeItemName((RewardItem) item, pack));
+            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangeItemName((RewardItem) item, pack, this));
             e.setCancelled(true);
         }));
 
@@ -93,7 +93,7 @@ public class EditItem extends Gui {
         this.item = item;
     }
 
-    public void open(Player player, Pack pack) {
+    public synchronized void open(Player player, Pack pack) {
         this.pack = pack;
         super.open(player);
     }
