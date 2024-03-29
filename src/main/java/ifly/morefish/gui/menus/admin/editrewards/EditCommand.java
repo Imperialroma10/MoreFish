@@ -30,7 +30,7 @@ public class EditCommand extends Gui {
                 "§b Left click to edit command"), e -> {
             e.getWhoClicked().sendMessage("§e Enter a new command");
             e.getWhoClicked().closeInventory();
-            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangeCommandName(command));
+            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangeCommandName(command, pack));
             e.setCancelled(true);
         }));
 

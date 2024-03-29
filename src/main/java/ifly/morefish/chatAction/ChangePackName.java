@@ -1,6 +1,7 @@
 package ifly.morefish.chatAction;
 
 import com.liba.utils.chat.Action;
+import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
 import org.bukkit.entity.Player;
 
@@ -14,6 +15,6 @@ public class ChangePackName implements Action {
 
         pack.setDisplayname(s);
         player.sendMessage("§eNew pack displayname: " + pack.getDisplayname());
-
+        StorageCreator.getStorageIns().Save(pack);
     }
 }

@@ -74,13 +74,14 @@ public class FileStorage implements IStorage {
                  rewards = new ArrayList<>(keys_rewards.size());
                 for (String key_reward : keys_rewards) {
                     String type = sec_rewards.getString(key_reward + ".type");
+                    int chance = sec_rewards.getInt(key_reward + ".chance");
                     if (type.equals("item")) {
                         String material = sec_rewards.getString(key_reward + ".material").toUpperCase();
                         int count = sec_rewards.getInt(key_reward + ".amount");
                         int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
                         String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
 
-                        int chance = sec_rewards.getInt(key_reward + ".chance");
+
 
                         Material m = Material.getMaterial(material);
                         ItemStack is = new ItemStack(m, count);
@@ -118,7 +119,7 @@ public class FileStorage implements IStorage {
                         String mobtype = sec_rewards.getString(key_reward + ".entitytype");
                         EntityType etype = EntityType.valueOf(mobtype);
                         int amount = sec_rewards.getInt(key_reward + ".amount");
-                        int chance = sec_rewards.getInt(key_reward + ".chance");
+                        //int chance = sec_rewards.getInt(key_reward + ".chance");
                         RewardEntity rewardEntity = new RewardEntity(etype, amount, chance);
 
                         ConfigurationSection equipsection = sec_rewards.getConfigurationSection(key_reward + ".equipment");
@@ -141,7 +142,7 @@ public class FileStorage implements IStorage {
                     }
                     if (type.equals("command")) {
                         String command = sec_rewards.getString(key_reward + ".command");
-                        RewardCommand rewardCommand = new RewardCommand(command, dropchance);
+                        RewardCommand rewardCommand = new RewardCommand(command, chance);
                         rewards.add(rewardCommand);
                     }
                 }
@@ -328,13 +329,14 @@ public class FileStorage implements IStorage {
             rewards = new ArrayList<>(keys_rewards.size());
             for (String key_reward : keys_rewards) {
                 String type = sec_rewards.getString(key_reward + ".type");
+                int chance = sec_rewards.getInt(key_reward + ".chance");
                 if (type.equals("item")) {
                     String material = sec_rewards.getString(key_reward + ".material");
                     int count = sec_rewards.getInt(key_reward + ".amount");
                     int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
                     String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
 
-                    int chance = sec_rewards.getInt(key_reward + ".chance");
+
 
                     Material m = Material.getMaterial(material);
                     ItemStack is = new ItemStack(m, count);
@@ -351,7 +353,7 @@ public class FileStorage implements IStorage {
                     String mobtype = sec_rewards.getString(key_reward + ".entitytype");
                     EntityType etype = EntityType.valueOf(mobtype);
                     int amount = sec_rewards.getInt(key_reward + ".amount");
-                    int chance = sec_rewards.getInt(key_reward + ".chance");
+                    //int chance = sec_rewards.getInt(key_reward + ".chance");
                     RewardEntity rewardEntity = new RewardEntity(etype, amount, chance);
 
                     ConfigurationSection equipsection = sec_rewards.getConfigurationSection(key_reward + ".equipment");
@@ -373,7 +375,7 @@ public class FileStorage implements IStorage {
                 }
                 if (type.equals("command")) {
                     String command = sec_rewards.getString(key_reward + ".command");
-                    RewardCommand rewardCommand = new RewardCommand(command, dropchance);
+                    RewardCommand rewardCommand = new RewardCommand(command, chance);
                     rewards.add(rewardCommand);
                 }
             }

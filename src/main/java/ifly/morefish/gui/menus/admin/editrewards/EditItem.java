@@ -41,7 +41,7 @@ public class EditItem extends Gui {
                 "§b Left click to edit item name"), e -> {
             e.getWhoClicked().sendMessage( "§eEnter a new item name");
             e.getWhoClicked().closeInventory();
-            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangeItemName((RewardItem) item));
+            ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangeItemName((RewardItem) item, pack));
             e.setCancelled(true);
         }));
 
