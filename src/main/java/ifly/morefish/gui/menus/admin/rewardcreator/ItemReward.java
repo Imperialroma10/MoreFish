@@ -39,7 +39,7 @@ public class ItemReward extends Gui {
             openBack();
             e.setCancelled(true);
         }));
-        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
+        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER), getBackGui(), "back"));
     }
 
     public void setPack(Pack pack) {

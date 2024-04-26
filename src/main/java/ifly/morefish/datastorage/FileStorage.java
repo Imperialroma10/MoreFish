@@ -1,6 +1,5 @@
 package ifly.morefish.datastorage;
 
-import com.liba.utils.Debug;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardCommand;
@@ -60,18 +59,18 @@ public class FileStorage implements IStorage {
             String permissions = conf.getString("Pack.permissions");
             String skullString = null;
             Material materialitem = null;
-            if (conf.getString("Pack.skull") != null){
+            if (conf.getString("Pack.skull") != null) {
                 skullString = conf.getString("Pack.skull");
             }
-            if (conf.getString("Pack.material") != null){
+            if (conf.getString("Pack.material") != null) {
                 materialitem = Material.getMaterial(conf.getString("Pack.material"));
             }
-            List<RewardAbstract> rewards = new ArrayList<>();;
+            List<RewardAbstract> rewards = new ArrayList<>();
             ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
             if (sec_rewards != null) {
                 Set<String> keys_rewards = sec_rewards.getKeys(false);
 
-                 rewards = new ArrayList<>(keys_rewards.size());
+                rewards = new ArrayList<>(keys_rewards.size());
                 for (String key_reward : keys_rewards) {
                     String type = sec_rewards.getString(key_reward + ".type");
                     int chance = sec_rewards.getInt(key_reward + ".chance");
@@ -80,7 +79,6 @@ public class FileStorage implements IStorage {
                         int count = sec_rewards.getInt(key_reward + ".amount");
                         int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
                         String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
-
 
 
                         Material m = Material.getMaterial(material);
@@ -101,16 +99,16 @@ public class FileStorage implements IStorage {
                                 rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
                             }
                         }
-                        if (benchantSection != null){
-                            for (String enchant : benchantSection.getKeys(false)){
+                        if (benchantSection != null) {
+                            for (String enchant : benchantSection.getKeys(false)) {
                                 rewardItem.addBookEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
                             }
                         }
 
-                            if (meta instanceof PotionMeta potionMeta){
-                                potionMeta.setBasePotionType(PotionType.valueOf(sec_rewards.getString(key_reward+".potion")));
-                                is.setItemMeta(potionMeta);
-                            }
+                        if (meta instanceof PotionMeta potionMeta) {
+                            potionMeta.setBasePotionType(PotionType.valueOf(sec_rewards.getString(key_reward + ".potion")));
+                            is.setItemMeta(potionMeta);
+                        }
 
                         rewards.add(rewardItem);
 
@@ -149,7 +147,7 @@ public class FileStorage implements IStorage {
 
 
             }
-            pack = new Pack(file.getName(), pack_displayname, pack_custommodeldata,new ItemStack(materialitem != null ? materialitem : Material.CHEST), skullString);
+            pack = new Pack(file.getName(), pack_displayname, pack_custommodeldata, new ItemStack(materialitem != null ? materialitem : Material.CHEST), skullString);
             pack.setRewards(rewards);
             pack.setEnablepermission(permissions);
             pack.setDropChance(dropchance);
@@ -212,7 +210,7 @@ public class FileStorage implements IStorage {
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
         conf.set("Pack.rewards", null);
-       // conf.set("Pack.permissions", pack.isEnablepermission());
+        // conf.set("Pack.permissions", pack.isEnablepermission());
 
         if (pack.getRewards().size() > 0) {
             ConfigurationSection section = conf.createSection("Pack.rewards");
@@ -276,7 +274,7 @@ public class FileStorage implements IStorage {
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
         conf.set("Pack.rewards", null);
-        
+
         if (pack.getRewards().size() > 0) {
             ConfigurationSection section = conf.createSection("Pack.rewards");
             for (RewardAbstract reward : pack.getRewards()) {
@@ -316,10 +314,10 @@ public class FileStorage implements IStorage {
         ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
         String skullString = null;
         Material materialitem = null;
-        if (conf.getString("Pack.skull") != null){
+        if (conf.getString("Pack.skull") != null) {
             skullString = conf.getString("Pack.skull");
         }
-        if (conf.getString("Pack.material") != null){
+        if (conf.getString("Pack.material") != null) {
             materialitem = Material.getMaterial(conf.getString("Pack.material"));
         }
         List<RewardAbstract> rewards = new ArrayList<>();
@@ -335,7 +333,6 @@ public class FileStorage implements IStorage {
                     int count = sec_rewards.getInt(key_reward + ".amount");
                     int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
                     String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
-
 
 
                     Material m = Material.getMaterial(material);
@@ -381,7 +378,7 @@ public class FileStorage implements IStorage {
             }
 
         }
-        pack = new Pack(f.getName(), pack_displayname, pack_custommodeldata,new ItemStack(materialitem != null ? materialitem : Material.CHEST), skullString);
+        pack = new Pack(f.getName(), pack_displayname, pack_custommodeldata, new ItemStack(materialitem != null ? materialitem : Material.CHEST), skullString);
         pack.setRewards(rewards);
         pack.setDropChance(dropchance);
         pack.setEnablepermission(permissions);

@@ -16,9 +16,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class EditCommand extends Gui {
+    private final EditItemMenuMsg menu;
     RewardCommand command;
     Pack pack;
-    private final EditItemMenuMsg menu;
+
     public EditCommand(Gui backGui) {
         super("Edit command GUI", 1, backGui);
         menu = MenuMsgs.get().EditItemMenu;
@@ -58,7 +59,7 @@ public class EditCommand extends Gui {
 
             e.setCancelled(true);
         }));
-        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
+        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER), getBackGui(), "back"));
     }
 
 

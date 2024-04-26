@@ -14,10 +14,10 @@ Pack:
       material: LEATHER_HELMET # item material
       amount: 1 # item amount
       chance: 10 # item drop chance
-   # '32':
-   #   type: command # award type, available (item, mob, command) you can combine several types in one file
-   #   command: lp user {player} parent add vip # The command that will be executed, where you need to specify the player's name, you need to enter '{player}'
-   #   chance: 100 # command execute chance
+    # '32':
+    #   type: command # award type, available (item, mob, command) you can combine several types in one file
+    #   command: lp user {player} parent add vip # The command that will be executed, where you need to specify the player's name, you need to enter '{player}'
+    #   chance: 100 # command execute chance
     '2':
       type: item
       material: LEATHER_CHESTPLATE

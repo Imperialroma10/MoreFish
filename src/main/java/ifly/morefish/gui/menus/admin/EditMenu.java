@@ -46,7 +46,7 @@ public class EditMenu extends Gui {
             e.setCancelled(true);
         }));
 
-        addSlot(12, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, "§e"+menu.chance_status.replace("{chance}", pack.getDropChance()+""),
+        addSlot(12, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, "§e" + menu.chance_status.replace("{chance}", pack.getDropChance() + ""),
                 "§6Left click to add §b5%",
                 "§6Right click to remove §b5%"), e -> {
             int percent = pack.getDropChance();
@@ -61,7 +61,7 @@ public class EditMenu extends Gui {
                 }
             }
 
-            getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), "§e"+menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
+            getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), "§e" + menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
             e.getWhoClicked().sendMessage("§bPack chance set to: §a" + pack.getDropChance() + "%");
             e.setCancelled(true);
         }));
@@ -101,13 +101,13 @@ public class EditMenu extends Gui {
 //            }
 //        }));
 
-        addSlot(18, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
+        addSlot(18, new BackButton(new ItemStack(Material.BARRIER), getBackGui(), "back"));
 
 
         addSlot(16, new MenuSlot(getItemFromPerm(), e -> {
-            if (pack.isEnablepermission()){
+            if (pack.isEnablepermission()) {
                 pack.setEnablepermission(null);
-            }else{
+            } else {
                 pack.setEnablepermission("fishrewards.user");
             }
             getMenuSlot(16).setGuiItem(getItemFromPerm());

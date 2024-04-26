@@ -6,16 +6,15 @@ import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.gui.menus.admin.editrewards.EditItem;
-import ifly.morefish.gui.menus.admin.rewardcreator.ItemReward;
 import ifly.morefish.main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class ChangeItemName implements Action {
     RewardItem reward;
     Pack pack;
     EditItem editItem;
+
     public ChangeItemName(RewardItem reward, Pack pack, EditItem item) {
         this.pack = pack;
         this.reward = reward;
@@ -29,7 +28,7 @@ public class ChangeItemName implements Action {
         StorageCreator.getStorageIns().Save(pack);
         Bukkit.getScheduler().runTaskLater(main.mainPlugin, () -> {
             editItem.open(player, pack);
-        },10);
+        }, 10);
 
     }
 }

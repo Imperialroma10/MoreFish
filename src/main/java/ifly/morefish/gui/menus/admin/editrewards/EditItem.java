@@ -39,7 +39,7 @@ public class EditItem extends Gui {
 
         addSlot(2, new MenuSlot(ItemCreator.create(Material.PAPER, "§aEdit item name",
                 "§b Left click to edit item name"), e -> {
-            e.getWhoClicked().sendMessage( "§eEnter a new item name");
+            e.getWhoClicked().sendMessage("§eEnter a new item name");
             e.getWhoClicked().closeInventory();
             ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new ChangeItemName((RewardItem) item, pack, this));
             e.setCancelled(true);
@@ -84,7 +84,7 @@ public class EditItem extends Gui {
 
             e.setCancelled(true);
         }));
-        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
+        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER), getBackGui(), "back"));
 
 
     }

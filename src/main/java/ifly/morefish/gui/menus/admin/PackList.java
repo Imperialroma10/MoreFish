@@ -5,9 +5,7 @@ import com.liba.gui.Gui;
 import com.liba.gui.ListedGui;
 import com.liba.gui.MenuSlot;
 import com.liba.gui.buttons.BackButton;
-import com.liba.utils.Debug;
 import com.liba.utils.ItemUtil;
-import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.MenuMsgs;
@@ -43,9 +41,9 @@ public class PackList extends ListedGui {
                 Pack pack = (Pack) getData().get(id);
                 addSlot(i, new MenuSlot(ItemUtil.create(new ItemStack(pack.getChest()), pack.getDisplayname(), "§bPack drop chance: §a" + pack.getDropChance() + "%",
                         "§bPack contains §a" + pack.getRewards().size() + " §bawards",
-                        "§bTotal chance of all rewards §a" + pack.getAllRewardsChance() +"%",
-                        pack.isEnablepermission() ? "§bNeed permission §a"+ pack.getEnablepermission() : ""
-                        ), e -> {
+                        "§bTotal chance of all rewards §a" + pack.getAllRewardsChance() + "%",
+                        pack.isEnablepermission() ? "§bNeed permission §a" + pack.getEnablepermission() : ""
+                ), e -> {
                     editMenu = new EditMenu("Edit " + pack.getDisplayname() + " pack", 3, pack, this);
                     editMenu.open((Player) e.getWhoClicked());
                     e.setCancelled(true);
@@ -65,7 +63,7 @@ public class PackList extends ListedGui {
             e.setCancelled(true);
         }));
 
-        addSlot(36, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
+        addSlot(36, new BackButton(new ItemStack(Material.BARRIER), getBackGui(), "back"));
 
 
         super.setInventoryItems();

@@ -1,6 +1,5 @@
 package ifly.morefish.fishpack;
 
-import com.liba.utils.Debug;
 import ifly.morefish.datastorage.IStorage;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
@@ -100,7 +99,7 @@ public class FishController {
 
             if (back <= x && x <= pack.getDropChance() + back) {
                 new FishTask(p, pack, location);
-                p.getWorld().playSound(p.getLocation(), Sound.ITEM_SHIELD_BLOCK,1,1);
+                p.getWorld().playSound(p.getLocation(), Sound.ITEM_SHIELD_BLOCK, 1, 1);
                 playerStatistic.addCaughtPacks();
                 return;
             }

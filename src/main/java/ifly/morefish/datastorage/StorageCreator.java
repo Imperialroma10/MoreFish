@@ -8,7 +8,7 @@ public class StorageCreator {
     }
 
     public static IStorage getStorageIns() {
-       
+
         return storage;
     }
 

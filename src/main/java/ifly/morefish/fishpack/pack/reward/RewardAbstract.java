@@ -1,6 +1,5 @@
 package ifly.morefish.fishpack.pack.reward;
 
-import com.liba.utils.Debug;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

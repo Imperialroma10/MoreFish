@@ -1,8 +1,6 @@
 package ifly.morefish.fishpack.pack.reward;
 
 
-import com.liba.utils.Debug;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -10,10 +8,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import org.bukkit.potion.PotionType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,10 +77,10 @@ public class RewardItem extends RewardAbstract {
         ItemMeta meta = item.getItemMeta();
 
         enchs = item.getEnchantments();
-        if (meta instanceof EnchantmentStorageMeta bench){
+        if (meta instanceof EnchantmentStorageMeta bench) {
             benchs = bench.getStoredEnchants();
         }
-        if (meta instanceof PotionMeta potionMeta){
+        if (meta instanceof PotionMeta potionMeta) {
             section.set(num + ".potion", potionMeta.getBasePotionType().name());
         }
 //        if (item.getType() == Material.ENCHANTED_BOOK) {
@@ -95,8 +89,8 @@ public class RewardItem extends RewardAbstract {
 //            enchs = item.getEnchantments();
 //        }
 
-        for (Map.Entry<Enchantment, Integer> bench : benchs.entrySet()){
-            section.set(num+".benchants" + bench.getKey() + ".level", bench.getValue());
+        for (Map.Entry<Enchantment, Integer> bench : benchs.entrySet()) {
+            section.set(num + ".benchants" + bench.getKey() + ".level", bench.getValue());
         }
         for (Map.Entry<Enchantment, Integer> ench : enchs.entrySet()) {
             section.set(num + ".enchants." + ench.getKey().getKey().getKey() + ".level", ench.getValue());

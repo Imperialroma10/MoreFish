@@ -36,7 +36,7 @@ public class EntityReward extends ListedGui {
             }
         }
 
-        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
+        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER), getBackGui(), "back"));
 
         super.setInventoryItems();
     }

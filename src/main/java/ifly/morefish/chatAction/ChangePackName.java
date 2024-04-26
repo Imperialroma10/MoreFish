@@ -11,10 +11,12 @@ import org.bukkit.entity.Player;
 public class ChangePackName implements Action {
     Pack pack;
     EditMenu editMenu;
-    public ChangePackName(Pack pack, EditMenu menu){
+
+    public ChangePackName(Pack pack, EditMenu menu) {
         this.pack = pack;
         this.editMenu = menu;
     }
+
     @Override
     public void action(String s, Player player) {
 
@@ -24,6 +26,6 @@ public class ChangePackName implements Action {
         Bukkit.getScheduler().runTaskLater(main.mainPlugin, () -> {
             editMenu.setPack(pack);
             editMenu.open(player);
-        },10);
+        }, 10);
     }
 }

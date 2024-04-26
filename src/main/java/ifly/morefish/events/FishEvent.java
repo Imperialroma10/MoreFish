@@ -3,10 +3,12 @@ package ifly.morefish.events;
 import com.liba.utils.Debug;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.FishController;
+import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.menus.admin.GuiController;
 import ifly.morefish.gui.menus.player.PlayerPackRewards;
 import ifly.morefish.main;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -52,13 +54,13 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
     @EventHandler
     public void placeChest(BlockPlaceEvent e) {
         ItemStack itemStack = e.getItemInHand();
-        if (itemStack.getItemMeta() != null){
+        if (itemStack.getItemMeta() != null) {
             ItemMeta meta = itemStack.getItemMeta();
             Pack pack = fishMain.getPack(itemStack);
 
-           if (pack != null && meta.getPersistentDataContainer().get(pack.getKey(), PersistentDataType.STRING) != null){
-               e.setCancelled(true);
-           }
+            if (pack != null && meta.getPersistentDataContainer().get(pack.getKey(), PersistentDataType.STRING) != null) {
+                e.setCancelled(true);
+            }
         }
 
     }
@@ -68,15 +70,15 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
         if (e.getHand() != EquipmentSlot.HAND) {
             return;
         }
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR && Debug.isDebug()){
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR && Debug.isDebug()) {
             ItemStack itemStack = e.getItem();
-            if (itemStack != null){
+            if (itemStack != null) {
                 ItemMeta meta = itemStack.getItemMeta();
 
-                if (meta instanceof EnchantmentStorageMeta ench){
+                if (meta instanceof EnchantmentStorageMeta ench) {
                     //Debug.LogChat(ench.toString());
                 }
-                if (meta instanceof PotionMeta potionMeta){
+                if (meta instanceof PotionMeta potionMeta) {
                     //Debug.LogChat(potionMeta.toString());
                 }
             }
@@ -96,11 +98,11 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 }
             }
         }
-        if (e.getAction().equals(Action.LEFT_CLICK_AIR) || e.getAction().equals(Action.LEFT_CLICK_BLOCK)){
+        if (e.getAction().equals(Action.LEFT_CLICK_AIR) || e.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             ItemStack itemStack = e.getItem();
-            if (itemStack != null){
+            if (itemStack != null) {
                 Pack pack = fishMain.getPack(itemStack);
-                if (pack != null){
+                if (pack != null) {
                     new PlayerPackRewards(pack).open(e.getPlayer());
                 }
             }
@@ -110,7 +112,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("fishrewards")) {
-
+        //Debug.LogChat("lenght: "+args.length + "args: " + args.toString());
             if (!sender.hasPermission("fishrewarads.admin")) {
                 sender.sendMessage(Config.getMessage("You have no permissions"));
                 return true;
@@ -125,16 +127,40 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 return true;
             }
             if (sender.hasPermission("fishrewarads.admin")) {
-                if (args[0].equalsIgnoreCase("admin")) {
+            if (args[0].equalsIgnoreCase("admin")){
+                if (args.length == 1 ) {
                     Player p = (Player) sender;
                     GuiController.getMainMenu(p).open(p);
                 }
-                if (args[0].equalsIgnoreCase("reload-pack")) {
-                    if (args.length == 2) {
-                        boolean reloaded = fishMain.Reload(args[1]);
+                if (args.length == 3) {
+                    if (args[1].equalsIgnoreCase("reload-pack")){
+                        boolean reloaded = fishMain.Reload(args[2]);
                         sender.sendMessage(reloaded ? "§2Successful reloaded" : "§cFile not found");
                     }
+                    if (args[1].equalsIgnoreCase("getpack")){
+                        Pack pack = fishMain.getPack(args[2]);
+                        Player player = (Player) sender;
+                        player.getInventory().addItem(pack.getChest());
+                    }
                 }
+                if (args.length == 4){
+                    if (args[1].equalsIgnoreCase("givepack")){
+                        Pack pack = fishMain.getPack(args[2]);
+                        if (pack != null){
+                            Player player = Bukkit.getPlayer(args[3]);
+                            if (player != null && player.isOnline()){
+                                player.getInventory().addItem(pack.getChest());
+                            }else{
+                                sender.sendMessage(Config.getMessage("§4Null player or is offline"));
+                            }
+                        }else{
+                            sender.sendMessage(Config.getMessage("§4Pack not found "));
+                        }
+                    }
+                }
+            }
+                }
+
                 if (args[0].equalsIgnoreCase("examplepack")) {
                     main.mainPlugin.saveResource("packs/commandpack.yml", false);
                     main.mainPlugin.saveResource("packs/entitypack.yml", false);
@@ -143,7 +169,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 }
 
             }
-        }
+
 
         return true;
     }
@@ -154,10 +180,43 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
 
 
         if (cmd.getName().equalsIgnoreCase("fishrewards")) {
-            if (args.length == 1) {
-                completions.add("admin");
-                //  completions.add("event");
-            }
+            if (args.length > 0) {
+                if (args.length == 1) {
+                    completions.add("admin");
+                    //  completions.add("event");
+                }
+                if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("*")){
+                    if (args.length == 2) {
+                        if (args[0].equalsIgnoreCase("admin")){
+                            completions.add("reload-pack");
+                            completions.add("getpack");
+                            completions.add("givepack");
+                        }
+                    }
+                    if (args.length == 3) {
+                        if (args[1].equalsIgnoreCase("reload-pack")
+                                || args[1].equalsIgnoreCase("getpack")
+                                || args[1].equalsIgnoreCase("givepack")){
+                            for (Pack pack : fishMain.getPackList()) {
+                                completions.add(pack.getName());
+                            }
+                        }
+
+                    }
+                    if (args.length == 4){
+                        if (args[1].equalsIgnoreCase("givepack")){
+                            Pack pack = fishMain.getPack(args[2]);
+                            if (pack != null){
+                                for (Player player : Bukkit.getOnlinePlayers()){
+                                    completions.add(player.getName());
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+
 //            if (args.length == 2 && args[0].equalsIgnoreCase("event")) {
 //                completions.add("start");
 //                completions.add("stop");
@@ -170,6 +229,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
 //            if (args.length == 4 && fishMain.getPackList().contains(fishMain.getPack(args[1]))){
 //                completions.add("seconds");
 //            }
+            }
         }
         return completions;
     }

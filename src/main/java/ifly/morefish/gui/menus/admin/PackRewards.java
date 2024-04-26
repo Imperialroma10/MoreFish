@@ -62,27 +62,27 @@ public class PackRewards extends ListedGui {
                 RewardAbstract rewardAbstract = pack.getRewards().get(id);
                 int rewardid = pack.getRewards().indexOf(rewardAbstract);
                 addSlot(i, new MenuSlot(ItemUtil.addLore(rewardAbstract.getItem().clone(), "§bDrop chance §a" + rewardAbstract.getChance() + "%",
-                    "§bShift+Left click to remove reward from pack"), e -> {
+                        "§bShift+Left click to remove reward from pack"), e -> {
                     if (e.isShiftClick()) {
-                    pack.getRewards().remove(rewardid);
-                    removeSlot(rewardid);
-                    open(getOwner().getPlayer(), pack);
-                } else {
-                    if (e.isLeftClick()) {
-                        if (rewardAbstract instanceof RewardItem) {
-                            editItem.setItem(rewardAbstract);
-                            editItem.open(getOwner(), pack);
-                        }
-                        if (rewardAbstract instanceof RewardEntity) {
-                            editEntity.setRewardEntity((RewardEntity) rewardAbstract);
-                            editEntity.open(getOwner());
-                        }
-                        if (rewardAbstract instanceof RewardCommand) {
-                            editCommand.open((Player) e.getWhoClicked(), pack, (RewardCommand) rewardAbstract);
+                        pack.getRewards().remove(rewardid);
+                        removeSlot(rewardid);
+                        open(getOwner().getPlayer(), pack);
+                    } else {
+                        if (e.isLeftClick()) {
+                            if (rewardAbstract instanceof RewardItem) {
+                                editItem.setItem(rewardAbstract);
+                                editItem.open(getOwner(), pack);
+                            }
+                            if (rewardAbstract instanceof RewardEntity) {
+                                editEntity.setRewardEntity((RewardEntity) rewardAbstract);
+                                editEntity.open(getOwner());
+                            }
+                            if (rewardAbstract instanceof RewardCommand) {
+                                editCommand.open((Player) e.getWhoClicked(), pack, (RewardCommand) rewardAbstract);
+                            }
                         }
                     }
-                }
-                e.setCancelled(true);
+                    e.setCancelled(true);
                     e.setCancelled(true);
                 }));
             }
@@ -132,7 +132,7 @@ public class PackRewards extends ListedGui {
             entityReward.open(getOwner());
             e.setCancelled(true);
         }));
-        addSlot(36, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
+        addSlot(36, new BackButton(new ItemStack(Material.BARRIER), getBackGui(), "back"));
 
         super.setInventoryItems();
     }

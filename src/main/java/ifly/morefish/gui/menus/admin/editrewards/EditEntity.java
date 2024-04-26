@@ -58,7 +58,7 @@ public class EditEntity extends Gui {
         }));
 
 
-        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER),getBackGui(), "back"));
+        addSlot(getSlots() - 9, new BackButton(new ItemStack(Material.BARRIER), getBackGui(), "back"));
     }
 
     public void setRewardEntity(RewardEntity rewardEntity) {

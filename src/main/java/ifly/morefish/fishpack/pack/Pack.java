@@ -1,35 +1,22 @@
 package ifly.morefish.fishpack.pack;
 
 
-
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.liba.utils.Debug;
 import com.liba.utils.HeadCreator;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
-
 import ifly.morefish.main;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.profile.PlayerProfile;
-import org.bukkit.profile.PlayerTextures;
 
-import java.lang.reflect.Field;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 public class Pack {
@@ -54,12 +41,12 @@ public class Pack {
 
 
         setDataContainer();
-        if (chest.getItemMeta() instanceof SkullMeta){
+        if (chest.getItemMeta() instanceof SkullMeta) {
             HeadCreator.setHeadTexture(chest, skullString);
         }
     }
 
-    public void setDataContainer(){
+    public void setDataContainer() {
         ItemMeta meta = chest.getItemMeta();
         meta.setDisplayName(getDisplayname());
         meta.getPersistentDataContainer().set(getKey(), PersistentDataType.STRING, getName());
@@ -125,6 +112,10 @@ public class Pack {
         return chest;
     }
 
+    public void setChest(ItemStack chest) {
+        this.chest = chest;
+    }
+
     public void giveReward(Player player) {
         if (isEnablepermission()) {
             if (!(player.hasPermission("*") || player.hasPermission(getEnablepermission()))) {
@@ -135,17 +126,17 @@ public class Pack {
 
         Random a = new Random();
 
-        for (int i = 0 ; i < 1; i++){
+        for (int i = 0; i < 1; i++) {
             int chance = a.nextInt(Math.max(getAllRewardsChance(), 100));
             int backchance = 0;
-        for (RewardAbstract reward : rewards) {
+            for (RewardAbstract reward : rewards) {
 
-            if (backchance <= chance && chance <= backchance + reward.getChance()) {
-                reward.giveReward(player);
-                break;
+                if (backchance <= chance && chance <= backchance + reward.getChance()) {
+                    reward.giveReward(player);
+                    break;
+                }
+                backchance += reward.getChance();
             }
-            backchance += reward.getChance();
-        }
 
 
         }
@@ -153,7 +144,6 @@ public class Pack {
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         itemStack.setAmount(itemStack.getAmount() - 1);
     }
-
 
     public List<RewardAbstract> getRewards() {
         return rewards;
@@ -165,6 +155,11 @@ public class Pack {
 
     public String getName() {
         return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+        setDataContainer();
     }
 
     public boolean isEnablepermission() {
@@ -179,19 +174,9 @@ public class Pack {
         this.enablepermission = enablepermission;
     }
 
-
-    public void setChest(ItemStack chest) {
-        this.chest = chest;
-    }
-
-    public void setName(String name) {
-        Name = name;
-        setDataContainer();
-    }
-
-    public int getAllRewardsChance(){
+    public int getAllRewardsChance() {
         int chance = 0;
-        for (RewardAbstract rewardAbstract : getRewards()){
+        for (RewardAbstract rewardAbstract : getRewards()) {
             chance += rewardAbstract.getChance();
         }
         return chance;
