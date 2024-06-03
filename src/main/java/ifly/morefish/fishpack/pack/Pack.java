@@ -74,7 +74,8 @@ public class Pack {
 
     public boolean enoughSpace(Player p) {
         for (RewardAbstract reward : rewards) {
-            if (reward instanceof RewardItem rewardItem) {
+            if (reward instanceof RewardItem) {
+                RewardItem rewardItem = (RewardItem) reward;
                 int amount = freeCountOfItem(p.getInventory(), rewardItem.getItem());
                 if (amount < rewardItem.getItem().getAmount()) {
                     return false;

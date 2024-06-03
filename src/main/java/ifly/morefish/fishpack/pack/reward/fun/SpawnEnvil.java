@@ -40,7 +40,7 @@ public class SpawnEnvil extends RewardFun {
             location.setY(location.getY() + 25);
             block = location.getWorld().spawnFallingBlock(location, Bukkit.createBlockData(Material.ANVIL));
             block.setDropItem(false);
-            block.setDamagePerBlock(0.5f);
+            //block.setDamagePerBlock(0.5f);
         }
 
         public void checkEnvil() {

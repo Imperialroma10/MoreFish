@@ -3,7 +3,6 @@ package ifly.morefish.events;
 import com.liba.utils.Debug;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.FishController;
-import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.menus.admin.GuiController;
 import ifly.morefish.gui.menus.player.PlayerPackRewards;
@@ -75,10 +74,11 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
             if (itemStack != null) {
                 ItemMeta meta = itemStack.getItemMeta();
 
-                if (meta instanceof EnchantmentStorageMeta ench) {
+                if (meta instanceof EnchantmentStorageMeta) {
+                    EnchantmentStorageMeta mt = (EnchantmentStorageMeta) meta;
                     //Debug.LogChat(ench.toString());
                 }
-                if (meta instanceof PotionMeta potionMeta) {
+                if (meta instanceof PotionMeta) {
                     //Debug.LogChat(potionMeta.toString());
                 }
             }
@@ -112,7 +112,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("fishrewards")) {
-        //Debug.LogChat("lenght: "+args.length + "args: " + args.toString());
+            //Debug.LogChat("lenght: "+args.length + "args: " + args.toString());
             if (!sender.hasPermission("fishrewarads.admin")) {
                 sender.sendMessage(Config.getMessage("You have no permissions"));
                 return true;
@@ -127,48 +127,48 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 return true;
             }
             if (sender.hasPermission("fishrewarads.admin")) {
-            if (args[0].equalsIgnoreCase("admin")){
-                if (args.length == 1 ) {
-                    Player p = (Player) sender;
-                    GuiController.getMainMenu(p).open(p);
-                }
-                if (args.length == 3) {
-                    if (args[1].equalsIgnoreCase("reload-pack")){
-                        boolean reloaded = fishMain.Reload(args[2]);
-                        sender.sendMessage(reloaded ? "§2Successful reloaded" : "§cFile not found");
+                if (args[0].equalsIgnoreCase("admin")) {
+                    if (args.length == 1) {
+                        Player p = (Player) sender;
+                        GuiController.getMainMenu(p).open(p);
                     }
-                    if (args[1].equalsIgnoreCase("getpack")){
-                        Pack pack = fishMain.getPack(args[2]);
-                        Player player = (Player) sender;
-                        player.getInventory().addItem(pack.getChest());
+                    if (args.length == 3) {
+                        if (args[1].equalsIgnoreCase("reload-pack")) {
+                            boolean reloaded = fishMain.Reload(args[2]);
+                            sender.sendMessage(reloaded ? "§2Successful reloaded" : "§cFile not found");
+                        }
+                        if (args[1].equalsIgnoreCase("getpack")) {
+                            Pack pack = fishMain.getPack(args[2]);
+                            Player player = (Player) sender;
+                            player.getInventory().addItem(pack.getChest());
+                        }
                     }
-                }
-                if (args.length == 4){
-                    if (args[1].equalsIgnoreCase("givepack")){
-                        Pack pack = fishMain.getPack(args[2]);
-                        if (pack != null){
-                            Player player = Bukkit.getPlayer(args[3]);
-                            if (player != null && player.isOnline()){
-                                player.getInventory().addItem(pack.getChest());
-                            }else{
-                                sender.sendMessage(Config.getMessage("§4Null player or is offline"));
+                    if (args.length == 4) {
+                        if (args[1].equalsIgnoreCase("givepack")) {
+                            Pack pack = fishMain.getPack(args[2]);
+                            if (pack != null) {
+                                Player player = Bukkit.getPlayer(args[3]);
+                                if (player != null && player.isOnline()) {
+                                    player.getInventory().addItem(pack.getChest());
+                                } else {
+                                    sender.sendMessage(Config.getMessage("§4Null player or is offline"));
+                                }
+                            } else {
+                                sender.sendMessage(Config.getMessage("§4Pack not found "));
                             }
-                        }else{
-                            sender.sendMessage(Config.getMessage("§4Pack not found "));
                         }
                     }
                 }
             }
-                }
 
-                if (args[0].equalsIgnoreCase("examplepack")) {
-                    main.mainPlugin.saveResource("packs/commandpack.yml", false);
-                    main.mainPlugin.saveResource("packs/entitypack.yml", false);
-                    main.mainPlugin.saveResource("packs/itempack.yml", false);
-                    sender.sendMessage(Config.getMessage("You have successfully created standard packages."));
-                }
-
+            if (args[0].equalsIgnoreCase("examplepack")) {
+                main.mainPlugin.saveResource("packs/commandpack.yml", false);
+                main.mainPlugin.saveResource("packs/entitypack.yml", false);
+                main.mainPlugin.saveResource("packs/itempack.yml", false);
+                sender.sendMessage(Config.getMessage("You have successfully created standard packages."));
             }
+
+        }
 
 
         return true;
@@ -185,9 +185,9 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                     completions.add("admin");
                     //  completions.add("event");
                 }
-                if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("*")){
+                if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("*")) {
                     if (args.length == 2) {
-                        if (args[0].equalsIgnoreCase("admin")){
+                        if (args[0].equalsIgnoreCase("admin")) {
                             completions.add("reload-pack");
                             completions.add("getpack");
                             completions.add("givepack");
@@ -196,18 +196,18 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                     if (args.length == 3) {
                         if (args[1].equalsIgnoreCase("reload-pack")
                                 || args[1].equalsIgnoreCase("getpack")
-                                || args[1].equalsIgnoreCase("givepack")){
+                                || args[1].equalsIgnoreCase("givepack")) {
                             for (Pack pack : fishMain.getPackList()) {
                                 completions.add(pack.getName());
                             }
                         }
 
                     }
-                    if (args.length == 4){
-                        if (args[1].equalsIgnoreCase("givepack")){
+                    if (args.length == 4) {
+                        if (args[1].equalsIgnoreCase("givepack")) {
                             Pack pack = fishMain.getPack(args[2]);
-                            if (pack != null){
-                                for (Player player : Bukkit.getOnlinePlayers()){
+                            if (pack != null) {
+                                for (Player player : Bukkit.getOnlinePlayers()) {
                                     completions.add(player.getName());
                                 }
                             }

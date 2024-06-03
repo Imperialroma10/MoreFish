@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,11 +78,14 @@ public class RewardItem extends RewardAbstract {
         ItemMeta meta = item.getItemMeta();
 
         enchs = item.getEnchantments();
-        if (meta instanceof EnchantmentStorageMeta bench) {
+        if (meta instanceof EnchantmentStorageMeta) {
+            EnchantmentStorageMeta bench = (EnchantmentStorageMeta) meta;
             benchs = bench.getStoredEnchants();
         }
-        if (meta instanceof PotionMeta potionMeta) {
-            section.set(num + ".potion", potionMeta.getBasePotionType().name());
+        if (meta instanceof PotionMeta) {
+            PotionMeta potionMeta = (PotionMeta) meta;
+            PotionData data = potionMeta.getBasePotionData();
+            section.set(num + ".potion", data.getType().name());
         }
 //        if (item.getType() == Material.ENCHANTED_BOOK) {
 //            enchs = ((EnchantmentStorageMeta) item.getItemMeta()).getStoredEnchants();

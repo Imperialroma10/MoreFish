@@ -1,5 +1,6 @@
 package ifly.morefish.gui.menus.admin;
 
+import com.google.common.collect.Lists;
 import com.liba.gui.Gui;
 import com.liba.gui.ListedGui;
 import com.liba.gui.MenuSlot;
@@ -24,7 +25,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PackRewards extends ListedGui {
@@ -40,7 +40,7 @@ public class PackRewards extends ListedGui {
     public PackRewards(Gui gui) {
         super("Pack rewards", 5, new ArrayList<>(), 3, gui);
 
-        List<EntityType> entityTypes = Arrays.stream(EntityType.values()).toList();
+        List<EntityType> entityTypes = Lists.newArrayList(EntityType.values());
         List<EntityType> entityTypeList = new ArrayList<>();
         for (EntityType entityType : entityTypes) {
             if (Material.getMaterial(entityType.name() + "_SPAWN_EGG") != null) {

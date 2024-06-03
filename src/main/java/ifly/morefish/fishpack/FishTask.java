@@ -33,7 +33,6 @@ public class FishTask {
         endlocation.setY(location.getY() + 4);
         stand = (ArmorStand) fishLocation.getWorld().spawnEntity(fishLocation, EntityType.ARMOR_STAND);
         stand.getEquipment().setHelmet(pack.getChest());
-
         stand.setInvisible(true);
         stand.setGravity(false);
         stand.setCustomNameVisible(true);
@@ -52,7 +51,12 @@ public class FishTask {
             scheduler.cancelTask(taskid);
             Location fireworkLocation = stand.getLocation().clone();
             fireworkLocation.setY(stand.getLocation().getY() + 2);
-            Firework firework = (Firework) fireworkLocation.getWorld().spawnEntity(fireworkLocation, EntityType.FIREWORK);
+            String fireworkSTR = "FIREWORK";
+            if (main.mainPlugin.getServer().getVersion().contentEquals("1.20.6") || main.mainPlugin.getServer().getVersion().contentEquals("1.20.5")) {
+                fireworkSTR = "FIREWORK_ROCKET";
+            }
+
+            Firework firework = (Firework) fireworkLocation.getWorld().spawnEntity(fireworkLocation, EntityType.valueOf(fireworkSTR));
             FireworkMeta meta = firework.getFireworkMeta();
             FireworkEffect effect = FireworkEffect.builder()
                     .withColor(Color.BLUE, Color.YELLOW)

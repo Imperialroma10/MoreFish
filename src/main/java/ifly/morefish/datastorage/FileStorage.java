@@ -15,6 +15,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 
 import java.io.File;
@@ -96,17 +97,26 @@ public class FileStorage implements IStorage {
 
                         if (enchantSection != null) {
                             for (String enchant : enchantSection.getKeys(false)) {
-                                rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
+                                rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.minecraft(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
                             }
                         }
                         if (benchantSection != null) {
                             for (String enchant : benchantSection.getKeys(false)) {
-                                rewardItem.addBookEnchantments(Enchantment.getByKey(NamespacedKey.fromString(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
+                                rewardItem.addBookEnchantments(Enchantment.getByKey(NamespacedKey.minecraft(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
                             }
                         }
 
-                        if (meta instanceof PotionMeta potionMeta) {
-                            potionMeta.setBasePotionType(PotionType.valueOf(sec_rewards.getString(key_reward + ".potion")));
+                        if (meta instanceof PotionMeta) {
+                            PotionMeta potionMeta = (PotionMeta) meta;
+                            //if (main.mainPlugin.getServer().getVersion().contentEquals("1.20.6")) {
+                            //potionMeta.setBasePotionType(PotionType.valueOf(sec_rewards.getString(key_reward + ".potion")));
+                            //is.setItemMeta(potionMeta);
+
+                            PotionData potionData = new PotionData(PotionType.valueOf(sec_rewards.getString(key_reward + ".potion")));
+                            potionMeta.setBasePotionData(potionData);
+                            // }
+
+
                             is.setItemMeta(potionMeta);
                         }
 
@@ -130,7 +140,7 @@ public class FileStorage implements IStorage {
                                 if (enchantSection != null) {
                                     for (String enchant : enchantSection.getKeys(false)) {
                                         enchant = enchant.toLowerCase();
-                                        rewardEntity.getArmor(type1).addUnsafeEnchantment(Enchantment.getByKey(NamespacedKey.fromString(enchant)), enchantSection.getInt(enchant + ".level"));
+                                        rewardEntity.getArmor(type1).addUnsafeEnchantment(Enchantment.getByKey(NamespacedKey.minecraft(enchant)), enchantSection.getInt(enchant + ".level"));
                                     }
                                 }
                             }
@@ -362,7 +372,7 @@ public class FileStorage implements IStorage {
                             ConfigurationSection enchantSection = equipsection.getConfigurationSection(type1 + ".enchants");
                             if (enchantSection != null) {
                                 for (String enchant : enchantSection.getKeys(false)) {
-                                    rewardEntity.getArmor(type1).addEnchantment(Enchantment.getByKey(NamespacedKey.fromString(enchant)), enchantSection.getInt(enchant + ".level"));
+                                    rewardEntity.getArmor(type1).addEnchantment(Enchantment.getByKey(NamespacedKey.minecraft(enchant)), enchantSection.getInt(enchant + ".level"));
                                 }
                             }
                         }
