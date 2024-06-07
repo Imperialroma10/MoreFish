@@ -186,9 +186,10 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                     //  completions.add("event");
                 }
                 if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("*")) {
+
                     if (args.length == 2) {
                         if (args[0].equalsIgnoreCase("admin")) {
-                            completions.add("reload-pack");
+                            //completions.add("reload-pack");
                             completions.add("getpack");
                             completions.add("givepack");
                         }

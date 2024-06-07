@@ -13,17 +13,12 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionData;
-import org.bukkit.potion.PotionType;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -71,7 +66,7 @@ public class FileStorage implements IStorage {
             if (conf.getString("Pack.material") != null) {
                 materialitem = Material.getMaterial(conf.getString("Pack.material"));
             }
-            if (conf.getString("Pack.chestlore") != null){
+            if (conf.getString("Pack.chestlore") != null) {
                 chestlore = conf.getStringList("Pack.chestlore");
 
             }
@@ -167,14 +162,15 @@ public class FileStorage implements IStorage {
             }
 
             ItemStack chest = new ItemStack(materialitem != null ? materialitem : Material.CHEST);
-            if (chestlore != null){
-                ItemUtil.addLore(chest,chestlore);
+            if (chestlore != null) {
+                ItemUtil.addLore(chest, chestlore);
+            } else {
+                ItemUtil.addLore(chest, "§cLeft click to show rewards", "§cRight click to open");
             }
-            pack = new Pack(file.getName(), pack_displayname, pack_custommodeldata,chest , skullString);
+            pack = new Pack(file.getName(), pack_displayname, pack_custommodeldata, chest, skullString);
             pack.setRewards(rewards);
             pack.setEnablepermission(permissions);
             pack.setDropChance(dropchance);
-
 
 
             list.add(pack);
