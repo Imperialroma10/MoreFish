@@ -1,6 +1,7 @@
 package ifly.morefish.fishpack.pack;
 
 
+import com.liba.utils.Debug;
 import com.liba.utils.HeadCreator;
 import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
@@ -44,6 +45,7 @@ public class Pack {
         if (chest.getItemMeta() instanceof SkullMeta) {
             HeadCreator.setHeadTexture(chest, skullString);
         }
+
     }
 
     public void setDataContainer() {

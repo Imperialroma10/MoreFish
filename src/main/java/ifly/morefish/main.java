@@ -25,7 +25,7 @@ public final class main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Debug.setDebug(false);
+        Debug.setDebug(true);
         mainPlugin = this;
         Config.getConfig();
 

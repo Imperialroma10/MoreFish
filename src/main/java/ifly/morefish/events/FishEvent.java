@@ -134,8 +134,8 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                     }
                     if (args.length == 3) {
                         if (args[1].equalsIgnoreCase("reload-pack")) {
-                            boolean reloaded = fishMain.Reload(args[2]);
-                            sender.sendMessage(reloaded ? "§2Successful reloaded" : "§cFile not found");
+                            //boolean reloaded = fishMain.Reload(args[2]);
+                            //sender.sendMessage(reloaded ? "§2Successful reloaded" : "§cFile not found");
                         }
                         if (args[1].equalsIgnoreCase("getpack")) {
                             Pack pack = fishMain.getPack(args[2]);

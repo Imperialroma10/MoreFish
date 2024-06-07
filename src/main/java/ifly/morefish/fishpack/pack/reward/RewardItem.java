@@ -9,6 +9,7 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,9 +85,11 @@ public class RewardItem extends RewardAbstract {
         }
         if (meta instanceof PotionMeta) {
             PotionMeta potionMeta = (PotionMeta) meta;
-            PotionData data = potionMeta.getBasePotionData();
-            section.set(num + ".potion", data.getType().name());
+            //PotionData data = potionMeta.getBasePotionData();
+
+            //section.set(num + ".potion", data.getType().name());
         }
+
 //        if (item.getType() == Material.ENCHANTED_BOOK) {
 //            enchs = ((EnchantmentStorageMeta) item.getItemMeta()).getStoredEnchants();
 //        } else {
