@@ -4,6 +4,9 @@ Pack:
   custommodeldata: 0
   chance: 5
   permissions: "fishrewrads.use" # permissions to open pack
+  #chestlore:
+  #  - "Line 1"
+  #  - "Line 2"
   rewards:
     '1':
       type: command
