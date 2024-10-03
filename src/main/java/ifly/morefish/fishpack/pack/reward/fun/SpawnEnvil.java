@@ -18,6 +18,12 @@ public class SpawnEnvil extends RewardFun {
         setChance(100);
     }
 
+
+    @Override
+    public String getRewardMessage() {
+        return "";
+    }
+
     @Override
     public ItemStack getItem() {
         return ItemCreator.create(Material.ANVIL, "SpawnEnvil");

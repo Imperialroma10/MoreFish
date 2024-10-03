@@ -33,6 +33,7 @@ public class EditEntity extends Gui {
                 }
             }
             setInventoryItems();
+            render();
             e.setCancelled(true);
         }));
 
@@ -54,6 +55,7 @@ public class EditEntity extends Gui {
             }
 
             setInventoryItems();
+            render();
             e.setCancelled(true);
         }));
 

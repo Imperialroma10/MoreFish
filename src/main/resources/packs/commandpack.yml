@@ -4,6 +4,11 @@ Pack:
   custommodeldata: 0
   chance: 5
   permissions: "fishrewrads.use" # permissions to open pack
+  effect: # Firework color and type
+    type: BALL    # available types BALL, BALL_LARGE, STAR,BURST,CREEPER
+    colors:
+      - YELLOW
+      - BLUE
   #chestlore:
   #  - "Line 1"
   #  - "Line 2"

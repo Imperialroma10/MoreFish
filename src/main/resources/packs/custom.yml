@@ -1,0 +1,39 @@
+Pack:
+  displayname: Custom
+  custommodeldata: 0
+  chance: 10
+  rewards:
+    '1':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: DIAMOND
+      type: item
+      chance: 5
+    '2':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: IRON_INGOT
+      type: item
+      chance: 5
+    '3':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: GOLD_INGOT
+      type: item
+      chance: 10
+    '4':
+      type: command
+      command: eco give {player} 500
+      chance: 20
+    '5':
+      type: command
+      command: eco give {player} 1000
+      chance: 20
+    '6':
+      type: mob
+      entitytype: ALLAY
+      amount: 2
+      chance: 5

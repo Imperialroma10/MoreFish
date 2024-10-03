@@ -1,5 +1,6 @@
 package ifly.morefish.fishpack.pack.reward;
 
+import org.bukkit.FireworkEffect;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,6 +12,8 @@ abstract public class RewardAbstract {
     int chance = 0;
     ItemStack item;
 
+
+    public abstract String getRewardMessage();
     public int getChance() {
         return chance;
     }

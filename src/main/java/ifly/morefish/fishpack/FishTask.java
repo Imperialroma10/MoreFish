@@ -1,5 +1,6 @@
 package ifly.morefish.fishpack;
 
+import com.liba.utils.Debug;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.main;
 import org.bukkit.*;
@@ -58,11 +59,18 @@ public class FishTask {
 
             Firework firework = (Firework) fireworkLocation.getWorld().spawnEntity(fireworkLocation, EntityType.valueOf(fireworkSTR));
             FireworkMeta meta = firework.getFireworkMeta();
-            FireworkEffect effect = FireworkEffect.builder()
-                    .withColor(Color.BLUE, Color.YELLOW)
-                    .with(FireworkEffect.Type.BALL)
-                    .build();
-            meta.addEffect(effect);
+
+            if (pack.getFireworkEffect() != null){
+                meta.addEffect(pack.getFireworkEffect());
+            }else{
+                FireworkEffect effect = FireworkEffect.builder()
+                        .withColor(Color.YELLOW, Color.BLUE)
+                        .with(FireworkEffect.Type.BALL)
+                        .build();
+                meta.addEffect(effect);
+            }
+
+
             firework.setFireworkMeta(meta);
             firework.detonate();
 

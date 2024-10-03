@@ -1,5 +1,6 @@
 package ifly.morefish.fishpack.pack.reward;
 
+import ifly.morefish.fishpack.Config;
 import ifly.morefish.gui.helper.ItemCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -15,6 +16,12 @@ public class RewardCommand extends RewardAbstract {
         command = cmd;
         this.item = ItemCreator.create(Material.PAPER, cmd);
         this.chance = chance;
+
+    }
+
+    @Override
+    public String getRewardMessage() {
+        return Config.getConfig().commandrewardmessage;
     }
 
     @Override

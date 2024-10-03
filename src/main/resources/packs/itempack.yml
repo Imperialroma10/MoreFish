@@ -10,44 +10,74 @@ Pack:
   chestlore:
     - "Line 1"
     - "Line 2"
-  rewards:
+  effect:  # Firework color and type
+    type: BALL    # available types BALL, BALL_LARGE, STAR,BURST,CREEPER
+    colors:
+      - YELLOW
+      - BLUE
+  rewards: # It is better to change items through the /fishrewards admin command
     '1':
-      type: item # award type, available (item, mob, command) you can combine several types in one file
-      displayname: CustomNAme #  Displaying item name to player
-      material: LEATHER_HELMET # item material
-      amount: 1 # item amount
-      chance: 10 # item drop chance
-    # '32':
-    #   type: command # award type, available (item, mob, command) you can combine several types in one file
-    #   command: lp user {player} parent add vip # The command that will be executed, where you need to specify the player's name, you need to enter '{player}'
-    #   chance: 100 # command execute chance
-    '2':
-      type: item
-      material: LEATHER_CHESTPLATE
-      amount: 1
-      chance: 10
+      item:
+        ==: org.bukkit.inventory.ItemStack # This line should not be deleted
+        v: 3953 #Data version do not delete.
+        type: LEATHER_HELMET #you can change the type of item here.
+      type: item  #   type: command # award type, available (item, mob, command) you can combine several types in one file
+      chance: 50 # chance to drop reward
     '3':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: LEATHER_HELMET
       type: item
-      material: LEATHER_LEGGINGS
-      amount: 1
-      chance: 10
+      chance: 50
+    '2':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: LEATHER_CHESTPLATE
+      type: item
+      chance: 50
+    '52':
+      item:
+         ==: org.bukkit.inventory.ItemStack
+         v: 3953
+         type: LEATHER_LEGGINGS
+      type: item
+      chance: 50
     '4':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: LEATHER_BOOTS
       type: item
-      material: LEATHER_BOOTS
-      amount: 1
-      chance: 10
+      chance: 50
     '5':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: APPLE
+        amount: 16
       type: item
-      material: STONE_SWORD
-      amount: 1
-      chance: 10
+      chance: 50
     '6':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: STONE_AXE
       type: item
-      material: APPLE
-      amount: 3
       chance: 50
     '7':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: BOW
       type: item
-      material: COOKED_MUTTON
-      amount: 16
-      chance: 25
+      chance: 50
+    '8':
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: ARROW
+        amount: 64
+      type: item
+      chance: 50

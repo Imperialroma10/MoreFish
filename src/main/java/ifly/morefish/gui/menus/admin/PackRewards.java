@@ -121,7 +121,7 @@ public class PackRewards extends ListedGui {
             e.setCancelled(true);
         }));
 
-        addSlot(40, new MenuSlot(ItemCreator.create(Material.PAPER, "§6Add command reward", "§7Coming soon", "You can use the standard pack to create an award command."), e -> {
+        addSlot(40, new MenuSlot(ItemCreator.create(Material.PAPER, "§6Add command reward", "§7Left click to add new command reward", "§7After clicking, follow the prompts in the chat."), e -> {
             e.getWhoClicked().closeInventory();
             e.getWhoClicked().sendMessage("§eEnter the command without the \"§a/§e\" symbol, to indicate the player's nickname, enter §a{player}§e in the place where it is indicated.");
             ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new CreateCommandAction(pack, this));

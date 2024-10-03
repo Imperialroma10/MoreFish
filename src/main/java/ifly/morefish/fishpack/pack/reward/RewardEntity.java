@@ -1,5 +1,6 @@
 package ifly.morefish.fishpack.pack.reward;
 
+import ifly.morefish.fishpack.Config;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -27,11 +28,17 @@ public class RewardEntity extends RewardAbstract {
         this.amount = amount;
         setChance(chance);
         armors = new ItemStack[4];
+
     }
 
     @Override
     public ItemStack getItem() {
         return new ItemStack(Material.getMaterial(entityType.name() + "_SPAWN_EGG"), getAmount());
+    }
+
+
+    public String getRewardMessage() {
+        return Config.getConfig().entityrewardmessage;
     }
 
     @Override

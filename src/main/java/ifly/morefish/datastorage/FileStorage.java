@@ -1,5 +1,6 @@
 package ifly.morefish.datastorage;
 
+import com.liba.utils.Debug;
 import com.liba.utils.ItemUtil;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
@@ -7,6 +8,8 @@ import ifly.morefish.fishpack.pack.reward.RewardCommand;
 import ifly.morefish.fishpack.pack.reward.RewardEntity;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
@@ -38,6 +41,7 @@ public class FileStorage implements IStorage {
             main.mainPlugin.saveResource("packs/commandpack.yml", false);
             main.mainPlugin.saveResource("packs/entitypack.yml", false);
             main.mainPlugin.saveResource("packs/itempack.yml", false);
+            main.mainPlugin.saveResource("packs/custom.yml", false);
         }
     }
 
@@ -70,6 +74,9 @@ public class FileStorage implements IStorage {
                 chestlore = conf.getStringList("Pack.chestlore");
 
             }
+
+
+
             List<RewardAbstract> rewards = new ArrayList<>();
             ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
             if (sec_rewards != null) {
@@ -80,50 +87,14 @@ public class FileStorage implements IStorage {
                     String type = sec_rewards.getString(key_reward + ".type");
                     int chance = sec_rewards.getInt(key_reward + ".chance");
                     if (type.equals("item")) {
-                        String material = sec_rewards.getString(key_reward + ".material").toUpperCase();
-                        int count = sec_rewards.getInt(key_reward + ".amount");
-                        int custommodeldata = sec_rewards.getInt(key_reward + ".custommodeldata", -1);
-                        String displayname = sec_rewards.getString(key_reward + ".displayname", "").replace('&', '§');
 
+                    ItemStack is = sec_rewards.getItemStack(key_reward + ".item");
+                    if (is == null){
+                        continue;
+                    }
 
-                        Material m = Material.getMaterial(material);
-                        ItemStack is = new ItemStack(m, count);
-                        ItemMeta meta = is.getItemMeta();
-                        if (displayname.length() > 0)
-                            meta.setDisplayName(displayname);
-                        if (custommodeldata > -1)
-                            meta.setCustomModelData(custommodeldata);
-                        is.setItemMeta(meta);
-                        RewardItem rewardItem = new RewardItem(is, chance);
-
-                        ConfigurationSection enchantSection = sec_rewards.getConfigurationSection(key_reward + ".enchants");
-                        ConfigurationSection benchantSection = sec_rewards.getConfigurationSection(key_reward + ".benchants");
-
-                        if (enchantSection != null) {
-                            for (String enchant : enchantSection.getKeys(false)) {
-                                rewardItem.addEnchantments(Enchantment.getByKey(NamespacedKey.minecraft(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
-                            }
-                        }
-                        if (benchantSection != null) {
-                            for (String enchant : benchantSection.getKeys(false)) {
-                                rewardItem.addBookEnchantments(Enchantment.getByKey(NamespacedKey.minecraft(enchant.toLowerCase())), enchantSection.getInt(enchant + ".level"));
-                            }
-                        }
-
-                        if (meta instanceof PotionMeta) {
-                            PotionMeta potionMeta = (PotionMeta) meta;
-                            //if (main.mainPlugin.getServer().getVersion().contentEquals("1.20.6")) {
-                            //potionMeta.setBasePotionType(PotionType.valueOf(sec_rewards.getString(key_reward + ".potion")));
-                            //is.setItemMeta(potionMeta);
-
-
-                            // }
-
-
-                            is.setItemMeta(potionMeta);
-                        }
-
-                        rewards.add(rewardItem);
+                    RewardItem rewardItem = new RewardItem(is, chance);
+                    rewards.add(rewardItem);
 
                     }
                     if (type.equals("mob")) {
@@ -168,6 +139,35 @@ public class FileStorage implements IStorage {
                 ItemUtil.addLore(chest, "§cLeft click to show rewards", "§cRight click to open");
             }
             pack = new Pack(file.getName(), pack_displayname, pack_custommodeldata, chest, skullString);
+
+            ConfigurationSection effectSection = conf.getConfigurationSection("Pack.effect");
+            if (effectSection != null){
+
+                List<Color> colors = (List<Color>) effectSection.getList(effectSection.getCurrentPath() + ".colors");
+                FireworkEffect.Type type;
+
+                try {
+                     type = FireworkEffect.Type.valueOf(effectSection.getString("type"));
+                    Debug.LogChat(effectSection.getString("type"));
+                }catch (NullPointerException e){
+                    type = FireworkEffect.Type.BALL;
+                }
+
+                if (colors == null ) {
+                    colors = new ArrayList<>();
+                    colors.add(Color.YELLOW);
+                    colors.add(Color.GREEN);
+                }
+
+                FireworkEffect effect = FireworkEffect.builder()
+                        .withColor(colors)
+                        .with(type)
+                        .build();
+                pack.setFireworkEffect(effect);
+
+            }
+
+
             pack.setRewards(rewards);
             pack.setEnablepermission(permissions);
             pack.setDropChance(dropchance);

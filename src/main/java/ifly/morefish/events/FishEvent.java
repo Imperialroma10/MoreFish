@@ -12,14 +12,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerFishEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -41,6 +41,28 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
 
+    }
+
+
+
+    @EventHandler
+    public void armourdamage(EntityDamageByEntityEvent e){
+        if (e.getEntity() instanceof ArmorStand){
+            ArmorStand stand = (ArmorStand) e.getEntity();
+            ItemStack helmet = stand.getEquipment().getHelmet();
+            if (helmet != null){
+                if (helmet.hasItemMeta()){
+                    ItemMeta meta = helmet.getItemMeta();
+                    for (Pack pack : FishController.packList){
+                        if (meta != null && meta.getPersistentDataContainer().has(pack.getKey())) {
+
+                            e.setCancelled(true);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @EventHandler
@@ -65,7 +87,30 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
     }
 
     @EventHandler
+    public void interactEntity(PlayerInteractAtEntityEvent e){
+        if (e.getHand() == EquipmentSlot.HAND){
+            if (e.getRightClicked() instanceof ArmorStand stand){
+                ItemStack itemStack = stand.getEquipment().getHelmet();
+                if (itemStack != null && itemStack.hasItemMeta()){
+                    ItemMeta meta = itemStack.getItemMeta();
+                    for (Pack pack : FishController.packList){
+                        if (meta != null && meta.getPersistentDataContainer().has(pack.getKey())) {
+
+                            e.setCancelled(true);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    @EventHandler
     public void interact(PlayerInteractEvent e) {
+
+
+
         if (e.getHand() != EquipmentSlot.HAND) {
             return;
         }
@@ -126,7 +171,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 sender.sendMessage("§e----------------------------------------------------");
                 return true;
             }
-            if (sender.hasPermission("fishrewarads.admin")) {
+            if (sender.hasPermission("fishrewarads.admin")|| sender.hasPermission("*")){// || sender.hasPermission("*")) {
                 if (args[0].equalsIgnoreCase("admin")) {
                     if (args.length == 1) {
                         Player p = (Player) sender;
@@ -150,6 +195,24 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                                 Player player = Bukkit.getPlayer(args[3]);
                                 if (player != null && player.isOnline()) {
                                     player.getInventory().addItem(pack.getChest());
+                                } else {
+                                    sender.sendMessage(Config.getMessage("§4Null player or is offline"));
+                                }
+                            } else {
+                                sender.sendMessage(Config.getMessage("§4Pack not found "));
+                            }
+                        }
+                    }
+                    if (args.length == 5) {
+                        if (args[1].equalsIgnoreCase("givepack")) {
+                            Pack pack = fishMain.getPack(args[2]);
+                            if (pack != null) {
+                                Player player = Bukkit.getPlayer(args[3]);
+                                if (player != null && player.isOnline()) {
+                                    ItemStack itemStack = pack.getChest().clone();
+
+                                    itemStack.setAmount(Integer.parseInt(args[4]));
+                                    player.getInventory().addItem(itemStack);
                                 } else {
                                     sender.sendMessage(Config.getMessage("§4Null player or is offline"));
                                 }

@@ -14,6 +14,10 @@ public class Config {
     public final String caughtfish;
     public final String openpackmessage;
 
+    public final String itemrewardmessage;
+    public final String entityrewardmessage;
+    public final String commandrewardmessage;
+
     private Config() {
         Plugin plg = main.mainPlugin;
         plg.saveDefaultConfig();
@@ -24,6 +28,11 @@ public class Config {
         caughtfish = conf.getString("caught-fish-message");
         openpackmessage = conf.getString("open-pack-message");
         notenoughspace = conf.getString("not-enough-space");
+
+        itemrewardmessage = conf.getString("item-reward-message");
+        entityrewardmessage = conf.getString("entity-reward-message");
+        commandrewardmessage = conf.getString("command-reward-message");
+
     }
 
     public static Config getConfig() {

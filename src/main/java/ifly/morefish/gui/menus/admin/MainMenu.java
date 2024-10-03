@@ -17,6 +17,8 @@ public class MainMenu extends Gui {
     private final MainMenuMsg menu;
     PackList packList = new PackList(FishController.packList, this);
 
+    AboutPlugin aboutPlugin = new AboutPlugin(this);
+
     public MainMenu() {
         super(MenuMsgs.get().MainMenu.title, 3);
         menu = MenuMsgs.get().MainMenu;
@@ -40,6 +42,10 @@ public class MainMenu extends Gui {
                 "§b{count} §apacks have been opened".replace("{count}", FishController.playerStatistic.getOpenPacks() + "")), e -> {
 
             e.setCancelled(true);
+        }));
+
+        addSlot(26, new MenuSlot(ItemCreator.create(Material.BOOK, "§bAbout plugin"), e->{
+            aboutPlugin.open((Player) e.getWhoClicked());
         }));
     }
 

@@ -6,6 +6,7 @@ import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
+import org.bukkit.FireworkEffect;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -30,6 +31,8 @@ public class Pack {
     String enablepermission;
     ItemStack chest;
     NamespacedKey key;
+    FireworkEffect fireworkEffect;
+
 
     public Pack(String name, String displayname, int customModelData, ItemStack itemStack, String skullString) {
         this.Displayname = displayname;
@@ -135,6 +138,8 @@ public class Pack {
 
                 if (backchance <= chance && chance <= backchance + reward.getChance()) {
                     reward.giveReward(player);
+                    player.sendMessage(Config.getMessage(Config.getConfig().openpackmessage.replace("[pack]", getDisplayname())));
+                    player.sendMessage(reward.getRewardMessage());
                     break;
                 }
                 backchance += reward.getChance();
@@ -142,7 +147,7 @@ public class Pack {
 
 
         }
-        player.sendMessage(Config.getMessage(Config.getConfig().openpackmessage.replace("[pack]", getDisplayname())));
+
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         itemStack.setAmount(itemStack.getAmount() - 1);
     }
@@ -182,5 +187,12 @@ public class Pack {
             chance += rewardAbstract.getChance();
         }
         return chance;
+    }
+    public FireworkEffect getFireworkEffect() {
+        return fireworkEffect;
+    }
+
+    public void setFireworkEffect(FireworkEffect fireworkEffect) {
+        this.fireworkEffect = fireworkEffect;
     }
 }
