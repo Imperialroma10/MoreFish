@@ -23,6 +23,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -294,7 +295,8 @@ public class FileStorage implements IStorage {
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
         conf.set("Pack.rewards", null);
-
+        conf.set("Pack.effect.type", "BALL");
+        conf.set("Pack.effect.colors", Arrays.asList("BLUE", "YELLOW"));
         if (pack.getRewards().size() > 0) {
             ConfigurationSection section = conf.createSection("Pack.rewards");
             for (RewardAbstract reward : pack.getRewards()) {

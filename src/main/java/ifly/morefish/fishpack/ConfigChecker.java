@@ -1,4 +1,4 @@
-package ifly.morefish.fishpack.pack;
+package ifly.morefish.fishpack;
 
 import com.liba.utils.Checker;
 import ifly.morefish.main;
