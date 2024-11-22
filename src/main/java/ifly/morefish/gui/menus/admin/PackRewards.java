@@ -56,8 +56,8 @@ public class PackRewards extends ListedGui {
     public void setInventoryItems() {
 
 
-        for (int i = 0; i < getDataBlockSize(); i++) {
-            int id = getDataBlockSize() * getPage() + i;
+        for (int i = 0; i < getDataPerPage(); i++) {
+            int id = getDataPerPage() * getPage() + i;
             if (id < getData().size()) {
                 RewardAbstract rewardAbstract = pack.getRewards().get(id);
                 int rewardid = pack.getRewards().indexOf(rewardAbstract);

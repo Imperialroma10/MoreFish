@@ -1,6 +1,5 @@
 package ifly.morefish.fishpack;
 
-import com.liba.utils.Debug;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.main;
 import org.bukkit.*;
@@ -60,9 +59,9 @@ public class FishTask {
             Firework firework = (Firework) fireworkLocation.getWorld().spawnEntity(fireworkLocation, EntityType.valueOf(fireworkSTR));
             FireworkMeta meta = firework.getFireworkMeta();
 
-            if (pack.getFireworkEffect() != null){
+            if (pack.getFireworkEffect() != null) {
                 meta.addEffect(pack.getFireworkEffect());
-            }else{
+            } else {
                 FireworkEffect effect = FireworkEffect.builder()
                         .withColor(Color.YELLOW, Color.BLUE)
                         .with(FireworkEffect.Type.BALL)
@@ -87,7 +86,7 @@ public class FishTask {
                 Location particleLocation = loc1.clone().add(direction.clone().multiply(distancepased));
                 particleLocation.getWorld().spawnParticle(Particle.COMPOSTER, particleLocation, 1, 0, 0, 0);
             }
-            player.sendMessage(Config.getMessage(Config.getConfig().caughtfish.replace("[pack]", pack.getDisplayname())));
+            player.sendMessage(main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("caught-fish-message").toString().replace("[pack]", pack.getDisplayname()));
             player.getInventory().addItem(pack.getChest());
             stand.remove();
 

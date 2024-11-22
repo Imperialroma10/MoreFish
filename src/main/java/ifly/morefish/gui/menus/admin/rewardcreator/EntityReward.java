@@ -24,8 +24,8 @@ public class EntityReward extends ListedGui {
     @Override
     public void setInventoryItems() {
 
-        for (int i = 0; i < getDataBlockSize(); i++) {
-            int id = getDataBlockSize() * getPage() + i;
+        for (int i = 0; i < getDataPerPage(); i++) {
+            int id = getDataPerPage() * getPage() + i;
             if (id < getData().size()) {
                 Material material = Material.getMaterial(getData().get(id) + "_SPAWN_EGG");
                 addSlot(i, new MenuSlot(ItemCreator.create(material, material.name()), e -> {

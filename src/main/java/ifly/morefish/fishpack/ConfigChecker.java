@@ -1,29 +1,29 @@
 package ifly.morefish.fishpack;
 
-import com.liba.utils.Checker;
+
+import com.liba.utils.file.FileChecker;
 import ifly.morefish.main;
 
 import java.io.File;
-import java.util.HashMap;
 
-public class ConfigChecker extends Checker {
+
+public class ConfigChecker extends FileChecker {
     public ConfigChecker() {
-        super(main.mainPlugin.getDataFolder()+ File.separator + "config2.yml");
+        super(main.mainPlugin.getDataFolder() + File.separator + "config.yml");
     }
 
     @Override
-    public HashMap<String, Object> needle() {
-        HashMap<String, Object> hashMap = new HashMap<>();
+    public void needle() {
 
-        hashMap.put("enable-plugin-prefix", true);
-        hashMap.put("plugin-prefix", "&9&l[&aFishRewards&9] &b");
-        hashMap.put("caught-fish-message", "You caught [pack] ");
-        hashMap.put("open-pack-message", "You opened [pack]");
-        hashMap.put("not-enough-space", "You have not enough space!");
+        addParam("enable-plugin-prefix", true);
+        addParam("plugin-prefix", "&9&l[&aFishRewards&9] &b");
+        addParam("caught-fish-message", "You caught [pack] ");
+        addParam("open-pack-message", "You opened [pack]");
+        addParam("not-enough-space", "You have not enough space!");
 
-        hashMap.put("item-reward-message", "&bYou received a &a{itemname} &bamount: &a{count}");
-        hashMap.put("entity-reward-message", "&4There are entities hovering nearby.");
-        hashMap.put("command-reward-message", "&bYou received the reward, the command was executed.");
-        return hashMap;
+        addParam("item-reward-message", "&bYou received a &a{itemname} &bamount: &a{count}");
+        addParam("entity-reward-message", "&4There are entities hovering nearby.");
+        addParam("command-reward-message", "&bYou received the reward, the command was executed.");
+        addParam("no-right", "&bYou don't have permission");
     }
 }

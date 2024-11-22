@@ -1,17 +1,10 @@
 package ifly.morefish.fishpack.pack.reward;
 
 
-import ifly.morefish.fishpack.Config;
+import ifly.morefish.main;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.EnchantmentStorageMeta;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.PotionMeta;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class RewardItem extends RewardAbstract {
@@ -26,7 +19,7 @@ public class RewardItem extends RewardAbstract {
 
     public String getRewardMessage() {
 
-        return Config.getConfig().itemrewardmessage.replace("{itemname}", item.getType().name()).replace("{count}", item.getAmount()+"");
+        return main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("item-reward-message").toString().replace("{itemname}", item.getType().name()).replace("{count}", item.getAmount() + "");
     }
 
     @Override

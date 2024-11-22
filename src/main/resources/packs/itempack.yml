@@ -10,7 +10,7 @@ Pack:
   chestlore:
     - "Line 1"
     - "Line 2"
-  effect:  # Firework color and type
+  effect: # Firework color and type
     type: BALL    # available types BALL, BALL_LARGE, STAR,BURST,CREEPER
     colors:
       - YELLOW
@@ -39,9 +39,9 @@ Pack:
       chance: 50
     '52':
       item:
-         ==: org.bukkit.inventory.ItemStack
-         v: 3953
-         type: LEATHER_LEGGINGS
+        ==: org.bukkit.inventory.ItemStack
+        v: 3953
+        type: LEATHER_LEGGINGS
       type: item
       chance: 50
     '4':

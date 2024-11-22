@@ -25,7 +25,7 @@ public class PackList extends ListedGui {
 
 
     public <T> PackList(List<T> data, Gui backGui) {
-        super(MenuMsgs.get().PacksMenuMsg.title, 5, data, 4, backGui);
+        super(MenuMsgs.get().PacksMenuMsg.title, 5, data, 4 * 9, backGui);
         menumsg = MenuMsgs.get().PacksMenuMsg;
     }
 
@@ -35,8 +35,8 @@ public class PackList extends ListedGui {
     public void setInventoryItems() {
 
 
-        for (int i = 0; i < getDataBlockSize(); i++) {
-            int id = getDataBlockSize() * getPage() + i;
+        for (int i = 0; i < getDataPerPage(); i++) {
+            int id = getDataPerPage() * getPage() + i;
             if (id < getData().size()) {
                 Pack pack = (Pack) getData().get(id);
                 addSlot(i, new MenuSlot(ItemUtil.create(new ItemStack(pack.getChest()), pack.getDisplayname(), "§bPack drop chance: §a" + pack.getDropChance() + "%",

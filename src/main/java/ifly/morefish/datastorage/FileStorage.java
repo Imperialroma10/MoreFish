@@ -17,8 +17,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.PotionMeta;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,7 +75,6 @@ public class FileStorage implements IStorage {
             }
 
 
-
             List<RewardAbstract> rewards = new ArrayList<>();
             ConfigurationSection sec_rewards = conf.getConfigurationSection("Pack.rewards");
             if (sec_rewards != null) {
@@ -89,13 +86,13 @@ public class FileStorage implements IStorage {
                     int chance = sec_rewards.getInt(key_reward + ".chance");
                     if (type.equals("item")) {
 
-                    ItemStack is = sec_rewards.getItemStack(key_reward + ".item");
-                    if (is == null){
-                        continue;
-                    }
+                        ItemStack is = sec_rewards.getItemStack(key_reward + ".item");
+                        if (is == null) {
+                            continue;
+                        }
 
-                    RewardItem rewardItem = new RewardItem(is, chance);
-                    rewards.add(rewardItem);
+                        RewardItem rewardItem = new RewardItem(is, chance);
+                        rewards.add(rewardItem);
 
                     }
                     if (type.equals("mob")) {
@@ -142,19 +139,19 @@ public class FileStorage implements IStorage {
             pack = new Pack(file.getName(), pack_displayname, pack_custommodeldata, chest, skullString);
 
             ConfigurationSection effectSection = conf.getConfigurationSection("Pack.effect");
-            if (effectSection != null){
+            if (effectSection != null) {
 
                 List<Color> colors = (List<Color>) effectSection.getList(effectSection.getCurrentPath() + ".colors");
                 FireworkEffect.Type type;
 
                 try {
-                     type = FireworkEffect.Type.valueOf(effectSection.getString("type"));
+                    type = FireworkEffect.Type.valueOf(effectSection.getString("type"));
                     Debug.LogChat(effectSection.getString("type"));
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     type = FireworkEffect.Type.BALL;
                 }
 
-                if (colors == null ) {
+                if (colors == null) {
                     colors = new ArrayList<>();
                     colors.add(Color.YELLOW);
                     colors.add(Color.GREEN);

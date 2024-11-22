@@ -1,6 +1,6 @@
 package ifly.morefish.fishpack.pack.reward;
 
-import ifly.morefish.fishpack.Config;
+import ifly.morefish.main;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -38,7 +38,7 @@ public class RewardEntity extends RewardAbstract {
 
 
     public String getRewardMessage() {
-        return Config.getConfig().entityrewardmessage;
+        return main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("entity-reward-message").toString();
     }
 
     @Override

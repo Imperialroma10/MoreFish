@@ -18,8 +18,8 @@ public class PlayerPackRewards extends ListedGui {
     @Override
     public void setInventoryItems() {
 
-        for (int i = 0; i < getDataBlockSize(); i++) {
-            int id = getDataBlockSize() * getPage() + i;
+        for (int i = 0; i < getDataPerPage(); i++) {
+            int id = getDataPerPage() * getPage() + i;
             if (id < getData().size()) {
                 RewardAbstract rewardAbstract = pack.getRewards().get(id);
                 addSlot(i, new MenuSlot(ItemUtil.create(new ItemStack(rewardAbstract.getItem()), rewardAbstract.getItem().getItemMeta().getDisplayName(),

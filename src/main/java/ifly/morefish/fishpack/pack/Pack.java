@@ -2,7 +2,6 @@ package ifly.morefish.fishpack.pack;
 
 
 import com.liba.utils.HeadCreator;
-import ifly.morefish.fishpack.Config;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
@@ -124,7 +123,7 @@ public class Pack {
     public void giveReward(Player player) {
         if (isEnablepermission()) {
             if (!(player.hasPermission("*") || player.hasPermission(getEnablepermission()))) {
-                player.sendMessage(Config.getMessage("You don't have permission to open"));
+                player.sendMessage(main.mainPlugin.getChecker().getParam("no-right").toString());
                 return;
             }
         }
@@ -138,7 +137,7 @@ public class Pack {
 
                 if (backchance <= chance && chance <= backchance + reward.getChance()) {
                     reward.giveReward(player);
-                    player.sendMessage(Config.getMessage(Config.getConfig().openpackmessage.replace("[pack]", getDisplayname())));
+                    player.sendMessage(main.mainPlugin.getChecker().getParam("open-pack-message").toString().replace("[pack]", getDisplayname()));
                     player.sendMessage(reward.getRewardMessage());
                     break;
                 }
@@ -188,6 +187,7 @@ public class Pack {
         }
         return chance;
     }
+
     public FireworkEffect getFireworkEffect() {
         return fireworkEffect;
     }

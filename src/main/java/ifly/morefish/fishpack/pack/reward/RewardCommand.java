@@ -1,7 +1,7 @@
 package ifly.morefish.fishpack.pack.reward;
 
-import ifly.morefish.fishpack.Config;
 import ifly.morefish.gui.helper.ItemCreator;
+import ifly.morefish.main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -21,7 +21,7 @@ public class RewardCommand extends RewardAbstract {
 
     @Override
     public String getRewardMessage() {
-        return Config.getConfig().commandrewardmessage;
+        return main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("command-reward-message").toString();
     }
 
     @Override
