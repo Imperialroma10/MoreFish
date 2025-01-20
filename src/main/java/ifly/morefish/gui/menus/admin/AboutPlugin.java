@@ -65,7 +65,7 @@ public class AboutPlugin extends Gui {
                 "§apatreon.com/PluginDEV",
                 "§cClick to see the link"
         ), e -> {
-            e.getWhoClicked().sendMessage("§bhttps://patreon.com/PluginDEV §f( §bclick url to open §f)");
+            e.getWhoClicked().sendMessage("§bhttps://www.patreon.com/c/PluginDEV/membership §f( §bclick url to open §f)");
             e.getWhoClicked().closeInventory();
             e.setCancelled(true);
         }));

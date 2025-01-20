@@ -1,9 +1,0 @@
-enable-plugin-prefix: true
-plugin-prefix: "§9§l[§aFishRewards§9] §b"
-caught-fish-message: "You caught [pack] "
-open-pack-message: "You opened [pack]"
-not-enough-space: "You have not enough space!"
-
-item-reward-message: "§bYou received a §a{itemname} §bamount: §a{count}"
-entity-reward-message: "§4There are entities hovering nearby."
-command-reward-message: "§bYou received the reward, the command was executed."

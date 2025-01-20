@@ -14,6 +14,8 @@ import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public final class main extends JavaPlugin {
 
     public static main mainPlugin;
@@ -24,19 +26,20 @@ public final class main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Debug.setDebug(false);
+
         mainPlugin = this;
+        Liba liba = new Liba(mainPlugin, getDataFolder()+ File.separator+"lconfig.yml");
         checker = new ConfigChecker();
         checker.checkStorage();
-        Debug.Log(checker.toString());
+
         storage = new StorageCreator();
         FileStorage storageStorage = (FileStorage) storage.getStorage();
         storageStorage.copy();
         MenuMsgs.get();
-
+        Debug.setDebug(false);
         controller = new FishController(storage);
 
-        Liba liba = new Liba(mainPlugin);
+
         Metrics metrics = liba.registerMetrica(19862);
 
         VersionChecker versionChecker = liba.registerVersionChecker(111966);

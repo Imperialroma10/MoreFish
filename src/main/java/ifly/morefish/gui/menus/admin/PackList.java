@@ -24,16 +24,19 @@ public class PackList extends ListedGui {
     EditMenu editMenu;
 
 
-    public <T> PackList(List<T> data, Gui backGui) {
+    public PackList(List<Pack> data, Gui backGui) {
         super(MenuMsgs.get().PacksMenuMsg.title, 5, data, 4 * 9, backGui);
         menumsg = MenuMsgs.get().PacksMenuMsg;
+
     }
 
 
     //35 - 10 * 3
     @Override
     public void setInventoryItems() {
-
+        setData(FishController.packList);
+        this.menuSlot.clear();
+        this.getInventory().clear();
 
         for (int i = 0; i < getDataPerPage(); i++) {
             int id = getDataPerPage() * getPage() + i;
@@ -68,7 +71,6 @@ public class PackList extends ListedGui {
 
         super.setInventoryItems();
     }
-
 
     public EditMenu getEditMenu() {
         return editMenu;

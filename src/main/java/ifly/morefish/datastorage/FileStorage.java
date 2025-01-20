@@ -1,6 +1,5 @@
 package ifly.morefish.datastorage;
 
-import com.liba.utils.Debug;
 import com.liba.utils.ItemUtil;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
@@ -146,7 +145,7 @@ public class FileStorage implements IStorage {
 
                 try {
                     type = FireworkEffect.Type.valueOf(effectSection.getString("type"));
-                    Debug.LogChat(effectSection.getString("type"));
+
                 } catch (NullPointerException e) {
                     type = FireworkEffect.Type.BALL;
                 }

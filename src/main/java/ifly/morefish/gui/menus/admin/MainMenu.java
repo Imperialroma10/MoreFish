@@ -27,6 +27,7 @@ public class MainMenu extends Gui {
 
     @Override
     public void setInventoryItems() {
+
         addSlot(11, new MenuSlot(menu.packs_item, e -> {
             packList.open((Player) e.getWhoClicked());
             e.setCancelled(true);
@@ -48,6 +49,7 @@ public class MainMenu extends Gui {
             aboutPlugin.open((Player) e.getWhoClicked());
         }));
     }
+
 
     public PackList getPackList() {
 

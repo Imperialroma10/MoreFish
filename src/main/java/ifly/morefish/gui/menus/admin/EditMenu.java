@@ -83,9 +83,10 @@ public class EditMenu extends Gui {
         }));
 
         addSlot(25, new MenuSlot(menu.remove_pack, e -> {
-            FishController.packList.remove(pack);
 
             StorageCreator.getStorageIns().removePack(pack);
+            FishController.packList.remove(pack);
+
             GuiController.getMainMenu(getOwner()).getPackList().open((Player) e.getWhoClicked());
             e.setCancelled(true);
         }));

@@ -1,7 +1,7 @@
 package ifly.morefish.fishpack.pack;
 
 
-import com.liba.utils.HeadCreator;
+import com.liba.utils.headcreator.HeadCreator;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
@@ -137,7 +137,7 @@ public class Pack {
 
                 if (backchance <= chance && chance <= backchance + reward.getChance()) {
                     reward.giveReward(player);
-                    player.sendMessage(main.mainPlugin.getChecker().getParam("open-pack-message").toString().replace("[pack]", getDisplayname()));
+                    player.sendMessage(main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("open-pack-message").toString().replace("[pack]", getDisplayname()));
                     player.sendMessage(reward.getRewardMessage());
                     break;
                 }

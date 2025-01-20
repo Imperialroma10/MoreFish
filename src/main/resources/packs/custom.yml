@@ -2,6 +2,11 @@ Pack:
   displayname: Custom
   custommodeldata: 0
   chance: 10
+  effect: # Firework color and type
+    type: BALL    # available types BALL, BALL_LARGE, STAR,BURST,CREEPER
+    colors:
+      - YELLOW
+      - BLUE
   rewards:
     '1':
       item:

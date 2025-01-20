@@ -1,6 +1,7 @@
 package ifly.morefish.fishpack.pack.reward;
 
 
+import com.liba.utils.ItemUtil;
 import ifly.morefish.main;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -19,7 +20,7 @@ public class RewardItem extends RewardAbstract {
 
     public String getRewardMessage() {
 
-        return main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("item-reward-message").toString().replace("{itemname}", item.getType().name()).replace("{count}", item.getAmount() + "");
+        return main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("item-reward-message").toString().replace("{itemname}", ItemUtil.getMaterialName(item.getType())).replace("{count}", item.getAmount() + "");
     }
 
     @Override
