@@ -11,7 +11,7 @@ public class PlayerPackRewards extends ListedGui {
     Pack pack;
 
     public PlayerPackRewards(Pack pack) {
-        super(pack.getDisplayname() + " rewards", 4, pack.getRewards(), 3);
+        super(pack.getDisplayname() + " rewards", 4, pack.getRewards(), 3*9);
         this.pack = pack;
     }
 

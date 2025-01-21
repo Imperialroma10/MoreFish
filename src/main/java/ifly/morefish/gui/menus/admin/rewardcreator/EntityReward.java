@@ -17,7 +17,7 @@ public class EntityReward extends ListedGui {
     Pack pack;
 
     public <T> EntityReward(List<T> data, Gui gui) {
-        super("§6Select entity for reward", 5, data, 4, gui);
+        super("§6Select entity for reward", 5, data, 4*9, gui);
 
     }
 

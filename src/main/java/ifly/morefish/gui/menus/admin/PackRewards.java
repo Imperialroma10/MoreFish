@@ -38,7 +38,7 @@ public class PackRewards extends ListedGui {
     EditCommand editCommand = new EditCommand(this);
 
     public PackRewards(Gui gui) {
-        super("Pack rewards", 5, new ArrayList<>(), 3, gui);
+        super("Pack rewards", 5, new ArrayList<>(), 3*9, gui);
 
         List<EntityType> entityTypes = Lists.newArrayList(EntityType.values());
         List<EntityType> entityTypeList = new ArrayList<>();

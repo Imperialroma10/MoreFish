@@ -28,8 +28,9 @@ public final class main extends JavaPlugin {
     public void onEnable() {
 
         mainPlugin = this;
-        Liba liba = new Liba(mainPlugin, getDataFolder()+ File.separator+"lconfig.yml");
         checker = new ConfigChecker();
+        Liba liba = new Liba(mainPlugin, checker);
+
         checker.checkStorage();
 
         storage = new StorageCreator();
