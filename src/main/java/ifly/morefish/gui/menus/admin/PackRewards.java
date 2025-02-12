@@ -49,12 +49,13 @@ public class PackRewards extends ListedGui {
         }
         entityReward = new EntityReward(entityTypeList, this);
         itemReward = new ItemReward(this);
-
+        setGlobalcancel(true);
     }
 
     @Override
     public void setInventoryItems() {
-
+        this.getInventory().clear();
+        this.menuSlot.clear();
 
         for (int i = 0; i < getDataPerPage(); i++) {
             int id = getDataPerPage() * getPage() + i;
@@ -82,7 +83,6 @@ public class PackRewards extends ListedGui {
                             }
                         }
                     }
-                    e.setCancelled(true);
                     e.setCancelled(true);
                 }));
             }

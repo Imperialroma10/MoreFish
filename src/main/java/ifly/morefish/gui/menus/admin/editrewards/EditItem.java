@@ -28,7 +28,7 @@ public class EditItem extends Gui {
     public EditItem(Gui gui) {
         super("Edit item config", 1, gui);
         menu = MenuMsgs.get().EditItemMenu;
-
+        setGlobalcancel(true);
     }
 
     @Override

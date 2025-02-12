@@ -31,13 +31,10 @@ public final class main extends JavaPlugin {
         checker = new ConfigChecker();
         Liba liba = new Liba(mainPlugin, checker);
 
-        checker.checkStorage();
-
         storage = new StorageCreator();
         FileStorage storageStorage = (FileStorage) storage.getStorage();
         storageStorage.copy();
         MenuMsgs.get();
-        Debug.setDebug(false);
         controller = new FishController(storage);
 
 

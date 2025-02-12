@@ -23,6 +23,7 @@ public class EditCommand extends Gui {
     public EditCommand(Gui backGui) {
         super("Edit command GUI", 1, backGui);
         menu = MenuMsgs.get().EditItemMenu;
+        setGlobalcancel(true);
     }
 
     @Override

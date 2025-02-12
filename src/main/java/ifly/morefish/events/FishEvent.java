@@ -143,11 +143,12 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 }
             }
         }
+
         if (e.getAction().equals(Action.LEFT_CLICK_AIR) || e.getAction().equals(Action.LEFT_CLICK_BLOCK)) {
             ItemStack itemStack = e.getItem();
             if (itemStack != null) {
                 Pack pack = fishMain.getPack(itemStack);
-                if (pack != null) {
+                if (pack != null && pack.isSeerewards()) {
                     new PlayerPackRewards(pack).open(e.getPlayer());
                 }
             }

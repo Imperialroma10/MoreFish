@@ -60,6 +60,7 @@ public class FileStorage implements IStorage {
             int dropchance = conf.getInt("Pack.chance");
             String permissions = conf.getString("Pack.permissions");
             String skullString = null;
+            Boolean cansee = conf.getBoolean("Pack.canseerewards");
             Material materialitem = null;
             List<String> chestlore = null;
             if (conf.getString("Pack.skull") != null) {
@@ -168,7 +169,7 @@ public class FileStorage implements IStorage {
             pack.setRewards(rewards);
             pack.setEnablepermission(permissions);
             pack.setDropChance(dropchance);
-
+            pack.setSeerewards(cansee);
 
             list.add(pack);
         }
@@ -227,6 +228,7 @@ public class FileStorage implements IStorage {
         conf.set("Pack.custommodeldata", pack.getCustomModelData());
         conf.set("Pack.chance", pack.getDropChance());
         conf.set("Pack.rewards", null);
+        conf.set("Pack.canseerewards", pack.isSeerewards());
         // conf.set("Pack.permissions", pack.isEnablepermission());
 
         if (pack.getRewards().size() > 0) {
@@ -260,6 +262,7 @@ public class FileStorage implements IStorage {
         conf.set("Pack.chance", pack.getDropChance());
         conf.set("Pack.rewards", null);
         conf.set("Pack.permissions", pack.getEnablepermission());
+        conf.set("Pack.canseerewards", pack.isSeerewards());
         if (pack.getRewards().size() > 0) {
             ConfigurationSection section = conf.createSection("Pack.rewards");
             for (RewardAbstract reward : pack.getRewards()) {
@@ -293,6 +296,7 @@ public class FileStorage implements IStorage {
         conf.set("Pack.rewards", null);
         conf.set("Pack.effect.type", "BALL");
         conf.set("Pack.effect.colors", Arrays.asList("BLUE", "YELLOW"));
+        conf.set("Pack.canseerewards", pack.isSeerewards());
         if (pack.getRewards().size() > 0) {
             ConfigurationSection section = conf.createSection("Pack.rewards");
             for (RewardAbstract reward : pack.getRewards()) {

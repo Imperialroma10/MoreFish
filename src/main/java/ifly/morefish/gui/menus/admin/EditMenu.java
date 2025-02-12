@@ -26,6 +26,7 @@ public class EditMenu extends Gui {
         super(title, rows, gui);
         menu = MenuMsgs.get().EditMenu;
         packRewards = new PackRewards(this);
+        setGlobalcancel(true);
     }
 
     public EditMenu(String title, int rows, Pack pack, Gui gui) {
@@ -116,6 +117,21 @@ public class EditMenu extends Gui {
             e.setCancelled(true);
         }));
 
+        addSlot(17, new MenuSlot(getSeeItem(), e->{
+            if (pack.isSeerewards()){
+                pack.setSeerewards(false);
+            }else{
+                pack.setSeerewards(true);
+            }
+            getMenuSlot(17).setGuiItem(getSeeItem());
+            updateSlot(17);
+            e.setCancelled(true);
+        }));
+
+    }
+    public ItemStack getSeeItem() {
+        return pack.isSeerewards() ? ItemCreator.create(Material.GREEN_WOOL, "§aThe player will be able to see a bounty package") :
+                ItemCreator.create(Material.RED_WOOL, "§4The player will not be able to see the awards pack");
     }
 
     public ItemStack getItemFromPerm() {

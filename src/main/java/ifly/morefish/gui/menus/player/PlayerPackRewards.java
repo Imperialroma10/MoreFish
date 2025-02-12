@@ -13,6 +13,7 @@ public class PlayerPackRewards extends ListedGui {
     public PlayerPackRewards(Pack pack) {
         super(pack.getDisplayname() + " rewards", 4, pack.getRewards(), 3*9);
         this.pack = pack;
+        setGlobalcancel(true);
     }
 
     @Override

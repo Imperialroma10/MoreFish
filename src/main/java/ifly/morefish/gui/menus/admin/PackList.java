@@ -27,7 +27,7 @@ public class PackList extends ListedGui {
     public PackList(List<Pack> data, Gui backGui) {
         super(MenuMsgs.get().PacksMenuMsg.title, 5, data, 4 * 9, backGui);
         menumsg = MenuMsgs.get().PacksMenuMsg;
-
+        setGlobalcancel(true);
     }
 
 

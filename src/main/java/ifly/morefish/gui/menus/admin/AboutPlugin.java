@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.ColorableArmorMeta;
 public class AboutPlugin extends Gui {
     public AboutPlugin(Gui gui) {
         super("About the plugin", 3, gui);
+        setGlobalcancel(true);
     }
 
     @Override

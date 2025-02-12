@@ -32,6 +32,7 @@ public class Pack {
     NamespacedKey key;
     FireworkEffect fireworkEffect;
 
+    boolean seerewards = true;
 
     public Pack(String name, String displayname, int customModelData, ItemStack itemStack, String skullString) {
         this.Displayname = displayname;
@@ -186,6 +187,14 @@ public class Pack {
             chance += rewardAbstract.getChance();
         }
         return chance;
+    }
+
+    public boolean isSeerewards() {
+        return seerewards;
+    }
+
+    public void setSeerewards(boolean seerewards) {
+        this.seerewards = seerewards;
     }
 
     public FireworkEffect getFireworkEffect() {

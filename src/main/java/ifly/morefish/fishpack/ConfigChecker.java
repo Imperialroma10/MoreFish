@@ -25,5 +25,6 @@ public class ConfigChecker extends FileChecker {
         addParam("entity-reward-message", "&4There are entities hovering nearby.");
         addParam("command-reward-message", "&bYou received the reward, the command was executed.");
         addParam("no-right", "&bYou don't have permission");
+
     }
 }

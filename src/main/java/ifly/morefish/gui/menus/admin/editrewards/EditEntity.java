@@ -13,6 +13,7 @@ public class EditEntity extends Gui {
 
     public EditEntity(Gui backGui) {
         super("Edit entity reward", 1, backGui);
+        setGlobalcancel(true);
     }
 
     @Override

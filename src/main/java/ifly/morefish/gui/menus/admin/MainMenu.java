@@ -22,6 +22,7 @@ public class MainMenu extends Gui {
     public MainMenu() {
         super(MenuMsgs.get().MainMenu.title, 3);
         menu = MenuMsgs.get().MainMenu;
+        setGlobalcancel(true);
     }
 
 
