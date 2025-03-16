@@ -11,17 +11,20 @@ import org.bukkit.inventory.ItemStack;
 public class RewardCommand extends RewardAbstract {
 
     String command;
+    String description;
 
     public RewardCommand(String cmd, int chance) {
         command = cmd;
         this.item = ItemCreator.create(Material.PAPER, cmd);
         this.chance = chance;
-
     }
 
     @Override
     public String getRewardMessage() {
-        return main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("command-reward-message").toString();
+        if (getDescription() != null){
+            return main.getPlugin().getChecker().getParam("plugin-prefix").toString() + getDescription();
+        }
+        return main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("command-reward-message").toString();
     }
 
     @Override
@@ -52,5 +55,13 @@ public class RewardCommand extends RewardAbstract {
         this.item = ItemCreator.create(Material.PAPER, command);
         this.command = command;
 
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

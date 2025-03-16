@@ -20,6 +20,9 @@ public class EditMenuMsg {
     public final ItemStack back_item;
     public final ItemStack getpack_item;
 
+
+    public final String title6;
+    public final String[] list6;
     public EditMenuMsg(ConfigurationSection section) {
         title = section.getString("title");
         String title1 = section.getString("add-chance-item.title");
@@ -37,8 +40,8 @@ public class EditMenuMsg {
         String title5 = section.getString("rewards-item.title");
         String[] list5 = section.getStringList("rewards-item.description").toArray(new String[0]);
 
-        String title6 = section.getString("remove-pack-item.title");
-        String[] list6 = section.getStringList("remove-pack-item.description").toArray(new String[0]);
+       title6 = section.getString("remove-pack-item.title");
+       list6 = section.getStringList("remove-pack-item.description").toArray(new String[0]);
 
         String title7 = section.getString("reload-pack-item.title");
         String[] list7 = section.getStringList("reload-pack-item.description").toArray(new String[0]);

@@ -23,7 +23,7 @@ public class ChangePackName implements Action {
         pack.setDisplayname(s);
         player.sendMessage("§eNew pack displayname: " + pack.getDisplayname());
         StorageCreator.getStorageIns().Save(pack);
-        Bukkit.getScheduler().runTaskLater(main.mainPlugin, () -> {
+        Bukkit.getScheduler().runTaskLater(main.getPlugin(), () -> {
             editMenu.setPack(pack);
             editMenu.open(player);
         }, 10);

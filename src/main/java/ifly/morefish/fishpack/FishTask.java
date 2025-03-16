@@ -38,7 +38,7 @@ public class FishTask {
         stand.setCustomNameVisible(true);
         stand.setCustomName(pack.getDisplayname());
 
-        taskid = scheduler.scheduleSyncRepeatingTask(main.mainPlugin, this::Run, 0, 1);
+        taskid = scheduler.scheduleSyncRepeatingTask(main.getPlugin(), this::Run, 0, 1);
     }
 
     public void Run() {
@@ -52,7 +52,7 @@ public class FishTask {
             Location fireworkLocation = stand.getLocation().clone();
             fireworkLocation.setY(stand.getLocation().getY() + 2);
             String fireworkSTR = "FIREWORK";
-            if (main.mainPlugin.getServer().getVersion().contentEquals("1.20.6") || main.mainPlugin.getServer().getVersion().contentEquals("1.20.5")) {
+            if (main.getPlugin().getServer().getVersion().contentEquals("1.20.6") || main.getPlugin().getServer().getVersion().contentEquals("1.20.5")) {
                 fireworkSTR = "FIREWORK_ROCKET";
             }
 
@@ -86,7 +86,7 @@ public class FishTask {
                 Location particleLocation = loc1.clone().add(direction.clone().multiply(distancepased));
                 particleLocation.getWorld().spawnParticle(Particle.COMPOSTER, particleLocation, 1, 0, 0, 0);
             }
-            player.sendMessage(main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("caught-fish-message").toString().replace("[pack]", pack.getDisplayname()));
+            player.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("caught-fish-message").toString().replace("[pack]", pack.getDisplayname()));
             player.getInventory().addItem(pack.getChest());
             stand.remove();
 

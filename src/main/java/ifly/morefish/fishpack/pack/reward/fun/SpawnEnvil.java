@@ -41,7 +41,7 @@ public class SpawnEnvil extends RewardFun {
         int taskid;
 
         public SpawnEnvilTask(Location loc) {
-            taskid = scheduler.scheduleSyncRepeatingTask(main.mainPlugin, this::checkEnvil, 0, 10);
+            taskid = scheduler.scheduleSyncRepeatingTask(main.getPlugin(), this::checkEnvil, 0, 10);
             Location location = loc.clone();
             location.setY(location.getY() + 25);
             block = location.getWorld().spawnFallingBlock(location, Bukkit.createBlockData(Material.ANVIL));

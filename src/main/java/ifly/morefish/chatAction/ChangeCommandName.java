@@ -23,7 +23,7 @@ public class ChangeCommandName implements Action {
     public void action(String s, Player player) {
         player.sendMessage("§eYou changed the command to: §b" + s);
         command.setCommand(s);
-        Bukkit.getScheduler().runTaskLater(main.mainPlugin, () -> {
+        Bukkit.getScheduler().runTaskLater(main.getPlugin(), () -> {
             editMenu.open(player, pack, command);
         }, 10);
     }

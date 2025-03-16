@@ -26,7 +26,7 @@ public class ChangeItemName implements Action {
         player.sendMessage("§eYou changed the item name to: §b" + s);
         ItemUtil.rename(reward.getItem(), s);
         StorageCreator.getStorageIns().Save(pack);
-        Bukkit.getScheduler().runTaskLater(main.mainPlugin, () -> {
+        Bukkit.getScheduler().runTaskLater(main.getPlugin(), () -> {
             editItem.open(player, pack);
         }, 10);
 

@@ -30,7 +30,7 @@ public class FishController {
         List<Pack> packs = storage.getStorage().getPacks();
 
         setPackList(packs);
-        Bukkit.getLogger().info("[" + main.mainPlugin.getDescription().getName() + "] loaded " + packs.size() + " packs");
+        Bukkit.getLogger().info("[" + main.getPlugin().getDescription().getName() + "] loaded " + packs.size() + " packs");
     }
 
     public Pack getPack(ItemStack itemStack) {

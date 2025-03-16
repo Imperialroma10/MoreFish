@@ -4,7 +4,9 @@ package ifly.morefish.gui.menus.admin;
 import com.liba.gui.Gui;
 import com.liba.gui.MenuSlot;
 import com.liba.gui.buttons.BackButton;
+import com.liba.utils.ItemUtil;
 import com.liba.utils.chat.ChatAwait;
+import com.liba.utils.headcreator.HeadCache;
 import ifly.morefish.chatAction.ChangePackName;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
@@ -49,17 +51,33 @@ public class EditMenu extends Gui {
 
         addSlot(12, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, "§e" + menu.chance_status.replace("{chance}", pack.getDropChance() + ""),
                 "§6Left click to add §b5%",
-                "§6Right click to remove §b5%"), e -> {
+                "§6Right click to remove §b5%",
+                "§6Shift click to add §b1%","§6Shift right click to remove §b1%"
+                ), e -> {
             int percent = pack.getDropChance();
-            if (e.isLeftClick()) {
-                if (percent + 5 <= 100) {
-                    pack.setDropChance(percent + 5);
+            if (e.isShiftClick()){
+                if (e.isLeftClick()) {
+                    if (percent + 1 <= 100) {
+                        pack.setDropChance(percent + 1);
+                    }
                 }
-            }
-            if (e.isRightClick()) {
-                if (percent - 5 >= 0) {
-                    pack.setDropChance(percent - 5);
+                if (e.isRightClick()) {
+                    if (percent - 1 >= 0) {
+                        pack.setDropChance(percent - 1);
+                    }
                 }
+            }else{
+                if (e.isLeftClick()) {
+                    if (percent + 5 <= 100) {
+                        pack.setDropChance(percent + 5);
+                    }
+                }
+                if (e.isRightClick()) {
+                    if (percent - 5 >= 0) {
+                        pack.setDropChance(percent - 5);
+                    }
+                }
+
             }
 
             getInventory().setItem(12, ItemCreator.replace(getInventory().getItem(12), "§e" + menu.chance_status.replace("{chance}", String.valueOf(pack.getDropChance()))));
@@ -73,7 +91,7 @@ public class EditMenu extends Gui {
             e.setCancelled(true);
         }));
 
-        addSlot(26, new MenuSlot(ItemCreator.create(Material.COMMAND_BLOCK, "§eSave pack"), e -> {
+        addSlot(26, new MenuSlot(ItemUtil.create(HeadCache.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWFjYTg5MWE3MDE1Y2JiYTA2ZTYxYzYwMDg2MTA2OWZhNzg3MGRjZjliMzViNGZlMTU4NTBmNGIyNWIzY2UwIn19fQ=="), "§eSave pack"), e -> {
             StorageCreator.getStorageIns().Save(pack);
 
             e.setCancelled(true);
@@ -83,7 +101,8 @@ public class EditMenu extends Gui {
             e.setCancelled(true);
         }));
 
-        addSlot(25, new MenuSlot(menu.remove_pack, e -> {
+        addSlot(25, new MenuSlot(ItemUtil.create(HeadCache.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmUwZmQxMDE5OWU4ZTRmY2RhYmNhZTRmODVjODU5MTgxMjdhN2M1NTUzYWQyMzVmMDFjNTZkMThiYjk0NzBkMyJ9fX0=")
+                ,menu.title6, menu.list6), e -> {
 
             StorageCreator.getStorageIns().removePack(pack);
             FishController.packList.remove(pack);

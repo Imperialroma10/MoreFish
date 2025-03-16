@@ -29,17 +29,17 @@ public class FileStorage implements IStorage {
     File f_packs;
 
     public FileStorage() {
-        f_packs = new File(main.mainPlugin.getDataFolder().getPath() + File.separator + "packs");
+        f_packs = new File(main.getPlugin().getDataFolder().getPath() + File.separator + "packs");
     }
 
     public void copy() {
-        //main.mainPlugin.saveResource("Menus.yml", false);
+        //main.getPlugin().saveResource("Menus.yml", false);
         if (!f_packs.exists()) {
             f_packs.mkdirs();
-            main.mainPlugin.saveResource("packs/commandpack.yml", false);
-            main.mainPlugin.saveResource("packs/entitypack.yml", false);
-            main.mainPlugin.saveResource("packs/itempack.yml", false);
-            main.mainPlugin.saveResource("packs/custom.yml", false);
+            main.getPlugin().saveResource("packs/commandpack.yml", false);
+            main.getPlugin().saveResource("packs/entitypack.yml", false);
+            main.getPlugin().saveResource("packs/itempack.yml", false);
+            main.getPlugin().saveResource("packs/custom.yml", false);
         }
     }
 
@@ -123,6 +123,9 @@ public class FileStorage implements IStorage {
                     if (type.equals("command")) {
                         String command = sec_rewards.getString(key_reward + ".command");
                         RewardCommand rewardCommand = new RewardCommand(command, chance);
+                        if (sec_rewards.getString(key_reward+".description") != null){
+                            rewardCommand.setDescription(sec_rewards.getString(key_reward+".description"));
+                        }
                         rewards.add(rewardCommand);
                     }
                 }
@@ -218,7 +221,7 @@ public class FileStorage implements IStorage {
     }
 
     public void update(Pack pack) {
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
+        File f = new File(main.getPlugin().getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
         if (!f.exists()) {
             return;
         }
@@ -246,7 +249,7 @@ public class FileStorage implements IStorage {
     }
 
     public void Save(Pack pack) {
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
+        File f = new File(main.getPlugin().getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
         if (!f.exists()) {
             try {
                 f.createNewFile();
@@ -278,9 +281,8 @@ public class FileStorage implements IStorage {
     }
 
     public void addNewPack(Pack pack) {
-
         pack.setName(generateName());
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
+        File f = new File(main.getPlugin().getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
 
         try {
             f.createNewFile();
@@ -312,17 +314,17 @@ public class FileStorage implements IStorage {
     }
 
     public boolean removePack(Pack pack) {
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
+        File f = new File(main.getPlugin().getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
         return f.delete();
     }
 
     public boolean removePack(String name) {
-        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + name + ".yml");
+        File f = new File(main.getPlugin().getDataFolder() + File.separator + "packs" + File.separator + name + ".yml");
         return f.delete();
     }
 
 //    public Pack laodFromFile(Pack pack) {
-//        File f = new File(main.mainPlugin.getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
+//        File f = new File(main.getPlugin().getDataFolder() + File.separator + "packs" + File.separator + pack.getName() + ".yml");
 //        if (!f.exists()) {
 //            return null;
 //        }

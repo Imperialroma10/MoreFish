@@ -15,6 +15,9 @@ public class PacksMenuMsg {
     public final ItemStack create_new;
     private final String[] lore;
 
+
+    public String title2;
+    public String[] list2;
     public PacksMenuMsg(ConfigurationSection section) {
         title = section.getString("title", "");
         lore = section.getStringList("list-template-items.list").toArray(new String[0]);
@@ -22,8 +25,8 @@ public class PacksMenuMsg {
         String title1 = section.getString("back-item.title", "");
         String[] list1 = section.getStringList("back-item.description").toArray(new String[0]);
 
-        String title2 = section.getString("creation-pack.title", "");
-        String[] list2 = section.getStringList("creation-pack.description").toArray(new String[0]);
+        title2 = section.getString("creation-pack.title", "");
+        list2 = section.getStringList("creation-pack.description").toArray(new String[0]);
 
         back = ItemCreator.create(Material.BARRIER, title1, list1);
         create_new = ItemCreator.create(Material.COMMAND_BLOCK, title2, list2);

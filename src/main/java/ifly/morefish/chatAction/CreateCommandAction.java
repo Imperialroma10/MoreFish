@@ -24,7 +24,7 @@ public class CreateCommandAction implements Action {
         pack.getRewards().add(cmd);
         player.sendMessage("§eYou have successfully added the command \"§a/" + command + "§e\" ");
         StorageCreator.getStorageIns().Save(pack);
-        Bukkit.getScheduler().runTaskLater(main.mainPlugin, () -> {
+        Bukkit.getScheduler().runTaskLater(main.getPlugin(), () -> {
             packRewards.open(player, pack);
         }, 10);
 

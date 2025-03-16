@@ -1,6 +1,7 @@
 package ifly.morefish.fishpack.pack;
 
 
+import com.liba.utils.headcreator.HeadCache;
 import com.liba.utils.headcreator.HeadCreator;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
@@ -40,14 +41,13 @@ public class Pack {
         this.Name = name.replace(".yml", "");
         this.rewards = new ArrayList<>();
         this.chest = itemStack;
-        this.key = new NamespacedKey(main.mainPlugin, getName());
+        this.key = new NamespacedKey(main.getPlugin(), getName());
 
-
-        setDataContainer();
         if (chest.getItemMeta() instanceof SkullMeta) {
-            HeadCreator.setHeadTexture(chest, skullString);
+            chest = HeadCache.getItem(skullString);
+            //HeadCreator.setHeadTexture(chest, skullString);
         }
-
+        setDataContainer();
     }
 
     public void setDataContainer() {
@@ -124,7 +124,7 @@ public class Pack {
     public void giveReward(Player player) {
         if (isEnablepermission()) {
             if (!(player.hasPermission("*") || player.hasPermission(getEnablepermission()))) {
-                player.sendMessage(main.mainPlugin.getChecker().getParam("no-right").toString());
+                player.sendMessage(main.getPlugin().getChecker().getParam("no-right").toString());
                 return;
             }
         }
@@ -138,8 +138,10 @@ public class Pack {
 
                 if (backchance <= chance && chance <= backchance + reward.getChance()) {
                     reward.giveReward(player);
-                    player.sendMessage(main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("open-pack-message").toString().replace("[pack]", getDisplayname()));
-                    player.sendMessage(reward.getRewardMessage());
+                    if ((boolean) main.getPlugin().getChecker().getParam("enable-pack-message")) {
+                        player.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("open-pack-message").toString().replace("[pack]", getDisplayname()));
+                        player.sendMessage(reward.getRewardMessage());
+                    }
                     break;
                 }
                 backchance += reward.getChance();

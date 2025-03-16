@@ -38,7 +38,7 @@ public class RewardEntity extends RewardAbstract {
 
 
     public String getRewardMessage() {
-        return main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("entity-reward-message").toString();
+        return main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("entity-reward-message").toString();
     }
 
     @Override

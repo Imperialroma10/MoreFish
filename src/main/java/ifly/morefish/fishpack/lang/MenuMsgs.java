@@ -24,7 +24,7 @@ public class MenuMsgs {
     public final EditEntityMenuMsg EditEntityMenu;
 
     private MenuMsgs() {
-        Plugin plg = main.mainPlugin;
+        Plugin plg = main.getPlugin();
         File f = new File(plg.getDataFolder() + File.separator + "Menus.yml");
         boolean exists = f.exists();
         if (!exists) {

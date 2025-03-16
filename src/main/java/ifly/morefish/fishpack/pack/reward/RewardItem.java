@@ -6,7 +6,7 @@ import ifly.morefish.main;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class RewardItem extends RewardAbstract {
 
@@ -19,8 +19,14 @@ public class RewardItem extends RewardAbstract {
 
 
     public String getRewardMessage() {
+        if (item.hasItemMeta()){
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null && meta.hasDisplayName()) {
+                return main.getPlugin().getChecker().getParamString("plugin-prefix") +main.getPlugin().getChecker().getParam("item-reward-message").toString().replace("{itemname}", meta.getDisplayName()).replace("{count}", item.getAmount() + "");
+            }
+        }
 
-        return main.mainPlugin.getChecker().getParam("plugin-prefix").toString() + main.mainPlugin.getChecker().getParam("item-reward-message").toString().replace("{itemname}", ItemUtil.getMaterialName(item.getType())).replace("{count}", item.getAmount() + "");
+        return main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("item-reward-message").toString().replace("{itemname}", ItemUtil.getMaterialName(item.getType())).replace("{count}", item.getAmount() + "");
     }
 
     @Override

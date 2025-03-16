@@ -2,7 +2,6 @@ package ifly.morefish;
 
 
 import com.liba.Liba;
-import com.liba.utils.Debug;
 import com.liba.version.VersionChecker;
 import ifly.morefish.datastorage.FileStorage;
 import ifly.morefish.datastorage.StorageCreator;
@@ -14,11 +13,9 @@ import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-
 public final class main extends JavaPlugin {
 
-    public static main mainPlugin;
+    private static main plugin;
 
     public FishController controller;
     StorageCreator storage;
@@ -27,9 +24,9 @@ public final class main extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        mainPlugin = this;
+        plugin = this;
         checker = new ConfigChecker();
-        Liba liba = new Liba(mainPlugin, checker);
+        Liba liba = new Liba(plugin, checker);
 
         storage = new StorageCreator();
         FileStorage storageStorage = (FileStorage) storage.getStorage();
@@ -40,8 +37,8 @@ public final class main extends JavaPlugin {
 
         Metrics metrics = liba.registerMetrica(19862);
 
-        VersionChecker versionChecker = liba.registerVersionChecker(111966);
-        versionChecker.setMessage("§9§l[§aFishRewards§9] §b " + versionChecker.getMessage());
+        VersionChecker versionChecker = liba.registerVersionChecker(6, "https://www.curseforge.com/minecraft/bukkit-plugins/fishrewards");
+        //versionChecker.setMessage("§9§l[§aFishRewards§9] §b " + versionChecker.getMessage());
 
         metrics.addCustomChart(new SimplePie("packs_count", () -> {
             return String.valueOf(controller.getPackList().size());
@@ -70,5 +67,9 @@ public final class main extends JavaPlugin {
 
     public ConfigChecker getChecker() {
         return checker;
+    }
+
+    public static main getPlugin() {
+        return plugin;
     }
 }

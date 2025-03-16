@@ -41,4 +41,6 @@ abstract public class RewardAbstract {
     }
 
     public abstract void Save(ConfigurationSection sect);
+
+
 }
