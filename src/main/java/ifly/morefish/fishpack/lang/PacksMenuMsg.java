@@ -18,6 +18,7 @@ public class PacksMenuMsg {
 
     public String title2;
     public String[] list2;
+
     public PacksMenuMsg(ConfigurationSection section) {
         title = section.getString("title", "");
         lore = section.getStringList("list-template-items.list").toArray(new String[0]);

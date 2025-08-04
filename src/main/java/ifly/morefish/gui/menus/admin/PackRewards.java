@@ -23,6 +23,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class PackRewards extends ListedGui {
     EditCommand editCommand = new EditCommand(this);
 
     public PackRewards(Gui gui) {
-        super("Pack rewards", 5, new ArrayList<>(), 3*9, gui);
+        super("Pack rewards", 5, new ArrayList<>(), 3 * 9, gui);
 
         List<EntityType> entityTypes = Lists.newArrayList(EntityType.values());
         List<EntityType> entityTypeList = new ArrayList<>();
@@ -62,8 +63,19 @@ public class PackRewards extends ListedGui {
             if (id < getData().size()) {
                 RewardAbstract rewardAbstract = pack.getRewards().get(id);
                 int rewardid = pack.getRewards().indexOf(rewardAbstract);
-                addSlot(i, new MenuSlot(ItemUtil.addLore(rewardAbstract.getItem().clone(), "§bDrop chance §a" + rewardAbstract.getChance() + "%",
-                        "§bShift+Left click to remove reward from pack"), e -> {
+                List<String> addlore = new ArrayList<>();
+                if (rewardAbstract instanceof RewardCommand command){
+                    ItemStack itemStack = command.getItem();
+                    ItemMeta meta = itemStack.getItemMeta();
+                    if (meta != null) {
+                        addlore.addAll(meta.getLore().stream().map(f-> "§a"+f).toList());
+                    }
+
+                }
+                addlore.add("§bDrop chance §a" + rewardAbstract.getChance() + "%");
+                addlore.add("§bShift+Left click to remove reward from pack");
+                addSlot(i, new MenuSlot(ItemUtil.addLore(rewardAbstract.getItem().clone(), addlore
+                        ), e -> {
                     if (e.isShiftClick()) {
                         pack.getRewards().remove(rewardid);
                         removeSlot(rewardid);
@@ -124,6 +136,7 @@ public class PackRewards extends ListedGui {
         addSlot(40, new MenuSlot(ItemCreator.create(Material.PAPER, "§6Add command reward", "§7Left click to add new command reward", "§7After clicking, follow the prompts in the chat."), e -> {
             e.getWhoClicked().closeInventory();
             e.getWhoClicked().sendMessage("§eEnter the command without the \"§a/§e\" symbol, to indicate the player's nickname, enter §a{player}§e in the place where it is indicated.");
+            e.getWhoClicked().sendMessage("§eIf you want 2 commands or more, enter it with commas");
             ChatAwait.getInstance().registerAction((Player) e.getWhoClicked(), new CreateCommandAction(pack, this));
             e.setCancelled(true);
         }));

@@ -1,6 +1,7 @@
 package ifly.morefish.events;
 
 import com.liba.utils.Debug;
+import com.liba.utils.player.PlayerUtils;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.pack.Pack;
@@ -133,7 +134,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 Pack pack = fishMain.getPack(item);
                 if (pack != null) {
                     if (!pack.enoughSpace(e.getPlayer())) {
-                        e.getPlayer().sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("not-enough-space").toString());
+                        e.getPlayer().sendMessage(main.getPlugin().getChecker().getString("plugin-prefix").toString() + main.getPlugin().getChecker().getString("not-enough-space").toString());
                         return;
                     }
                     fishMain.getPlayerStatistic().addOpenPacks();
@@ -159,10 +160,14 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
         if (cmd.getName().equalsIgnoreCase("fishrewards")) {
             //Debug.LogChat("lenght: "+args.length + "args: " + args.toString());
             if (!sender.hasPermission("fishrewarads.admin")) {
-                sender.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("no-right").toString());
+                sender.sendMessage(main.getPlugin().getChecker().getString("plugin-prefix") + main.getPlugin().getChecker().getString("no-right"));
                 return true;
             }
-
+            if (args.length == 1){
+                if (args[0].equalsIgnoreCase("test")){
+                    PlayerUtils.sendMessage(((Player) sender).getUniqueId(),"tell d{player} #B8860Btest #800000test");
+                }
+            }
             if (args.length == 0) {
                 sender.sendMessage("§e-----------------Available commands-------------------");
                 sender.sendMessage("§e/fishrewards admin §b- open admin panel");
@@ -177,12 +182,12 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                         Player p = (Player) sender;
                         GuiController.getMainMenu(p).open(p);
                     }
-                    if (args.length == 2){
+                    if (args.length == 2) {
                         if (args[1].equalsIgnoreCase("reload")) {
                             FishController.packList.clear();
                             FishController.packList.addAll(StorageCreator.getStorageIns().getPacks());
                             main.getPlugin().getChecker().checkStorage();
-                            sender.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString()+" §ePlugin reloaded");
+                            sender.sendMessage(main.getPlugin().getChecker().getString("plugin-prefix") + " §ePlugin reloaded");
                         }
                     }
                     if (args.length == 3) {
@@ -204,10 +209,10 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                                 if (player != null && player.isOnline()) {
                                     player.getInventory().addItem(pack.getChest());
                                 } else {
-                                    sender.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + "§4Null player or is offline");
+                                    sender.sendMessage(main.getPlugin().getChecker().getString("plugin-prefix") + "§4Null player or is offline");
                                 }
                             } else {
-                                sender.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + "§4Pack not found");
+                                sender.sendMessage(main.getPlugin().getChecker().getString("plugin-prefix") + "§4Pack not found");
                             }
                         }
                     }
@@ -222,10 +227,10 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                                     itemStack.setAmount(Integer.parseInt(args[4]));
                                     player.getInventory().addItem(itemStack);
                                 } else {
-                                    sender.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + "§4Null player or is offline");
+                                    sender.sendMessage(main.getPlugin().getChecker().getString("plugin-prefix") + "§4Null player or is offline");
                                 }
                             } else {
-                                sender.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + "§4Pack not found ");
+                                sender.sendMessage(main.getPlugin().getChecker().getString("plugin-prefix") + "§4Pack not found ");
                             }
                         }
                     }
@@ -236,7 +241,7 @@ public class FishEvent implements Listener, CommandExecutor, TabCompleter {
                 main.getPlugin().saveResource("packs/commandpack.yml", false);
                 main.getPlugin().saveResource("packs/entitypack.yml", false);
                 main.getPlugin().saveResource("packs/itempack.yml", false);
-                sender.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + "You have successfully created standard packages.");
+                sender.sendMessage(main.getPlugin().getChecker().getString("plugin-prefix") + "You have successfully created standard packages.");
             }
 
         }

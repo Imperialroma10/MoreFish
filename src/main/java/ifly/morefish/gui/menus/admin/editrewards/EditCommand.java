@@ -56,7 +56,7 @@ public class EditCommand extends Gui {
         }));
 
 
-        addSlot(4, new MenuSlot(ItemUtil.create(command.getItem().clone(), command.getCommand(), "§bCommand execute chance: §b{chance}%".replace("{chance}", command.getChance() + "")), e -> {
+        addSlot(4, new MenuSlot(ItemUtil.create(command.getItem().clone(), "Command", "§bCommands execute chance: §b{chance}%".replace("{chance}", command.getChance() + "")), e -> {
 
             e.setCancelled(true);
         }));

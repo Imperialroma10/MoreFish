@@ -2,6 +2,7 @@ package ifly.morefish.chatAction;
 
 import com.liba.utils.ItemUtil;
 import com.liba.utils.chat.Action;
+import com.liba.utils.player.PlayerUtils;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
@@ -23,7 +24,7 @@ public class ChangeItemName implements Action {
 
     @Override
     public void action(String s, Player player) {
-        player.sendMessage("§eYou changed the item name to: §b" + s);
+        PlayerUtils.sendMessage(player.getUniqueId(),"§eYou changed the item name to: §b" + s);
         ItemUtil.rename(reward.getItem(), s);
         StorageCreator.getStorageIns().Save(pack);
         Bukkit.getScheduler().runTaskLater(main.getPlugin(), () -> {

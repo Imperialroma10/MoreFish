@@ -52,10 +52,10 @@ public class EditMenu extends Gui {
         addSlot(12, new MenuSlot(ItemCreator.create(Material.ENDER_EYE, "§e" + menu.chance_status.replace("{chance}", pack.getDropChance() + ""),
                 "§6Left click to add §b5%",
                 "§6Right click to remove §b5%",
-                "§6Shift click to add §b1%","§6Shift right click to remove §b1%"
-                ), e -> {
+                "§6Shift click to add §b1%", "§6Shift right click to remove §b1%"
+        ), e -> {
             int percent = pack.getDropChance();
-            if (e.isShiftClick()){
+            if (e.isShiftClick()) {
                 if (e.isLeftClick()) {
                     if (percent + 1 <= 100) {
                         pack.setDropChance(percent + 1);
@@ -66,7 +66,7 @@ public class EditMenu extends Gui {
                         pack.setDropChance(percent - 1);
                     }
                 }
-            }else{
+            } else {
                 if (e.isLeftClick()) {
                     if (percent + 5 <= 100) {
                         pack.setDropChance(percent + 5);
@@ -102,7 +102,7 @@ public class EditMenu extends Gui {
         }));
 
         addSlot(25, new MenuSlot(ItemUtil.create(HeadCache.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmUwZmQxMDE5OWU4ZTRmY2RhYmNhZTRmODVjODU5MTgxMjdhN2M1NTUzYWQyMzVmMDFjNTZkMThiYjk0NzBkMyJ9fX0=")
-                ,menu.title6, menu.list6), e -> {
+                , menu.title6, menu.list6), e -> {
 
             StorageCreator.getStorageIns().removePack(pack);
             FishController.packList.remove(pack);
@@ -136,10 +136,10 @@ public class EditMenu extends Gui {
             e.setCancelled(true);
         }));
 
-        addSlot(17, new MenuSlot(getSeeItem(), e->{
-            if (pack.isSeerewards()){
+        addSlot(17, new MenuSlot(getSeeItem(), e -> {
+            if (pack.isSeerewards()) {
                 pack.setSeerewards(false);
-            }else{
+            } else {
                 pack.setSeerewards(true);
             }
             getMenuSlot(17).setGuiItem(getSeeItem());
@@ -148,6 +148,7 @@ public class EditMenu extends Gui {
         }));
 
     }
+
     public ItemStack getSeeItem() {
         return pack.isSeerewards() ? ItemCreator.create(Material.GREEN_WOOL, "§aThe player will be able to see a bounty package") :
                 ItemCreator.create(Material.RED_WOOL, "§4The player will not be able to see the awards pack");

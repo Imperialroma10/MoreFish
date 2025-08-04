@@ -1,16 +1,15 @@
 package ifly.morefish.datastorage;
 
+import com.liba.utils.Debug;
 import com.liba.utils.ItemUtil;
+import com.liba.utils.MinecraftColor;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardCommand;
 import ifly.morefish.fishpack.pack.reward.RewardEntity;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -19,10 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class FileStorage implements IStorage {
 
@@ -121,10 +117,17 @@ public class FileStorage implements IStorage {
                         rewards.add(rewardEntity);
                     }
                     if (type.equals("command")) {
-                        String command = sec_rewards.getString(key_reward + ".command");
-                        RewardCommand rewardCommand = new RewardCommand(command, chance);
-                        if (sec_rewards.getString(key_reward+".description") != null){
-                            rewardCommand.setDescription(sec_rewards.getString(key_reward+".description"));
+                        List<String> commands = new ArrayList<>();
+                        var command = sec_rewards.get(key_reward + ".command");
+                        if (command instanceof String){
+                            commands.add((String) command);
+                        }
+                        if (command instanceof List<?>){
+                            commands.addAll((Collection<? extends String>) command);
+                        }
+                        RewardCommand rewardCommand = new RewardCommand(commands, chance);
+                        if (sec_rewards.getString(key_reward + ".description") != null) {
+                            rewardCommand.setDescription(sec_rewards.getString(key_reward + ".description"));
                         }
                         rewards.add(rewardCommand);
                     }
@@ -144,7 +147,17 @@ public class FileStorage implements IStorage {
             ConfigurationSection effectSection = conf.getConfigurationSection("Pack.effect");
             if (effectSection != null) {
 
-                List<Color> colors = (List<Color>) effectSection.getList(effectSection.getCurrentPath() + ".colors");
+                List<String> colors = (List<String>) effectSection.getList(".colors");
+                List<Color> m_color = new ArrayList<>();
+
+                if (colors != null) {
+                    for (String val: colors){
+                        m_color.add(MinecraftColor.getColorByName(val));
+                    }
+                }else{
+                    m_color.add(Color.YELLOW);
+                    m_color.add(Color.GREEN);
+                }
                 FireworkEffect.Type type;
 
                 try {
@@ -154,14 +167,10 @@ public class FileStorage implements IStorage {
                     type = FireworkEffect.Type.BALL;
                 }
 
-                if (colors == null) {
-                    colors = new ArrayList<>();
-                    colors.add(Color.YELLOW);
-                    colors.add(Color.GREEN);
-                }
+
 
                 FireworkEffect effect = FireworkEffect.builder()
-                        .withColor(colors)
+                        .withColor(m_color)
                         .with(type)
                         .build();
                 pack.setFireworkEffect(effect);

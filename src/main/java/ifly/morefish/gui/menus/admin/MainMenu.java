@@ -39,7 +39,7 @@ public class MainMenu extends Gui {
                 "  ",
                 "§eIf you like our plugin",
                 "§eLeave a review",
-                "§eRight click to see urls"), e->{
+                "§eRight click to see urls"), e -> {
             Message.tellraw(getOwner(), "[\"\",{\"text\":\"Thanks for the feedback.\",\"color\":\"yellow\"},{\"text\":\"\\n\"},{\"text\":\"Url 1 (\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.spigotmc.org/resources/111966/\"}},{\"text\":\"spigotmc.org\",\"color\":\"yellow\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.spigotmc.org/resources/111966/\"}},{\"text\":\") (\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.spigotmc.org/resources/111966/\"}},{\"text\":\"click\",\"color\":\"yellow\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.spigotmc.org/resources/111966/\"}},{\"text\":\")\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.spigotmc.org/resources/111966/\"}},{\"text\":\"\\n\"},{\"text\":\"Url 2 (\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.curseforge.com/minecraft/bukkit-plugins/fishrewards\"}},{\"text\":\"curseforge.com\",\"color\":\"yellow\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.curseforge.com/minecraft/bukkit-plugins/fishrewards\"}},{\"text\":\")\",\"color\":\"gray\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.curseforge.com/minecraft/bukkit-plugins/fishrewards\"}},{\"text\":\"\\n\"},{\"text\":\"Don't point out errors in the reviews, write them to us in discord.\",\"color\":\"red\"}]");
             e.setCancelled(true);
         }));
@@ -50,7 +50,7 @@ public class MainMenu extends Gui {
         addSlot(13, new MenuSlot(menu.packs_reload, e -> {
             FishController.packList.clear();
             FishController.packList.addAll(StorageCreator.getStorageIns().getPacks());
-            e.getWhoClicked().sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + ("Pack reloaded"));
+            e.getWhoClicked().sendMessage(main.getPlugin().getChecker().getString("plugin-prefix") + ("Pack reloaded"));
             e.setCancelled(true);
         }));
         addSlot(15, new MenuSlot(ItemCreator.create(Material.END_CRYSTAL, "Caught packs", "§aSince the server was turned on, players :", "§ahave caught §b{count} §apacks"

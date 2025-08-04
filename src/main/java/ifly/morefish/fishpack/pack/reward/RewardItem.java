@@ -19,14 +19,14 @@ public class RewardItem extends RewardAbstract {
 
 
     public String getRewardMessage() {
-        if (item.hasItemMeta()){
+        if (item.hasItemMeta()) {
             ItemMeta meta = item.getItemMeta();
             if (meta != null && meta.hasDisplayName()) {
-                return main.getPlugin().getChecker().getParamString("plugin-prefix") +main.getPlugin().getChecker().getParam("item-reward-message").toString().replace("{itemname}", meta.getDisplayName()).replace("{count}", item.getAmount() + "");
+                return main.getPlugin().getChecker().getString("plugin-prefix") + main.getPlugin().getChecker().getString("item-reward-message").toString().replace("{itemname}", meta.getDisplayName()).replace("{count}", item.getAmount() + "");
             }
         }
 
-        return main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("item-reward-message").toString().replace("{itemname}", ItemUtil.getMaterialName(item.getType())).replace("{count}", item.getAmount() + "");
+        return main.getPlugin().getChecker().getString("plugin-prefix").toString() + main.getPlugin().getChecker().getString("item-reward-message").toString().replace("{itemname}", ItemUtil.getMaterialName(item.getType())).replace("{count}", item.getAmount() + "");
     }
 
     @Override

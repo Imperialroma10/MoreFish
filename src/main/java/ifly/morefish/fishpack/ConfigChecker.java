@@ -9,7 +9,7 @@ import java.io.File;
 
 public class ConfigChecker extends FileChecker {
     public ConfigChecker() {
-        super(main.getPlugin().getDataFolder() + File.separator + "config.yml","#------------------------------------------------------------------------------------------\n" +
+        super(main.getPlugin().getDataFolder() + File.separator + "config.yml", "#------------------------------------------------------------------------------------------\n" +
                 "#                 author: Imperialroma10\n" +
                 "#     our project: https://www.curseforge.com/members/imperialroma10/projects\n" +
                 "#------------------------------------------------------------------------------------------\n" +

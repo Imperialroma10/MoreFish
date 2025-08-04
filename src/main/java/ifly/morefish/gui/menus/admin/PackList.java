@@ -12,7 +12,6 @@ import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.MenuMsgs;
 import ifly.morefish.fishpack.lang.PacksMenuMsg;
 import ifly.morefish.fishpack.pack.Pack;
-import ifly.morefish.gui.helper.ItemCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -57,7 +56,7 @@ public class PackList extends ListedGui {
         }
 
         addSlot(44, new MenuSlot(ItemUtil.create(HeadCache.getItem("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmM0OGRkZmRjZDZkOThhMWIwYWEzYzcxZThkYWQ0ZWRkZTczMmE2OGIyYjBhNWFiMTQyNjAwZGNhNzU4N2MzMiJ9fX0=")
-                ,menumsg.title2, menumsg.list2), e -> {
+                , menumsg.title2, menumsg.list2), e -> {
 
             Pack pack = new Pack("Pack_Name", "New pack", 0, new ItemStack(Material.CHEST), null);
             editMenu = new EditMenu("Edit " + pack.getDisplayname() + " pack", 3, pack, this);

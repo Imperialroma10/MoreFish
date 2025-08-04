@@ -2,7 +2,7 @@ package ifly.morefish.fishpack.pack;
 
 
 import com.liba.utils.headcreator.HeadCache;
-import com.liba.utils.headcreator.HeadCreator;
+import com.liba.utils.player.PlayerUtils;
 import ifly.morefish.fishpack.pack.reward.RewardAbstract;
 import ifly.morefish.fishpack.pack.reward.RewardItem;
 import ifly.morefish.main;
@@ -124,7 +124,7 @@ public class Pack {
     public void giveReward(Player player) {
         if (isEnablepermission()) {
             if (!(player.hasPermission("*") || player.hasPermission(getEnablepermission()))) {
-                player.sendMessage(main.getPlugin().getChecker().getParam("no-right").toString());
+                PlayerUtils.sendMessage(player.getUniqueId(),main.getPlugin().getChecker().getString("no-right").toString());
                 return;
             }
         }
@@ -138,9 +138,9 @@ public class Pack {
 
                 if (backchance <= chance && chance <= backchance + reward.getChance()) {
                     reward.giveReward(player);
-                    if ((boolean) main.getPlugin().getChecker().getParam("enable-pack-message")) {
-                        player.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("open-pack-message").toString().replace("[pack]", getDisplayname()));
-                        player.sendMessage(reward.getRewardMessage());
+                    if ((boolean) main.getPlugin().getChecker().getBool("enable-pack-message")) {
+                        PlayerUtils.sendMessage(player.getUniqueId(),main.getPlugin().getChecker().getString("plugin-prefix").toString() + main.getPlugin().getChecker().getString("open-pack-message").toString().replace("[pack]", getDisplayname()));
+                        PlayerUtils.sendMessage(player.getUniqueId(),reward.getRewardMessage());
                     }
                     break;
                 }

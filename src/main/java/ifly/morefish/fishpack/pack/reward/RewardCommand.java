@@ -1,5 +1,6 @@
 package ifly.morefish.fishpack.pack.reward;
 
+import com.liba.utils.ItemUtil;
 import ifly.morefish.gui.helper.ItemCreator;
 import ifly.morefish.main;
 import org.bukkit.Bukkit;
@@ -8,28 +9,35 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RewardCommand extends RewardAbstract {
 
-    String command;
+    List<String> command;
     String description;
 
-    public RewardCommand(String cmd, int chance) {
+    public RewardCommand(List<String> cmd, int chance) {
         command = cmd;
-        this.item = ItemCreator.create(Material.PAPER, cmd);
+        this.item = ItemCreator.create(Material.PAPER, "Command");
+        List<String> str = new ArrayList<>();
+        str.addAll(command);
+        ItemUtil.addLore(item, str);
         this.chance = chance;
     }
 
     @Override
     public String getRewardMessage() {
-        if (getDescription() != null){
-            return main.getPlugin().getChecker().getParam("plugin-prefix").toString() + getDescription();
+        if (getDescription() != null) {
+            return main.getPlugin().getChecker().getString("plugin-prefix").toString() + getDescription();
         }
-        return main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("command-reward-message").toString();
+        return main.getPlugin().getChecker().getString("plugin-prefix").toString() + main.getPlugin().getChecker().getString("command-reward-message").toString();
     }
 
     @Override
     public void giveReward(Player p) {
-        Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command.replace("{player}", p.getName()));
+        command.stream().map(f -> f.replace("{player}", p.getName())).forEach(f->Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), f));
+
     }
 
     @Override
@@ -47,12 +55,15 @@ public class RewardCommand extends RewardAbstract {
         section.set(num + ".chance", chance);
     }
 
-    public String getCommand() {
+    public List<String> getCommand() {
         return command;
     }
 
-    public void setCommand(String command) {
-        this.item = ItemCreator.create(Material.PAPER, command);
+    public void setCommand(List<String> command) {
+        this.item = ItemCreator.create(Material.PAPER, "commands");
+        List<String> str = new ArrayList<>();
+        str.addAll(command);
+        ItemUtil.addLore(item, str);
         this.command = command;
 
     }

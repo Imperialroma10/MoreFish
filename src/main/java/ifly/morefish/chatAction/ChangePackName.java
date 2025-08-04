@@ -1,6 +1,7 @@
 package ifly.morefish.chatAction;
 
 import com.liba.utils.chat.Action;
+import com.liba.utils.player.PlayerUtils;
 import ifly.morefish.datastorage.StorageCreator;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.gui.menus.admin.EditMenu;
@@ -21,7 +22,7 @@ public class ChangePackName implements Action {
     public void action(String s, Player player) {
 
         pack.setDisplayname(s);
-        player.sendMessage("§eNew pack displayname: " + pack.getDisplayname());
+        PlayerUtils.sendMessage(player.getUniqueId(),"§eNew pack displayname: " + pack.getDisplayname());
         StorageCreator.getStorageIns().Save(pack);
         Bukkit.getScheduler().runTaskLater(main.getPlugin(), () -> {
             editMenu.setPack(pack);

@@ -9,8 +9,7 @@ import ifly.morefish.events.FishEvent;
 import ifly.morefish.fishpack.ConfigChecker;
 import ifly.morefish.fishpack.FishController;
 import ifly.morefish.fishpack.lang.MenuMsgs;
-import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SimplePie;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class main extends JavaPlugin {
@@ -21,12 +20,16 @@ public final class main extends JavaPlugin {
     StorageCreator storage;
     ConfigChecker checker;
 
+    public static main getPlugin() {
+        return plugin;
+    }
+
     @Override
     public void onEnable() {
 
         plugin = this;
         checker = new ConfigChecker();
-        Liba liba = new Liba(plugin, checker);
+        Liba liba = new Liba(plugin);
 
         storage = new StorageCreator();
         FileStorage storageStorage = (FileStorage) storage.getStorage();
@@ -35,17 +38,17 @@ public final class main extends JavaPlugin {
         controller = new FishController(storage);
 
 
-        Metrics metrics = liba.registerMetrica(19862);
+        liba.registerMetrica(19862);
 
         VersionChecker versionChecker = liba.registerVersionChecker(6, "https://www.curseforge.com/minecraft/bukkit-plugins/fishrewards");
         //versionChecker.setMessage("§9§l[§aFishRewards§9] §b " + versionChecker.getMessage());
 
-        metrics.addCustomChart(new SimplePie("packs_count", () -> {
-            return String.valueOf(controller.getPackList().size());
-        }));
-        metrics.addCustomChart(new SimplePie("caughtpacks", () -> {
-            return String.valueOf(controller.getPlayerStatistic().getCaughtPacks());
-        }));
+//        metrics.addCustomChart(new SimplePie("packs_count", () -> {
+//            return String.valueOf(controller.getPackList().size());
+//        }));
+//        metrics.addCustomChart(new SimplePie("caughtpacks", () -> {
+//            return String.valueOf(controller.getPlayerStatistic().getCaughtPacks());
+//        }));
 
 
         FishEvent fishEvents = new FishEvent(controller);
@@ -67,9 +70,5 @@ public final class main extends JavaPlugin {
 
     public ConfigChecker getChecker() {
         return checker;
-    }
-
-    public static main getPlugin() {
-        return plugin;
     }
 }

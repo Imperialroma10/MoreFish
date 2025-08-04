@@ -1,5 +1,9 @@
 package ifly.morefish.fishpack;
 
+import com.liba.utils.Debug;
+import com.liba.utils.coreversion.VersionValidator;
+import com.liba.utils.player.PlayerUtils;
+import com.liba.version.VersionChecker;
 import ifly.morefish.fishpack.pack.Pack;
 import ifly.morefish.main;
 import org.bukkit.*;
@@ -52,16 +56,18 @@ public class FishTask {
             Location fireworkLocation = stand.getLocation().clone();
             fireworkLocation.setY(stand.getLocation().getY() + 2);
             String fireworkSTR = "FIREWORK";
-            if (main.getPlugin().getServer().getVersion().contentEquals("1.20.6") || main.getPlugin().getServer().getVersion().contentEquals("1.20.5")) {
+            if (VersionValidator.check("1.20.5", VersionValidator.EventTime.AFTER, main.getPlugin())) {
                 fireworkSTR = "FIREWORK_ROCKET";
             }
 
             Firework firework = (Firework) fireworkLocation.getWorld().spawnEntity(fireworkLocation, EntityType.valueOf(fireworkSTR));
             FireworkMeta meta = firework.getFireworkMeta();
 
+
             if (pack.getFireworkEffect() != null) {
                 meta.addEffect(pack.getFireworkEffect());
             } else {
+                Debug.logChat("2");
                 FireworkEffect effect = FireworkEffect.builder()
                         .withColor(Color.YELLOW, Color.BLUE)
                         .with(FireworkEffect.Type.BALL)
@@ -86,7 +92,7 @@ public class FishTask {
                 Location particleLocation = loc1.clone().add(direction.clone().multiply(distancepased));
                 particleLocation.getWorld().spawnParticle(Particle.COMPOSTER, particleLocation, 1, 0, 0, 0);
             }
-            player.sendMessage(main.getPlugin().getChecker().getParam("plugin-prefix").toString() + main.getPlugin().getChecker().getParam("caught-fish-message").toString().replace("[pack]", pack.getDisplayname()));
+            PlayerUtils.sendMessage(player.getUniqueId(),main.getPlugin().getChecker().getString("plugin-prefix") + main.getPlugin().getChecker().getString("caught-fish-message").replace("[pack]", pack.getDisplayname()));
             player.getInventory().addItem(pack.getChest());
             stand.remove();
 
