@@ -1,0 +1,35 @@
+package com.modencore.chatAction;
+
+import com.liba.utils.ItemUtil;
+import com.liba.utils.chat.Action;
+import com.liba.utils.player.PlayerUtils;
+import com.modencore.datastorage.StorageCreator;
+import com.modencore.fishpack.pack.Pack;
+import com.modencore.fishpack.pack.reward.RewardItem;
+import com.modencore.gui.menus.admin.editrewards.EditItem;
+import com.modencore.main;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+public class ChangeItemName implements Action {
+    RewardItem reward;
+    Pack pack;
+    EditItem editItem;
+
+    public ChangeItemName(RewardItem reward, Pack pack, EditItem item) {
+        this.pack = pack;
+        this.reward = reward;
+        this.editItem = item;
+    }
+
+    @Override
+    public void action(String s, Player player) {
+        PlayerUtils.sendMessage(player.getUniqueId(),"§eYou changed the item name to: §b" + s);
+        ItemUtil.rename(reward.getItem(), s);
+        StorageCreator.getStorageIns().Save(pack);
+        Bukkit.getScheduler().runTaskLater(main.getPlugin(), () -> {
+            editItem.open(player, pack);
+        }, 10);
+
+    }
+}
